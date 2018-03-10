@@ -10,8 +10,8 @@ class SeafileAPI {
   }
 
   getToken() {
-    const api = this.server + '/api2/auth-token/';
-    axios.post(api, {
+    const url = this.server + '/api2/auth-token/';
+    axios.post(url, {
       username: this.username,
       password: this.password
     })
@@ -27,8 +27,8 @@ class SeafileAPI {
   * Login to server and create axios instance for future usage
   */
   login() {
-    const api = this.server + '/api2/auth-token/';
-    return axios.post(api, {
+    const url = this.server + '/api2/auth-token/';
+    return axios.post(url, {
       username: this.username,
       password: this.password
     })
@@ -51,8 +51,20 @@ class SeafileAPI {
   //---- repos API
 
   listRepos() {
-    const api = this.server + '/api2/repos/'
-    return this.req.get(api)
+    const url = this.server + '/api2/repos/'
+    return this.req.get(url)
+  }
+
+  //---- file api
+  getFileDownloadLink(repoID, filePath) {
+    const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + filePath;
+    return this.req.get(url);
+  }
+
+  getFileContent(downloadLink) {
+    axios.get(downloadLink).then((response) => {
+      console.log(response.data)
+    })
   }
 
 }
