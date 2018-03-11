@@ -1,7 +1,7 @@
 {
   "name": "seafile-js",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.1.2",
+  "private": false,
   "dependencies": {
     "axios": "^0.18.0"
   },

@@ -1,5 +1,5 @@
 require('axios');
-const { SeafileAPI } = require('./seafile-api')
+const { SeafileAPI } = require('./src/seafile-api')
 
 module.exports = {
   SeafileAPI
