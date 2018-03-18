@@ -48,11 +48,18 @@ class SeafileAPI {
     return this.req.get('/api2/auth/ping/');
   }
 
-  //---- repos API
+  //---- repo API
 
   listRepos() {
     const url = this.server + '/api2/repos/'
     return this.req.get(url)
+  }
+
+  //---- folder API
+
+  listDir(repoID, dirPath) {
+    const url = this.server + '/api2/repos/' + repoID + '/dir/?p=' + dirPath;
+    return this.req.get(url);
   }
 
   //---- file api
