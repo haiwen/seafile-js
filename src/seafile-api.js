@@ -64,14 +64,20 @@ class SeafileAPI {
 
   //---- file api
   getFileDownloadLink(repoID, filePath) {
-    const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + filePath;
+    // reuse default to 1 to eliminate cross domain request problem
+    //   In browser, the browser will send an option request to server first, the access Token
+    //   will become invalid if reuse=0
+    const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + filePath + '&reuse=1';
     return this.req.get(url);
   }
 
   getFileContent(downloadLink) {
-    axios.get(downloadLink).then((response) => {
-      console.log(response.data)
-    })
+    return this.req.get(downloadLink);
+  }
+
+  getUpdateLink(repoID, folderPath) {
+    const url = this.server + '/api2/repos/' + repoID + '/update-link/?p=' + folderPath;
+    return this.req.get(url);
   }
 
 }
