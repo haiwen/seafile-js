@@ -80,6 +80,11 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  getUploadLink(repoID, folderPath) {
+    const url = this.server + '/api2/repos/' + repoID + '/upload-link/?p=' + folderPath;
+    return this.req.get(url);
+  }
+
 }
 
 module.exports = { SeafileAPI };

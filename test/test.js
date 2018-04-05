@@ -32,4 +32,9 @@ seafileAPI.login().then((response) => {
     console.log(response.data);
   });
 
+  seafileAPI.getUploadLink(repoID, dirPath).then((response) => {
+    console.log(response.data);
+  });
+
+
 })
