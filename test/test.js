@@ -28,6 +28,10 @@ seafileAPI.login().then((response) => {
     //console.log(response.data);
   });
 
+  seafileAPI.listDir(repoID, dirPath, {recursive:true}).then((response) => {
+    console.log(response.data);
+  });
+
   seafileAPI.getUpdateLink(repoID, dirPath).then((response) => {
     console.log(response.data);
   });
