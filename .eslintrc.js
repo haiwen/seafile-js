@@ -9,7 +9,7 @@ module.exports = {
      "strict": 0,
      "indent": [
          "error",
-         4
+         2
      ],
      "linebreak-style": [
          "error",
@@ -19,9 +19,9 @@ module.exports = {
          "error",
          "single"
      ],
-     "semi": [
-         "error",
-         "never"
-     ]
+      "semi": [
+          "error",
+          "always"
+      ]
   }
 }
