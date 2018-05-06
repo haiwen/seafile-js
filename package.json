@@ -1,13 +1,24 @@
 {
   "name": "seafile-js",
-  "version": "0.1.4",
+  "version": "0.1.7",
   "private": false,
+  "main": "lib/seafile-api.js",
   "dependencies": {
     "axios": "^0.18.0",
     "form-data": "^2.3.2"
   },
-  "scripts": {},
+  "scripts": {
+    "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
     "eslint": "^4.19.1"
   }
 }
