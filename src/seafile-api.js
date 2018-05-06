@@ -1,4 +1,6 @@
 var axios = require('axios');
+var FormData = require('form-data');
+var fs = require('fs');
 
 class SeafileAPI {
 
@@ -15,12 +17,12 @@ class SeafileAPI {
       username: this.username,
       password: this.password
     })
-    .then((response) => {
-      this.token = response.data;
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then((response) => {
+        this.token = response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   /**
@@ -32,16 +34,16 @@ class SeafileAPI {
       username: this.username,
       password: this.password
     })
-    .then((response) => {
-      this.token = response.data.token;
-      this.req = axios.create({
-        baseURL: this.server,
-        headers: { 'Authorization': 'Token ' + this.token }
+      .then((response) => {
+        this.token = response.data.token;
+        this.req = axios.create({
+          baseURL: this.server,
+          headers: { 'Authorization': 'Token ' + this.token }
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
       });
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
   }
 
   authPing() {
@@ -51,8 +53,8 @@ class SeafileAPI {
   //---- repo API
 
   listRepos() {
-    const url = this.server + '/api2/repos/'
-    return this.req.get(url)
+    const url = this.server + '/api2/repos/';
+    return this.req.get(url);
   }
 
   //---- folder API
@@ -61,7 +63,7 @@ class SeafileAPI {
     const { recursive } = opts;
     var url = this.server + '/api2/repos/' + repoID + '/dir/?p=' + dirPath;
     if (recursive) {
-      url = url + "&recursive=1"
+      url = url + '&recursive=1';
     }
     return this.req.get(url);
   }
@@ -87,6 +89,37 @@ class SeafileAPI {
   getUploadLink(repoID, folderPath) {
     const url = this.server + '/api2/repos/' + repoID + '/upload-link/?p=' + folderPath;
     return this.req.get(url);
+  }
+
+  getSharedRepos() {
+    const url = this.server + '/api2/shared-repos/';
+    return this.req.get(url);
+  }
+
+  getBeSharedRepos() {
+    const url = this.server + '/api2/beshared-repos/';
+    return this.req.get(url);
+  }
+
+  createDirectory(repoID, folderPath) {
+    const url = this.server + '/api2/repos/' + repoID + '/dir/?p=' + folderPath;
+    let form = new FormData();
+    form.append('operation', 'mkdir');
+    return this.req.post(url, form, {
+      headers: form.getHeaders()
+    });
+  }
+
+  async uploadFile(repoID, localFileLocation, remoteFilePath) {
+    let uploadLink = await this.getUploadLink(repoID, remoteFilePath);
+    uploadLink = uploadLink.data;
+    let form = new FormData();
+    form.append('file', fs.createReadStream(localFileLocation));
+    form.append('parent_dir', remoteFilePath);
+    return this.req.post(uploadLink, form, {
+      headers: form.getHeaders(),
+      maxContentLength: 50 * 1024 * 1024 * 8
+    });
   }
 
 }
