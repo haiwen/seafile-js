@@ -69,6 +69,12 @@ class SeafileAPI {
   }
 
   //---- file api
+  getFileInfo(repoID, filePath) {
+    const url = this.server + '/api2/repos/' + repoID + '/file/detail/?p=' + filePath;
+    console.log(url);
+    return this.req.get(url);
+  }
+
   getFileDownloadLink(repoID, filePath) {
     // reuse default to 1 to eliminate cross domain request problem
     //   In browser, the browser will send an option request to server first, the access Token

@@ -19,6 +19,10 @@ seafileAPI.login().then((response) => {
     //console.log(response.data);
   });
 
+  seafileAPI.getFileInfo(repoID, filePath).then((response) => {
+    console.log(response.data);
+  });
+
   seafileAPI.getFileDownloadLink(repoID, filePath).then((response) => {
     var downloadLink = response.data;
     seafileAPI.getFileContent(downloadLink);
@@ -29,15 +33,15 @@ seafileAPI.login().then((response) => {
   });
 
   seafileAPI.listDir(repoID, dirPath, {recursive:true}).then((response) => {
-    console.log(response.data);
+    //console.log(response.data);
   });
 
   seafileAPI.getUpdateLink(repoID, dirPath).then((response) => {
-    console.log(response.data);
+    //console.log(response.data);
   });
 
   seafileAPI.getUploadLink(repoID, dirPath).then((response) => {
-    console.log(response.data);
+    //console.log(response.data);
   });
 
 
