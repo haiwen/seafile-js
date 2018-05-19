@@ -71,7 +71,6 @@ class SeafileAPI {
   //---- file api
   getFileInfo(repoID, filePath) {
     const url = this.server + '/api2/repos/' + repoID + '/file/detail/?p=' + filePath;
-    console.log(url);
     return this.req.get(url);
   }
 
