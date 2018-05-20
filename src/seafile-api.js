@@ -115,18 +115,6 @@ class SeafileAPI {
     });
   }
 
-  async uploadFile(repoID, localFileLocation, remoteFilePath) {
-    let uploadLink = await this.getUploadLink(repoID, remoteFilePath);
-    uploadLink = uploadLink.data;
-    let form = new FormData();
-    form.append('file', fs.createReadStream(localFileLocation));
-    form.append('parent_dir', remoteFilePath);
-    return this.req.post(uploadLink, form, {
-      headers: form.getHeaders(),
-      maxContentLength: 50 * 1024 * 1024 * 8
-    });
-  }
-
 }
 
 module.exports = { SeafileAPI };
