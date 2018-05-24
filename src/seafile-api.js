@@ -17,12 +17,10 @@ class SeafileAPI {
       username: this.username,
       password: this.password
     })
-      .then((response) => {
-        this.token = response.data;
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    .then((response) => {
+      this.token = response.data;
+      return token;
+    })
   }
 
   /**
@@ -34,16 +32,13 @@ class SeafileAPI {
       username: this.username,
       password: this.password
     })
-      .then((response) => {
-        this.token = response.data.token;
-        this.req = axios.create({
-          baseURL: this.server,
-          headers: { 'Authorization': 'Token ' + this.token }
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
+    .then((response) => {
+      this.token = response.data.token;
+      this.req = axios.create({
+        baseURL: this.server,
+        headers: { 'Authorization': 'Token ' + this.token }
       });
+    })
   }
 
   authPing() {
