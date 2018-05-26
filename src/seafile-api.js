@@ -9,6 +9,13 @@ class SeafileAPI {
     this.username = username;
     this.password = password;
     this.token = token;
+
+    if (this.token && this.server) {
+      this.req = axios.create({
+        baseURL: this.server,
+        headers: { 'Authorization': 'Token ' + this.token }
+      });
+    }
   }
 
   getToken() {
