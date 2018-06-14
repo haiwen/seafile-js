@@ -26,7 +26,7 @@ class SeafileAPI {
     })
     .then((response) => {
       this.token = response.data;
-      return token;
+      return this.token;
     })
   }
 
@@ -74,6 +74,20 @@ class SeafileAPI {
   getFileInfo(repoID, filePath) {
     const url = this.server + '/api2/repos/' + repoID + '/file/detail/?p=' + filePath;
     return this.req.get(url);
+  }
+
+
+  starFile (repoID, filePath) {
+    const url = this.server + "/api2/starredfiles/";
+    let form = new FormData();
+    form.append('repo_id', repoID);
+    form.append('p', filePath);
+    return this.req.post(url, form);
+  }
+
+  unStarFile(repoID, filePath) {
+    const url = this.server + "/api2/starredfiles/?repo_id=" + repoID + "&p=" + filePath;
+    return this.req.delete(url)
   }
 
   getFileDownloadLink(repoID, filePath) {
