@@ -77,7 +77,7 @@ class SeafileAPI {
   }
 
 
-  starFile (repoID, filePath) {
+  starFile(repoID, filePath) {
     const url = this.server + "/api2/starredfiles/";
     let form = new FormData();
     form.append('repo_id', repoID);
@@ -85,7 +85,7 @@ class SeafileAPI {
     return this.req.post(url, form);
   }
 
-  unStarFile(repoID, filePath) {
+  unstarFile(repoID, filePath) {
     const url = this.server + "/api2/starredfiles/?repo_id=" + repoID + "&p=" + filePath;
     return this.req.delete(url)
   }
