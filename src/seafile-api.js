@@ -1,3 +1,4 @@
+import cookie from 'react-cookies';
 var axios = require('axios');
 var FormData = require('form-data');
 var fs = require('fs');
@@ -8,14 +9,9 @@ class SeafileAPI {
     this.server = server;
     this.username = username;
     this.password = password;
-    this.token = token;
-
-    if (this.token && this.server) {
-      this.req = axios.create({
-        baseURL: this.server,
-        headers: { 'Authorization': 'Token ' + this.token }
-      });
-    }
+    this.token = token;  //none
+    this.req = axios;
+    this.isIntergrated = true;
   }
 
   getToken() {
@@ -24,28 +20,29 @@ class SeafileAPI {
       username: this.username,
       password: this.password
     })
-    .then((response) => {
-      this.token = response.data;
-      return this.token;
-    })
+      .then((response) => {
+        this.token = response.data;
+        return this.token;
+      })
   }
 
   /**
-  * Login to server and create axios instance for future usage
-  */
+   * Login to server and create axios instance for future usage
+   */
   login() {
     const url = this.server + '/api2/auth-token/';
     return axios.post(url, {
       username: this.username,
       password: this.password
     })
-    .then((response) => {
-      this.token = response.data.token;
-      this.req = axios.create({
-        baseURL: this.server,
-        headers: { 'Authorization': 'Token ' + this.token }
-      });
-    })
+      .then((response) => {
+        this.token = response.data.token;
+        this.isIntergrated = false;
+        this.req = axios.create({
+          baseURL: this.server,
+          headers: { 'Authorization': 'Token ' + this.token }
+        });
+      })
   }
 
   authPing() {
@@ -63,7 +60,7 @@ class SeafileAPI {
 
   listDir(repoID, dirPath, opts = {}) {
     const { recursive } = opts;
-    var url = this.server + '/api2/repos/' + repoID + '/dir/?p=' + dirPath;
+    var url = '/api2/repos/' + repoID + '/dir/?p=' + dirPath;
     if (recursive) {
       url = url + '&recursive=1';
     }
@@ -72,29 +69,59 @@ class SeafileAPI {
 
   //---- file api
   getFileInfo(repoID, filePath) {
-    const url = this.server + '/api2/repos/' + repoID + '/file/detail/?p=' + filePath;
+    const url = '/api2/repos/' + repoID + '/file/detail/?p=' + filePath;
     return this.req.get(url);
   }
 
 
   starFile(repoID, filePath) {
-    const url = this.server + "/api2/starredfiles/";
+    const url = '/api2/starredfiles/';
     let form = new FormData();
     form.append('repo_id', repoID);
     form.append('p', filePath);
-    return this.req.post(url, form);
+
+    if (this.isIntergrated) {
+      return this.req({
+        method: "post",
+        url: url,
+        data: form,
+        headers: {
+          "X-CSRFToken": cookie.load('csrftoken'),
+        },
+      });
+    } else {
+      return this.req({
+        method: "post",
+        url: url,
+        data: form,
+      });
+    }
   }
 
-  unstarFile(repoID, filePath) {
-    const url = this.server + "/api2/starredfiles/?repo_id=" + repoID + "&p=" + filePath;
-    return this.req.delete(url)
+  unStarFile(repoID, filePath) {
+    const url = "/api2/starredfiles/?repo_id=" + repoID + "&p=" + filePath;
+    if (this.isIntergrated) {
+      return this.req({
+        method: 'delete',
+        url: url,
+        headers: {
+          "X-CSRFToken": cookie.load('csrftoken'),
+        },
+      });
+    } else  {
+      return this.req({
+        method: 'delete',
+        url: url,
+      });
+    }
+
   }
 
   getFileDownloadLink(repoID, filePath) {
     // reuse default to 1 to eliminate cross domain request problem
     //   In browser, the browser will send an option request to server first, the access Token
     //   will become invalid if reuse=0
-    const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + filePath + '&reuse=1';
+    const url = '/api2/repos/' + repoID + '/file/?p=' + filePath + '&reuse=1';
     return this.req.get(url);
   }
 
@@ -103,13 +130,48 @@ class SeafileAPI {
   }
 
   getUpdateLink(repoID, folderPath) {
-    const url = this.server + '/api2/repos/' + repoID + '/update-link/?p=' + folderPath;
+    const url = '/api2/repos/' + repoID + '/update-link/?p=' + folderPath;
+    return this.req({
+      method: 'get',
+      url: url,
+    })
+  }
+
+  updateFile(uploadLink, filePath, fileName, data) {
+    let formData = new FormData();
+    formData.append("target_file", filePath);
+    formData.append("filename", fileName);
+    let blob = new Blob([data], { type: "text/plain"});
+    formData.append("file", blob);
+    return this.req({
+      method: 'post',
+      url: uploadLink,
+      data: formData,
+    });
+  }
+
+  uploadImage (uploadLink, formData) {
+    return this.req({
+      method: "post",
+      data: formData,
+      url:uploadLink
+    });
+  }
+
+  getFileHistory(repoID, folderPath) {
+
+    const url = this.server + "/api2/repos/" + repoID + "/file/history/?p=" + folderPath;
+
     return this.req.get(url);
   }
 
   getUploadLink(repoID, folderPath) {
-    const url = this.server + '/api2/repos/' + repoID + '/upload-link/?p=' + folderPath;
-    return this.req.get(url);
+    console.log('ploadLink');
+    const url = '/api2/repos/' + repoID + '/upload-link/?p=' + folderPath + '&from=web';
+    return this.req({
+      url: url,
+      method:'get',
+    });
   }
 
   getSharedRepos() {
@@ -133,4 +195,4 @@ class SeafileAPI {
 
 }
 
-module.exports = { SeafileAPI };
+export { SeafileAPI };
