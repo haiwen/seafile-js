@@ -11,6 +11,7 @@ class SeafileAPI {
     this.password = password;
     this.token = token;  //none
     this.req = axios;
+    //  if intergrated into other  progect,  	
     this.isIntergrated = true;
   }
 
@@ -166,7 +167,6 @@ class SeafileAPI {
   }
 
   getUploadLink(repoID, folderPath) {
-    console.log('ploadLink');
     const url = '/api2/repos/' + repoID + '/upload-link/?p=' + folderPath + '&from=web';
     return this.req({
       url: url,
