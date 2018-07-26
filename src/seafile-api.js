@@ -32,11 +32,10 @@ class SeafileAPI {
     axios.post(url, {
       username: this.username,
       password: this.password
+    }).then((response) => {
+      this.token = response.data;
+      return this.token;
     })
-      .then((response) => {
-        this.token = response.data;
-        return this.token;
-      })
   }
 
   /**
@@ -47,14 +46,13 @@ class SeafileAPI {
     return axios.post(url, {
       username: this.username,
       password: this.password
+    }).then((response) => {
+      this.token = response.data.token;
+      this.req = axios.create({
+        baseURL: this.server,
+        headers: { 'Authorization': 'Token ' + this.token }
+      });
     })
-      .then((response) => {
-        this.token = response.data.token;
-        this.req = axios.create({
-          baseURL: this.server,
-          headers: { 'Authorization': 'Token ' + this.token }
-        });
-      })
   }
 
   authPing() {
@@ -120,7 +118,7 @@ class SeafileAPI {
     let formData = new FormData();
     formData.append("target_file", filePath);
     formData.append("filename", fileName);
-    let blob = new Blob([data], { type: "text/plain"});
+    let blob = new Blob([data], { type: "text/plain" });
     formData.append("file", blob);
     return (
       axios.create()({
