@@ -4,7 +4,7 @@ var fs = require('fs');
 
 class SeafileAPI {
 
-  initExternalAPI ({ server, username, password, token }) {
+  init ({ server, username, password, token }) {
     this.server = server;
     this.username = username;
     this.password = password;
@@ -18,7 +18,7 @@ class SeafileAPI {
     return this
   }
 
-  initInternalAPI ({ xcsrfHeaders }) {
+  initForSeahubUsage ({ xcsrfHeaders }) {
     this.req = axios.create({
       headers: {
         'X-CSRFToken': xcsrfHeaders,
