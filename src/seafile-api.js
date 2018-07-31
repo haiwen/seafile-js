@@ -18,7 +18,14 @@ class SeafileAPI {
     return this
   }
 
-  initForSeahubUsage ({ xcsrfHeaders }) {
+  initForSeahubUsage ({ siteRoot, xcsrfHeaders }) {
+    if (siteRoot && siteRoot.charAt(siteRoot.length-1) === "/") {
+      var server = siteRoot.substring(0, siteRoot.length-1);
+      this.server = server;
+    } else {
+      this.server = siteRoot;
+    }
+
     this.req = axios.create({
       headers: {
         'X-CSRFToken': xcsrfHeaders,
@@ -56,13 +63,21 @@ class SeafileAPI {
   }
 
   authPing() {
-    return this.req.get('/api2/auth/ping/');
+    const url = this.server + '/api2/auth/ping/';
+    return this.req.get(url);
+  }
+
+  //---- Account API
+
+  getAccountInfo() {
+    const url =  this.server + '/api2/account/info/';
+    return this.req.get(url)
   }
 
   //---- repo API
 
   listRepos() {
-    const url = '/api2/repos/';
+    const url = this.server + '/api2/repos/';
     return this.req.get(url);
   }
 
@@ -70,22 +85,34 @@ class SeafileAPI {
 
   listDir(repoID, dirPath, opts = {}) {
     const { recursive } = opts;
-    var url =  '/api2/repos/' + repoID + '/dir/?p=' + dirPath;
+    var url =  this.server + '/api2/repos/' + repoID + '/dir/?p=' + dirPath;
     if (recursive) {
       url = url + '&recursive=1';
     }
     return this.req.get(url);
   }
 
+  listWikiDir(slug) {
+    const url = this.server + '/api/v2.1/wikis/' + slug + '/dir/';
+    return this.req.get(url);
+  }
+
   //---- file api
+
+  getWikiFileContent(slug, filePath) {
+    const path = encodeURIComponent(filePath);
+    const url = this.server + '/api/v2.1/wikis/' + slug + '/content/' + '?p=' + filePath;
+    return this.req.get(url)
+  }
+
   getFileInfo(repoID, filePath) {
-    const url = '/api2/repos/' + repoID + '/file/detail/?p=' + filePath;
+    const url = this.server + '/api2/repos/' + repoID + '/file/detail/?p=' + filePath;
     return this.req.get(url);
   }
 
 
   starFile(repoID, filePath) {
-    const url = '/api2/starredfiles/';
+    const url = this.server + '/api2/starredfiles/';
     let form = new FormData();
     form.append('repo_id', repoID);
     form.append('p', filePath);
@@ -93,7 +120,7 @@ class SeafileAPI {
   }
 
   unStarFile(repoID, filePath) {
-    const url = "/api2/starredfiles/?repo_id=" + repoID + "&p=" + filePath;
+    const url = this.server + "/api2/starredfiles/?repo_id=" + repoID + "&p=" + filePath;
     return this.req.delete(url);
   }
 
@@ -101,7 +128,7 @@ class SeafileAPI {
     // reuse default to 1 to eliminate cross domain request problem
     //   In browser, the browser will send an option request to server first, the access Token
     //   will become invalid if reuse=0
-    const url = '/api2/repos/' + repoID + '/file/?p=' + filePath + '&reuse=1';
+    const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + filePath + '&reuse=1';
     return this.req.get(url);
   }
 
@@ -110,7 +137,7 @@ class SeafileAPI {
   }
 
   getUpdateLink(repoID, folderPath) {
-    const url = '/api2/repos/' + repoID + '/update-link/?p=' + folderPath;
+    const url = this.server + '/api2/repos/' + repoID + '/update-link/?p=' + folderPath;
     return this.req.get(url)
   }
 
@@ -141,28 +168,28 @@ class SeafileAPI {
 
   getFileHistory(repoID, folderPath) {
 
-    const url = "/api2/repos/" + repoID + "/file/history/?p=" + folderPath;
+    const url = this.server + "/api2/repos/" + repoID + "/file/history/?p=" + folderPath;
 
     return this.req.get(url);
   }
 
   getUploadLink(repoID, folderPath) {
-    const url = '/api2/repos/' + repoID + '/upload-link/?p=' + folderPath + '&from=web';
+    const url = this.server + '/api2/repos/' + repoID + '/upload-link/?p=' + folderPath + '&from=web';
     return this.req.get(url);
   }
 
   getSharedRepos() {
-    const url = '/api2/shared-repos/';
+    const url = this.server + '/api2/shared-repos/';
     return this.req.get(url);
   }
 
   getBeSharedRepos() {
-    const url = '/api2/beshared-repos/';
+    const url = this.server + '/api2/beshared-repos/';
     return this.req.get(url);
   }
 
   createDirectory(repoID, folderPath) {
-    const url = '/api2/repos/' + repoID + '/dir/?p=' + folderPath;
+    const url =  this.server + '/api2/repos/' + repoID + '/dir/?p=' + folderPath;
     let form = new FormData();
     form.append('operation', 'mkdir');
     return this.req.post(url, form, {
