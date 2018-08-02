@@ -8,7 +8,11 @@
     "form-data": "^2.3.2"
   },
   "scripts": {
-    "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib"
+    "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib",
+    "test": "jest --env=node --colors --coverage"
+  },
+  "jest": {
+
   },
   "babel": {
     "presets": [
@@ -19,6 +23,7 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
-    "eslint": "^4.19.1"
+    "eslint": "^4.19.1",
+    "jest": "^23.4.2"
   }
 }
