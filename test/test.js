@@ -22,7 +22,7 @@ test("authPing", () => {
   });
 });
 
-
+// test methods in seafile-api.js
 test("login",() => {
   return seafileAPI.login().then((response) => {
     console.log(response.data);
@@ -121,3 +121,4 @@ test("getBeSharedRepos",() => {
     expect(response.data).not.toBe(null);
   });
 });
+// test end
