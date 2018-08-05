@@ -22,37 +22,102 @@ test("authPing", () => {
   });
 });
 
-/*
-seafileAPI.login().then((response) => {
 
-  seafileAPI.listRepos().then((response) => {
-    //console.log(response.data);
-  });
-
-  seafileAPI.getFileInfo(repoID, filePath).then((response) => {
+test("login",() => {
+  return seafileAPI.login().then((response) => {
     console.log(response.data);
+    expect(response.data).not.toBe(null);
   });
+});
 
-  seafileAPI.getFileDownloadLink(repoID, filePath).then((response) => {
+test("listRepos",() => {
+  return seafileAPI.listRepos().then((response) => {
+    console.log(response.data);
+    expect(response.data).not.toBe(null);
+  });
+});
+
+test("getFileInfo",(repoID,filePath) => {
+  return seafileAPI.getFileInfo().then((response) => {
+    console.log(response.data);
+    expect(response.data).not.toBe(null);
+  });
+});
+
+test("getFileDownloadLink",(repoID,filePaht) => {
+  return seafileAPI.getFileDownloadLink().then((response) => {
     var downloadLink = response.data;
-    seafileAPI.getFileContent(downloadLink);
+    console.log(response.data);
+    expect(response.data).not.toBe(null);
   });
+});
 
-  seafileAPI.listDir(repoID, dirPath).then((response) => {
-    //console.log(response.data);
+test("listDir",(repoID,dirPath) => {
+  return seafileAPI.listDir().then((response) => {
+    console.log(response.data);
+    expect(response.data).not.toBe(null);
   });
+});
 
-  seafileAPI.listDir(repoID, dirPath, {recursive:true}).then((response) => {
-    //console.log(response.data);
+test("listDir",(repoID, dirPath, opts = { recursive : true } ) =>{ 
+  return seafileAPI.listDir().then((response) => {
+      console.log(response.data);
+      expect(response.data).not.toBe(null);
   });
+});
 
-  seafileAPI.getUpdateLink(repoID, dirPath).then((response) => {
-    //console.log(response.data);
+test("getUpdateLink",(repoID,folderPath) => {
+  return seafileAPI.getUpdateLink().then((response) => {
+    console.log(response.data);
+    expect(response.data).not.toBe(null);
   });
+});
 
-  seafileAPI.getUploadLink(repoID, dirPath).then((response) => {
-    //console.log(response.data);
+test("getUploadLink",(repoID,dirPath) => {
+  return seafileAPI.getUploadLink().then((response) => {
+    console.log(response.data);
+    expect(response.data).not.toBe(null);
   });
+});
 
-})
-*/
+test("getAccountInfo",() =>{
+  return seafileAPI.getAccountInfo().then((response) =>{
+    console.log(response.data);
+    expect(response.data).not.toBe(null);
+  });
+});
+
+test("listWikiDir",(slug) =>{
+  return seafileAPI.listWikiDir().then((response) =>{
+    console.log(response.data);
+    expect(response.data).not.toBe(null);
+  });
+});
+
+test("getWikiFileContent",(slug,filePath) =>{
+  return seafileAPI.getWikiFileContent().then((response) =>{
+    console.log(response.data);
+    expect(response.data).not.toBe(null);
+  });
+});
+
+test("getFileHistory",() => {
+  return seafileAPI.getFileHistory().then((response) => {
+    console.log(response.data);
+    expect(response.data).not.toBe(null);
+  });
+});
+
+test("getSharedRepos",() => {
+  return seafileAPI.getSharedRepos().then((response) => {
+    console.log(response.data);
+    expect(response.data).not.toBe(null);
+  });
+});
+
+test("getBeSharedRepos",() => {
+  return seafileAPI.getBeSharedRepos().then((response) => {
+    console.log(response.data);
+    expect(response.data).not.toBe(null);
+  });
+});

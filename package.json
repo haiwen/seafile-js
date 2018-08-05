@@ -11,9 +11,7 @@
     "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib",
     "test": "jest --env=node --colors --coverage"
   },
-  "jest": {
-
-  },
+  "jest": {},
   "babel": {
     "presets": [
       "es2015"
