@@ -71,7 +71,7 @@ class SeafileAPI {
 
   getAccountInfo() {
     const url =  this.server + '/api2/account/info/';
-    return this.req.get(url)
+    return this.req.get(url);
   }
 
   //---- repo API
@@ -101,12 +101,13 @@ class SeafileAPI {
 
   getWikiFileContent(slug, filePath) {
     const path = encodeURIComponent(filePath);
-    const url = this.server + '/api/v2.1/wikis/' + slug + '/content/' + '?p=' + filePath;
+    const url = this.server + '/api/v2.1/wikis/' + slug + '/content/' + '?p=' + path;
     return this.req.get(url)
   }
 
   getFileInfo(repoID, filePath) {
-    const url = this.server + '/api2/repos/' + repoID + '/file/detail/?p=' + filePath;
+    const path = encodeURIComponent(filePath);
+    const url = this.server + '/api2/repos/' + repoID + '/file/detail/?p=' + path;
     return this.req.get(url);
   }
 
@@ -115,7 +116,9 @@ class SeafileAPI {
     let form = new FormData();
     form.append('repo_id', repoID);
     form.append('p', filePath);
-    return this.req.post(url,form)
+    return this.req.post(url, form, {
+      headers:form.getHeaders()
+    });
   }
 
   unStarFile(repoID, filePath) {
@@ -127,7 +130,8 @@ class SeafileAPI {
     // reuse default to 1 to eliminate cross domain request problem
     //   In browser, the browser will send an option request to server first, the access Token
     //   will become invalid if reuse=0
-    const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + filePath + '&reuse=1';
+    const path = encodeURIComponent(filePath);
+    const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + path + '&reuse=1';
     return this.req.get(url);
   }
 
@@ -185,90 +189,65 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  createDirectory(repoID, folderPath) {
-    const url =  this.server + '/api2/repos/' + repoID + '/dir/?p=' + folderPath;
+  //----file and dir API
+  createDir(repoID, dirPath) {
+    const url =  this.server + '/api2/repos/' + repoID + '/dir/?p=' + dirPath;
     let form = new FormData();
     form.append('operation', 'mkdir');
     return this.req.post(url, form, {
-      headers: form.getHeaders()
-    });
-  }
-
-  //创建、重命名、删除、移动 文件或者目录(单个文件目录)
-
-  // 测试通过
-  createFile(repoID,filePath){
-    const url = this.server + '/api/v2.1/repos/' + repoID + '/file/?p=' + filePath;
-    let form = new FormData();
-    form.append('operation','create');
-    return this.req.post(url,form,{
       headers:form.getHeaders()
     });
   }
 
-  // 新加入参数：newName
-  renameFile(repoID,filePath,newfileName){
+  createFile(repoID, filePath) {
     const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + filePath;
-    console.log(url);
     let form = new FormData();
-    form.append('operation','rename');
-    form.append('newname',newfileName);
-    console.log(form);
-    return this.req.post(url,form,{
-      header:form.getHeaders()
+    form.append('operation', 'create');
+    return this.req.post(url, form, {
+      headers:form.getHeaders()
     });
   }
-  
-  // 测试通过
-  deleteFile(repoID,filePath){
+
+  renameFile(repoID, filePath, newfileName) {
+    const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + filePath;
+    let form = new FormData();
+    form.append('operation', 'rename');
+    form.append('newname', newfileName);
+    return this.req.post(url, form, {
+      headers:form.getHeaders()
+    });
+  }
+
+  deleteFile(repoID, filePath) {
     const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + filePath;
     return this.req.delete(url);
   }
 
-  // 参数: repoID filePath des-repo des-dir(后两个参数需要在测试给出来)
-  copyFile(repoID,filePath,desrepoID,desfilePath){
-    const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + filePath;
+  //function don't have response
+  renameDir(repoID, dirPath, newdirName) {
+    const url = this.server + 'api2/repos/' + repoID + '/dir/?p=' + dirPath;
     let form = new FormData();
-    form.append('operation','copy');
-    form.append('des_repo',desrepoID);
-    form.append('des_dir',desfilePath);
-    return this.req.post(url,form,{
-      header:form.getHeaders()
+    form.append("operation", 'rename');
+    form.append("newname", newdirName);
+    return this.req.post(url, form, {
+      headers:form.getHeaders()
     });
   }
 
-  // 参数：新文件目录名-未测试
-  renameDirectory(repoID,folderPath,newdirName){
-    const url = this.server + 'api2/repos/' + repoID + '/dir/?p=' + folderPath;
-    let form = new FormData();
-    form.append("operation",'rename');
-    form.append("newname",newdirName);
-    return this.req.post(url,form,{
-      header:form.getHeaders()
-    });
-    // 函数没有返回值
-  }
-
-  deleteDirectory(repoID,folderPath){
-    const url = this.server + '/api2/repos/' + '/dir/?p=' + folderPath;
-    console.log(url);
+  deleteDir(repoID, dirPath) {
+    const url = this.server + '/api2/repos/' +  repoID + '/dir/?p=' + dirPath;
     return this.req.delete(url);
   }
 
-  // 异步复制/移动文件/目录-未测试
-  // 参数：原始数据库ID，原始父目录，原始目录名称，目标数据库ID，目标父目录
-  moveDirectory(srcrepoID,srcparentDir,srcdirentName,dstrepoID,dstparentDir){
-    const url = this.server + '/api/v2.1/copy-move-task/';
+  // copy files or dirs
+  copyDir(repoID, dstrepoID, dstfilePath, filesName) {
+    const url = this.server + '/api2/repos/' + repoID + '/fileops/copy/';
     let form = new FormData();
-    form.append('src_repo_id', srcrepoID);
-    form.append('src_parent_dir', srcparentDir);
-    form.append('src_dirent_name', srcdirentName);
-    form.append('des_repo_id', dstrepoID);
-    form.append('des_parent_dir', dstparentDir);
-    form.append('operation','move');
-    form.append('dirent_type','dir');
-    return this.req.post(url,form,{
-      header:form.getHeaders()
+    form.append('dst_repo', dstrepoID);
+    form.append('dst_dir', dstfilePath);
+    form.append('file_names', filesName);
+    return this.req.post(url, form, {
+      headers:form.getHeaders()
     });
   }
 
