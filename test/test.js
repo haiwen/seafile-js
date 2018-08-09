@@ -4,12 +4,20 @@ const { SeafileAPI } = require('../src/seafile-api')
 var fs = require("fs");
 var contents = fs.readFileSync("test/config.json");
 var config = JSON.parse(contents);
-const repoID = "8342175d-cb2c-457c-adde-66c632c6adc8";
-const filePath = "/test.md"
-const dirPath = "/"
 
 const seafileAPI = new SeafileAPI();
 seafileAPI.init({ server: config.server, username: config.username, password: config.password });
+
+const repoID = config.repoID;
+const filePath = config.filePath;
+const fileName = config.fileName;
+const dirPath = config.dirPath;
+const newfileName = config.newfileName;
+const dstrepoID = config.dstrepoID;
+const dstfilePath = config.dstfilePath;
+const newdirName = config.newdirName;
+const filesName = config.filesName;
+console.log(filesName);
 
 beforeAll(() => {
   return seafileAPI.login();
@@ -17,108 +25,131 @@ beforeAll(() => {
 
 test("authPing", () => {
   return seafileAPI.authPing().then((response) => {
-    console.log(response.data);
+    // console.log(response.data);
     expect(response.data).toBe('pong');
   });
 });
 
-// test methods in seafile-api.js
-test("login",() => {
-  return seafileAPI.login().then((response) => {
-    console.log(response.data);
-    expect(response.data).not.toBe(null);
-  });
-});
-
-test("listRepos",() => {
+test("listRepos", () => {
   return seafileAPI.listRepos().then((response) => {
-    console.log(response.data);
+    // console.log(response.data);
     expect(response.data).not.toBe(null);
   });
 });
 
-test("getFileInfo",(repoID,filePath) => {
-  return seafileAPI.getFileInfo().then((response) => {
-    console.log(response.data);
+test("getFileInfo", () => {
+  return seafileAPI.getFileInfo(repoID, filePath).then((response) => {
+    // console.log(response.data);
     expect(response.data).not.toBe(null);
   });
-});
+})
 
-test("getFileDownloadLink",(repoID,filePaht) => {
-  return seafileAPI.getFileDownloadLink().then((response) => {
+test("getFileDownloadLink", () => {
+  return seafileAPI.getFileDownloadLink(repoID, filePath).then((response) => {
     var downloadLink = response.data;
-    console.log(response.data);
+    // console.log(response.data);
     expect(response.data).not.toBe(null);
   });
 });
 
-test("listDir",(repoID,dirPath) => {
-  return seafileAPI.listDir().then((response) => {
-    console.log(response.data);
+test("listDir", () => {
+  return seafileAPI.listDir(repoID, dirPath).then((response) => {
+    // console.log(response.data);
     expect(response.data).not.toBe(null);
   });
 });
 
-test("listDir",(repoID, dirPath, opts = { recursive : true } ) =>{ 
-  return seafileAPI.listDir().then((response) => {
-      console.log(response.data);
+test("listDir", () => { 
+  return seafileAPI.listDir(repoID, dirPath, true ).then((response) => {
+      // console.log(response.data);
       expect(response.data).not.toBe(null);
   });
 });
 
-test("getUpdateLink",(repoID,folderPath) => {
-  return seafileAPI.getUpdateLink().then((response) => {
-    console.log(response.data);
+test("getUpdateLink", () => {
+  return seafileAPI.getUpdateLink(repoID, dirPath).then((response) => {
+    // console.log(response.data);
     expect(response.data).not.toBe(null);
   });
 });
 
-test("getUploadLink",(repoID,dirPath) => {
-  return seafileAPI.getUploadLink().then((response) => {
-    console.log(response.data);
+test("getUploadLink", () => {
+  return seafileAPI.getUploadLink(repoID, dirPath).then((response) => {
+    // console.log(response.data);
     expect(response.data).not.toBe(null);
   });
 });
 
-test("getAccountInfo",() =>{
+test("getAccountInfo", () => {
   return seafileAPI.getAccountInfo().then((response) =>{
-    console.log(response.data);
+    // console.log(response.data);
     expect(response.data).not.toBe(null);
   });
 });
 
-test("listWikiDir",(slug) =>{
-  return seafileAPI.listWikiDir().then((response) =>{
-    console.log(response.data);
+test("getFileHistory test", () => {
+  return seafileAPI.getFileHistory(repoID, filePath).then((response) => {
+    // console.log(response.data);
     expect(response.data).not.toBe(null);
   });
 });
 
-test("getWikiFileContent",(slug,filePath) =>{
-  return seafileAPI.getWikiFileContent().then((response) =>{
-    console.log(response.data);
-    expect(response.data).not.toBe(null);
-  });
-});
-
-test("getFileHistory",() => {
-  return seafileAPI.getFileHistory().then((response) => {
-    console.log(response.data);
-    expect(response.data).not.toBe(null);
-  });
-});
-
-test("getSharedRepos",() => {
+test("getSharedRepos", () => {
   return seafileAPI.getSharedRepos().then((response) => {
-    console.log(response.data);
+    // console.log(response.data);
     expect(response.data).not.toBe(null);
   });
 });
 
-test("getBeSharedRepos",() => {
+test("getBeSharedRepos", () => {
   return seafileAPI.getBeSharedRepos().then((response) => {
-    console.log(response.data);
+    // console.log(response.data);
     expect(response.data).not.toBe(null);
   });
 });
+
+test('createFile test', () => {
+  return seafileAPI.createFile(repoID, filePath).then((response) => {
+    // console.log(response.data);
+    expect(response.data).toBe('success');
+  });
+});
+
+
+test('renameFile test', () => {
+  return seafileAPI.renameFile(repoID, filePath,newfileName).then((response) => {
+    // console.log(response.data);
+    expect(response.data).not.toBe(null);
+  });
+});
+
+
+test("deleteFile test", () => {
+  return seafileAPI.deleteFile(repoID, filePath).then((response) => {
+    // console.log(response.data);
+    expect(response.data).not.toBe(null);
+  });
+});
+
+test('createDirecotry test', () => {
+  return seafileAPI.createDir(repoID, dirPath).then((response) => {
+    // console.log(response.data);
+    expect(response.data).not.toBe(null);
+  });
+});
+
+test("deleteDirectory test", () => {
+  return seafileAPI.deleteDir(repoID, dirPath).then((response) => {
+    // console.log(response.data);
+    expect(response.data).toBe('success');
+  });
+});
+
+test("copyDirectory test", () => {
+  return seafileAPI.copyDir(repoID, dstrepoID, dstfilePath, filesName).then((response) => {
+    // console.log(response.data);
+    expect(response.data).not.toBe(null);
+  });
+});
+
 // test end

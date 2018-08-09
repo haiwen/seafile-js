@@ -15,7 +15,7 @@ class SeafileAPI {
         headers: { 'Authorization': 'Token ' + this.token }
       });
     }
-    return this
+    return this;
   }
 
   initForSeahubUsage ({ siteRoot, xcsrfHeaders }) {
@@ -71,7 +71,7 @@ class SeafileAPI {
 
   getAccountInfo() {
     const url =  this.server + '/api2/account/info/';
-    return this.req.get(url)
+    return this.req.get(url);
   }
 
   //---- repo API
@@ -101,22 +101,24 @@ class SeafileAPI {
 
   getWikiFileContent(slug, filePath) {
     const path = encodeURIComponent(filePath);
-    const url = this.server + '/api/v2.1/wikis/' + slug + '/content/' + '?p=' + filePath;
+    const url = this.server + '/api/v2.1/wikis/' + slug + '/content/' + '?p=' + path;
     return this.req.get(url)
   }
 
   getFileInfo(repoID, filePath) {
-    const url = this.server + '/api2/repos/' + repoID + '/file/detail/?p=' + filePath;
+    const path = encodeURIComponent(filePath);
+    const url = this.server + '/api2/repos/' + repoID + '/file/detail/?p=' + path;
     return this.req.get(url);
   }
-
 
   starFile(repoID, filePath) {
     const url = this.server + '/api2/starredfiles/';
     let form = new FormData();
     form.append('repo_id', repoID);
     form.append('p', filePath);
-    return this.req.post(url,form)
+    return this.req.post(url, form, {
+      headers:form.getHeaders()
+    });
   }
 
   unStarFile(repoID, filePath) {
@@ -128,7 +130,8 @@ class SeafileAPI {
     // reuse default to 1 to eliminate cross domain request problem
     //   In browser, the browser will send an option request to server first, the access Token
     //   will become invalid if reuse=0
-    const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + filePath + '&reuse=1';
+    const path = encodeURIComponent(filePath);
+    const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + path + '&reuse=1';
     return this.req.get(url);
   }
 
@@ -167,9 +170,7 @@ class SeafileAPI {
   }
 
   getFileHistory(repoID, folderPath) {
-
     const url = this.server + "/api2/repos/" + repoID + "/file/history/?p=" + folderPath;
-
     return this.req.get(url);
   }
 
@@ -188,15 +189,67 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  createDirectory(repoID, folderPath) {
-    const url =  this.server + '/api2/repos/' + repoID + '/dir/?p=' + folderPath;
+  //----file and dir API
+  createDir(repoID, dirPath) {
+    const url =  this.server + '/api2/repos/' + repoID + '/dir/?p=' + dirPath;
     let form = new FormData();
     form.append('operation', 'mkdir');
     return this.req.post(url, form, {
-      headers: form.getHeaders()
+      headers:form.getHeaders()
+    });
+  }
+
+  createFile(repoID, filePath) {
+    const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + filePath;
+    let form = new FormData();
+    form.append('operation', 'create');
+    return this.req.post(url, form, {
+      headers:form.getHeaders()
+    });
+  }
+
+  renameFile(repoID, filePath, newfileName) {
+    const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + filePath;
+    let form = new FormData();
+    form.append('operation', 'rename');
+    form.append('newname', newfileName);
+    return this.req.post(url, form, {
+      headers:form.getHeaders()
+    });
+  }
+
+  deleteFile(repoID, filePath) {
+    const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + filePath;
+    return this.req.delete(url);
+  }
+
+  //function don't have response
+  renameDir(repoID, dirPath, newdirName) {
+    const url = this.server + 'api2/repos/' + repoID + '/dir/?p=' + dirPath;
+    let form = new FormData();
+    form.append("operation", 'rename');
+    form.append("newname", newdirName);
+    return this.req.post(url, form, {
+      headers:form.getHeaders()
+    });
+  }
+
+  deleteDir(repoID, dirPath) {
+    const url = this.server + '/api2/repos/' +  repoID + '/dir/?p=' + dirPath;
+    return this.req.delete(url);
+  }
+
+  // copy files or dirs
+  copyDir(repoID, dstrepoID, dstfilePath, filesName) {
+    const url = this.server + '/api2/repos/' + repoID + '/fileops/copy/';
+    let form = new FormData();
+    form.append('dst_repo', dstrepoID);
+    form.append('dst_dir', dstfilePath);
+    form.append('file_names', filesName);
+    return this.req.post(url, form, {
+      headers:form.getHeaders()
     });
   }
 
 }
-
 export { SeafileAPI };
