@@ -98,6 +98,11 @@ class SeafileAPI {
   }
 
   //---- file api
+  getInternalLink(repoID, filePath) {
+    const path = encodeURIComponent(filePath);
+    const url = this.server + '/api/v2.1/smart-link/?repo_id=' + repoID + '&path=' + path + '&is_dir=false';
+    return this.req.get(url);
+  }
 
   getWikiFileContent(slug, filePath) {
     const path = encodeURIComponent(filePath);
