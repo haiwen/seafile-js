@@ -34,6 +34,16 @@ class SeafileAPI {
     return this;
   }
 
+  _sendPostRequest(url, form) {
+    if (form.getHeaders) {
+      return this.req.post(url, form, {
+        headers:form.getHeaders()
+      });
+    } else {
+      return this.req.post(url, form);
+    }
+  }
+
   getToken() {
     const url = this.server + '/api2/auth-token/';
     axios.post(url, {
@@ -121,9 +131,7 @@ class SeafileAPI {
     let form = new FormData();
     form.append('repo_id', repoID);
     form.append('p', filePath);
-    return this.req.post(url, form, {
-      headers:form.getHeaders()
-    });
+    return this._sendPostRequest(url, form);
   }
 
   unStarFile(repoID, filePath) {
@@ -199,18 +207,14 @@ class SeafileAPI {
     const url =  this.server + '/api2/repos/' + repoID + '/dir/?p=' + dirPath;
     let form = new FormData();
     form.append('operation', 'mkdir');
-    return this.req.post(url, form, {
-      headers:form.getHeaders()
-    });
+    return this._sendPostRequest(url, form);
   }
 
   createFile(repoID, filePath) {
     const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + filePath;
     let form = new FormData();
     form.append('operation', 'create');
-    return this.req.post(url, form, {
-      headers:form.getHeaders()
-    });
+    return this._sendPostRequest(url, form);
   }
 
   renameFile(repoID, filePath, newfileName) {
@@ -218,9 +222,7 @@ class SeafileAPI {
     let form = new FormData();
     form.append('operation', 'rename');
     form.append('newname', newfileName);
-    return this.req.post(url, form, {
-      headers:form.getHeaders()
-    });
+    return this._sendPostRequest(url, form);
   }
 
   deleteFile(repoID, filePath) {
@@ -234,9 +236,7 @@ class SeafileAPI {
     let form = new FormData();
     form.append("operation", 'rename');
     form.append("newname", newdirName);
-    return this.req.post(url, form, {
-      headers:form.getHeaders()
-    });
+    return this._sendPostRequest(url, form);
   }
 
   deleteDir(repoID, dirPath) {
@@ -251,9 +251,7 @@ class SeafileAPI {
     form.append('dst_repo', dstrepoID);
     form.append('dst_dir', dstfilePath);
     form.append('file_names', filesName);
-    return this.req.post(url, form, {
-      headers:form.getHeaders()
-    });
+    return this._sendPostRequest(url, form);
   }
 
 }

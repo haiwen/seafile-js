@@ -59,7 +59,7 @@ test("listDir", () => {
   });
 });
 
-test("listDir", () => { 
+test("listDir", () => {
   return seafileAPI.listDir(repoID, dirPath, true ).then((response) => {
       // console.log(response.data);
       expect(response.data).not.toBe(null);
