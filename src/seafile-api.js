@@ -254,5 +254,10 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
+  getSearchedFiles(querys) {
+    const url = this.server + '/api2/search/';
+    return this.req.get(url, {params: querys});
+  }
+
 }
 export { SeafileAPI };
