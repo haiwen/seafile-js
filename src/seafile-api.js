@@ -232,7 +232,7 @@ class SeafileAPI {
 
   //function don't have response
   renameDir(repoID, dirPath, newdirName) {
-    const url = this.server + 'api2/repos/' + repoID + '/dir/?p=' + dirPath;
+    const url = this.server + '/api2/repos/' + repoID + '/dir/?p=' + dirPath;
     let form = new FormData();
     form.append("operation", 'rename');
     form.append("newname", newdirName);
@@ -252,6 +252,17 @@ class SeafileAPI {
     form.append('dst_dir', dstfilePath);
     form.append('file_names', filesName);
     return this._sendPostRequest(url, form);
+  }
+
+  searchFiles(searchParams, cancelToken) {
+    const url = this.server + '/api2/search/';
+    return this.req.get(url, {params: searchParams, cancelToken : cancelToken});
+  }
+
+  getSource() {
+    let CancelToken = axios.CancelToken;
+    let source = CancelToken.source();
+    return source;
   }
 
 }
