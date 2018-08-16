@@ -254,9 +254,9 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
-  getSearchedFiles(querysParams, cancelToken) {
+  searchFiles(searchParams, cancelToken) {
     const url = this.server + '/api2/search/';
-    return this.req.get(url, {params: querysParams, cancelToken : cancelToken});
+    return this.req.get(url, {params: searchParams, cancelToken : cancelToken});
   }
 
   getSource() {
