@@ -209,6 +209,104 @@ class SeafileAPI {
     form.append('operation', 'mkdir');
     return this._sendPostRequest(url, form);
   }
+  createFile(repoID, filePath) {
+    const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + filePath;
+    let form = new FormData();
+    form.append('operation', 'create');
+    return this._sendPostRequest(url, form);
+  }
+
+  renameFile(repoID, filePath, newfileName) {
+    const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + filePath;
+    let form = new FormData();
+    form.append('operation', 'rename');
+    form.append('newname', newfileName);
+    return this._sendPostRequest(url, form);
+  }
+
+  deleteFile(repoID, filePath) {
+    const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + filePath;
+    return this.req.delete(url);
+  }
+
+  //function don't have response
+  renameDir(repoID, dirPath, newdirName) {
+    const url = this.server + '/api2/repos/' + repoID + '/dir/?p=' + dirPath;
+    let form = new FormData();
+    form.append("operation", 'rename');
+    form.append("newname", newdirName);
+    return this._sendPostRequest(url, form);
+  }
+
+  deleteDir(repoID, dirPath) {
+    const url = this.server + '/api2/repos/' +  repoID + '/dir/?p=' + dirPath;
+    return this.req.delete(url);
+  }
+
+  // copy files or dirs
+  copyDir(repoID, dstrepoID, dstfilePath, filesName) {
+    const url = this.server + '/api2/repos/' + repoID + '/fileops/copy/';
+    let form = new FormData();
+    form.append('dst_repo', dstrepoID);
+    form.append('dst_dir', dstfilePath);
+    form.append('file_names', filesName);
+    return this._sendPostRequest(url, form);
+  }
+
+  searchFiles(searchParams, cancelToken) {
+    const url = this.server + '/api2/search/';
+    return this.req.get(url, {params: searchParams, cancelToken : cancelToken});
+  }
+
+  getSource() {
+    let CancelToken = axios.CancelToken;
+    let source = CancelToken.source();
+    return source;
+  }
+
+  downloadFile(repoID, filePath, reuse) {
+    const path = encodeURIComponent(filePath);
+    var url = this.server + '/api2/repos/' + repoID + '/file/?p=' + path;
+    if (reuse === 1) {
+      url = url + '&reuse=1';
+    }
+    return this.req.get(url);
+  }
+
+  //---- ShareLink API 
+  createShareLink(repoID, dirPath, password, expireDays) {
+    const url = this.server + '/api/v2.1/share-links/';
+    let form = new FormData();
+    form.append('path', dirPath);
+    form.append('repo_id', repoID);
+    if (password) {
+      form.append('password', password);
+    }
+    if (expireDays) {
+      form.append('expire_days', expireDays);
+    }
+    return this._sendPostRequest(url, form);
+  }
+
+  deleteShareLink(token) {
+    const url = this.server + '/api/v2.1/share-links/' + token + '/';
+    return this.req.delete(url);
+  }
+
+  ListAllLink() {
+    const url = this.server + '/api/v2.1/share-links/';
+    return this.req.get(url);
+  }
+
+  ListLibLink(repoID) {
+    const url = this.server + '/api/v2.1/share-links/?repo_id=' + repoID;
+    return this.req.get(url);
+  }
+
+  ListFolderLink(repoID, filePath) {
+    const url = this.server + '/api/v2.1/share-links/?repo_id=' + repoID + '&path=' + filePath;
+    return this.req.get(url);
+  }
 
   createFile(repoID, filePath) {
     const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + filePath;
