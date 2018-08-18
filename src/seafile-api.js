@@ -285,18 +285,18 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  ListAllLink() {
+  listAllLink() {
     const url = this.server + '/api/v2.1/share-links/';
     return this.req.get(url);
   }
 
-  ListLibLink(repoID) {
+  listRepoShareLinks(repoID) {
     const url = this.server + '/api/v2.1/share-links/?repo_id=' + repoID;
     return this.req.get(url);
   }
 
-  ListFolderLink(repoID, filePath) {
-    const url = this.server + '/api/v2.1/share-links/?repo_id=' + repoID + '&path=' + filePath;
+  getShareLink(repoID, path) {
+    const url = this.server + '/api/v2.1/share-links/?repo_id=' + repoID + '&path=' + path;
     return this.req.get(url);
   }
   
