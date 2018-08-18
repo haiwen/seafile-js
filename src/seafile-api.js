@@ -285,7 +285,7 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  listAllLink() {
+  listAllShareLinks() {
     const url = this.server + '/api/v2.1/share-links/';
     return this.req.get(url);
   }
