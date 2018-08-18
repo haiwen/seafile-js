@@ -264,6 +264,41 @@ class SeafileAPI {
     let source = CancelToken.source();
     return source;
   }
+  
+  //---- ShareLink API 
+  createShareLink(repoID, dirPath, password, expireDays) {
+    const url = this.server + '/api/v2.1/share-links/';
+    let form = new FormData();
+    form.append('path', dirPath);
+    form.append('repo_id', repoID);
+    if (password) {
+      form.append('password', password);
+    }
+    if (expireDays) {
+      form.append('expire_days', expireDays);
+    }
+    return this._sendPostRequest(url, form);
+  }
 
+  deleteShareLink(token) {
+    const url = this.server + '/api/v2.1/share-links/' + token + '/';
+    return this.req.delete(url);
+  }
+
+  ListAllLink() {
+    const url = this.server + '/api/v2.1/share-links/';
+    return this.req.get(url);
+  }
+
+  ListLibLink(repoID) {
+    const url = this.server + '/api/v2.1/share-links/?repo_id=' + repoID;
+    return this.req.get(url);
+  }
+
+  ListFolderLink(repoID, filePath) {
+    const url = this.server + '/api/v2.1/share-links/?repo_id=' + repoID + '&path=' + filePath;
+    return this.req.get(url);
+  }
+  
 }
 export { SeafileAPI };
