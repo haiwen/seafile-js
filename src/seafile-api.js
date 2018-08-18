@@ -266,10 +266,10 @@ class SeafileAPI {
   }
   
   //---- ShareLink API 
-  createShareLink(repoID, dirPath, password, expireDays) {
+  createShareLink(repoID, path, password, expireDays) {
     const url = this.server + '/api/v2.1/share-links/';
     let form = new FormData();
-    form.append('path', dirPath);
+    form.append('path', path);
     form.append('repo_id', repoID);
     if (password) {
       form.append('password', password);
