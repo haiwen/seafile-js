@@ -218,7 +218,7 @@ class SeafileAPI {
   }
 
   renameFile(repoID, filePath, newfileName) {
-    const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + filePath;
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/file/?p=' + filePath;
     let form = new FormData();
     form.append('operation', 'rename');
     form.append('newname', newfileName);
