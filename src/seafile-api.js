@@ -116,7 +116,8 @@ class SeafileAPI {
 
   getWikiFileContent(slug, filePath) {
     const path = encodeURIComponent(filePath);
-    const url = this.server + '/api/v2.1/wikis/' + slug + '/content/' + '?p=' + path;
+    const time = new Date().getTime();
+    const url = this.server + '/api/v2.1/wikis/' + slug + '/content/' + '?p=' + path + '&_=' + time;
     return this.req.get(url)
   }
 
