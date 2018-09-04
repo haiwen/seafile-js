@@ -102,8 +102,8 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  listWikiDir(slug) {
-    const url = this.server + '/api/v2.1/wikis/' + slug + '/dir/';
+  listWikiDir(slug, dirPath) {
+    const url = this.server + '/api/v2.1/wikis/' + slug + '/dir/?p=' + dirPath;
     return this.req.get(url);
   }
 
