@@ -301,5 +301,27 @@ class SeafileAPI {
     return this.req.get(url);
   }
   
+  //---- Group API
+  listGroups() {
+    const url = this.server + '/api2/groups/';
+    return this.req.get(url);
+  }
+
+  // ---- Activities API
+  listActivities(pageNum) {
+    const url = this.server + '/api/v2.1/activities/?page=' + pageNum
+    return this.req.get(url);
+  }
+
+  //---- Notification API
+  listPopupNotices() {
+    const url = this.server + '/ajax/get_popup_notices/';
+    return this.req.get(url, { headers: {'X-Requested-With': 'XMLHttpRequest'}});
+  }
+
+  updateNotifications() {
+    const url = this.server + '/api/v2.1/notifications/';
+    return this.req.put(url);
+  }
 }
 export { SeafileAPI };
