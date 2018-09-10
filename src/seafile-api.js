@@ -323,5 +323,25 @@ class SeafileAPI {
     const url = this.server + '/api/v2.1/notifications/';
     return this.req.put(url);
   }
+
+  //--- filehistory api
+  getFileHistoryRecord(repo_id, path, page, per_page) {
+    const url = this.server +  '/api/v2.1/repos/'+ repo_id + '/file/new_history/';
+    const params = {
+      path: path,
+      page: page,
+      per_page: per_page,
+    } 
+    return this.req.get(url, {params: params});
+  }
+
+  revertFile(repo_id, path, commit_id) {
+    const url = this.server +  '/api/v2.1/repos/'+ repo_id + '/file/?p=' + path;
+    let form = new FormData();
+    form.append("operation", 'revert');
+    form.append("commit_id", commit_id);
+    return this._sendPostRequest(url, form);
+  }
+  
 }
 export { SeafileAPI };
