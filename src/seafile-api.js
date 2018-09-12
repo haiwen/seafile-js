@@ -325,8 +325,8 @@ class SeafileAPI {
   }
 
   //--- filehistory api
-  getFileHistoryRecord(repo_id, path, page, per_page) {
-    const url = this.server +  '/api/v2.1/repos/'+ repo_id + '/file/new_history/';
+  getFileHistoryRecord(repoID, path, page, per_page) {
+    const url = this.server +  '/api/v2.1/repos/'+ repoID + '/file/new_history/';
     const params = {
       path: path,
       page: page,
@@ -335,11 +335,11 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
-  revertFile(repo_id, path, commit_id) {
-    const url = this.server +  '/api/v2.1/repos/'+ repo_id + '/file/?p=' + path;
+  revertFile(repoID, path, commitID) {
+    const url = this.server +  '/api/v2.1/repos/'+ repoID + '/file/?p=' + path;
     let form = new FormData();
     form.append("operation", 'revert');
-    form.append("commit_id", commit_id);
+    form.append("commit_id", commitID);
     return this._sendPostRequest(url, form);
   }
   
