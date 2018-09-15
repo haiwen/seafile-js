@@ -342,6 +342,25 @@ class SeafileAPI {
     form.append("commit_id", commitID);
     return this._sendPostRequest(url, form);
   }
+
+  // draft operation api
+  listDrafts() {
+    const url = this.server + '/api/v2.1/drafts';
+    return this.req.get(url);
+  }
+
+  deleteDraft(id) {
+    const url = this.server + '/api/v2.1/drafts/' + id + '/';
+    return this.req.delete(url);
+  }
+
+  publishDraft(id) {
+    const url = this.server + '/api/v2.1/drafts/' + id + '/';
+    const params = {
+      operation: 'publish'
+    }
+    return this.req.put(url, params);
+  }
   
 }
 export { SeafileAPI };
