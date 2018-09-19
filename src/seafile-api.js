@@ -325,7 +325,7 @@ class SeafileAPI {
   }
 
   //--- filehistory api
-  getFileHistoryRecord(repoID, path, page, per_page) {
+  listFileHistoryRecords(repoID, path, page, per_page) {
     const url = this.server +  '/api/v2.1/repos/'+ repoID + '/file/new_history/';
     const params = {
       path: path,
