@@ -335,8 +335,8 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
-  getFileRevision(commitId, filePath, repoID) {
-    let url = this.server + '/api2/' + 'repos/' + repoID + '/file' + '/revision/?p=' + filePath + '&commit_id=' + commitId
+  getFileRevision(repoID, commitID, filePath) {
+    let url = this.server + '/api2/' + 'repos/' + repoID + '/file' + '/revision/?p=' + filePath + '&commit_id=' + commitID
     return this.req.get(url);
   }
 
