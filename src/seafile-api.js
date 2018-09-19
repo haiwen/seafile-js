@@ -335,6 +335,11 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
+  getFileRevision(commitId, filePath, repoID) {
+    let url = this.server + '/api2/' + 'repos/' + repoID + '/file' + '/revision/?p=' + filePath + '&commit_id=' + commitId
+    return this.req.get(url);
+  }
+
   revertFile(repoID, path, commitID) {
     const url = this.server +  '/api/v2.1/repos/'+ repoID + '/file/?p=' + path;
     let form = new FormData();
