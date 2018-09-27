@@ -95,7 +95,7 @@ class SeafileAPI {
 
   listDir(repoID, dirPath, opts = {}) {
     const { recursive } = opts;
-    var url =  this.server + '/api2/repos/' + repoID + '/dir/?p=' + dirPath;
+    var url =  this.server + '/api/v2.1/repos/' + repoID + '/dir/?p=' + dirPath;
     if (recursive) {
       url = url + '&recursive=1';
     }
