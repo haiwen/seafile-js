@@ -396,8 +396,10 @@ class SeafileAPI {
   }
 
   cancelZipTask(zip_token) {
-    const url = this.server + '/api/v2.1/cancel-zip-task/?token=' + zip_token;
-    return this.req.get(url);
+    const url = this.server + '/api/v2.1/cancel-zip-task/';
+    const form = new FormData();
+    form.append("token", zip_token);
+    return this.req.post(url, form);
   }
   
 }
