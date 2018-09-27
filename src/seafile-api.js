@@ -265,8 +265,8 @@ class SeafileAPI {
     let source = CancelToken.source();
     return source;
   }
-  
-  //---- ShareLink API 
+
+  //---- ShareLink API
   createShareLink(repoID, path, password, expireDays) {
     const url = this.server + '/api/v2.1/share-links/';
     let form = new FormData();
@@ -300,7 +300,7 @@ class SeafileAPI {
     const url = this.server + '/api/v2.1/share-links/?repo_id=' + repoID + '&path=' + path;
     return this.req.get(url);
   }
-  
+
   //---- Group API
   listGroups() {
     const url = this.server + '/api2/groups/';
@@ -331,7 +331,7 @@ class SeafileAPI {
       path: path,
       page: page,
       per_page: per_page,
-    } 
+    }
     return this.req.get(url, {params: params});
   }
 
@@ -366,6 +366,24 @@ class SeafileAPI {
     }
     return this.req.put(url, params);
   }
-  
+
+  // file comments api
+  postComment(repoID, filePath, comment) {
+    const url = this.server +  '/api2/repos/'+ repoID + '/file/comments/?p=' + filePath;
+    let form = new FormData();
+    form.append("comment", comment);
+    return this._sendPostRequest(url, form);
+  }
+
+  getCommentsNumber(repoID, dirPath) {
+    const url = this.server + '/api2/repos/' + repoID + '/file/comments/counts/?p=' + dirPath;
+    return this.req.get(url);
+  }
+
+  listComments(repoID, filePath) {
+    const url = this.server + '/api2/repos/' + repoID + '/file/comments/?p=' + filePath;
+    return this.req.get(url);
+  }
+
 }
 export { SeafileAPI };

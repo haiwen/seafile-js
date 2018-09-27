@@ -17,6 +17,7 @@ const dstrepoID = config.dstrepoID;
 const dstfilePath = config.dstfilePath;
 const newdirName = config.newdirName;
 const filesName = config.filesName;
+const comment = config.comment;
 console.log(filesName);
 
 beforeAll(() => {
@@ -147,6 +148,27 @@ test("deleteDirectory test", () => {
 
 test("copyDirectory test", () => {
   return seafileAPI.copyDir(repoID, dstrepoID, dstfilePath, filesName).then((response) => {
+    // console.log(response.data);
+    expect(response.data).not.toBe(null);
+  });
+});
+
+test("postComment test", () => {
+  return seafileAPI.postComment(repoID, filePath, comment).then((response) => {
+    // console.log(response.data);
+    expect(response.data).not.toBe(null);
+  });
+});
+
+test("getCommentsNumber test", () => {
+  return seafileAPI.getCommentsNumber(repoID, dirPath).then((response) => {
+    // console.log(response.data);
+    expect(response.data).not.toBe(null);
+  });
+});
+
+test("listComments test", () => {
+  return seafileAPI.listComments(repoID, filePath).then((response) => {
     // console.log(response.data);
     expect(response.data).not.toBe(null);
   });
