@@ -367,5 +367,31 @@ class SeafileAPI {
     return this.req.put(url, params);
   }
   
+  createDraftReview(id) {
+    const url = this.server + '/api/v2.1/reviews/';
+    const params = {
+      draft_id: id
+    }
+    return this.req.post(url, params);
+  }
+
+  getDraft(id) {
+    const url = this.server + '/api/v2.1/drafts/' + id + '/';
+    return this.req.get(url)
+  }
+
+  listReviews() {
+    const url = this.server + '/api/v2.1/reviews/';
+    return this.req.get(url);
+  }
+
+  updateReviewStatus(id, st) {
+    const url = this.server + '/api/v2.1/review/'+ id + '/';
+    const params = {
+      status: st
+    }
+    return this.req.put(url, params);
+  }
 }
+
 export { SeafileAPI };
