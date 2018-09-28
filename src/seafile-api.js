@@ -385,5 +385,22 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  zipDownload(repoID, parent_dir, dirents) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/zip-task/?parent_dir=' + parent_dir + '&dirents=' + dirents;
+    return this.req.get(url);
+  }
+
+  queryZipProgress(zip_token) {
+    const url = this.server  + '/api/v2.1/query-zip-progress/?token=' + zip_token;
+    return this.req.get(url);
+  }
+
+  cancelZipTask(zip_token) {
+    const url = this.server + '/api/v2.1/cancel-zip-task/';
+    const form = new FormData();
+    form.append("token", zip_token);
+    return this.req.post(url, form);
+  }
+  
 }
 export { SeafileAPI };
