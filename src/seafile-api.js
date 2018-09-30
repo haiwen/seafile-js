@@ -136,7 +136,8 @@ class SeafileAPI {
   }
 
   unStarFile(repoID, filePath) {
-    const url = this.server + "/api2/starredfiles/?repo_id=" + repoID + "&p=" + filePath;
+    const path = encodeURIComponent(filePath);
+    const url = this.server + "/api2/starredfiles/?repo_id=" + repoID + "&p=" + path;
     return this.req.delete(url);
   }
 
@@ -400,6 +401,12 @@ class SeafileAPI {
     const form = new FormData();
     form.append("token", zip_token);
     return this.req.post(url, form);
+  }
+
+  //---- Starred API
+  listStarred() {
+    const url = this.server + '/api2/starredfiles/';
+    return this.req.get(url);
   }
   
 }
