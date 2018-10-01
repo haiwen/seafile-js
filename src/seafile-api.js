@@ -408,6 +408,13 @@ class SeafileAPI {
     const url = this.server + '/api2/starredfiles/';
     return this.req.get(url);
   }
+
+  //---- Thumbnail API
+  createThumbnail(repo_id, path, thumbnail_size) {
+    const url = this.server + '/thumbnail/' + repo_id + '/create/?path=' +
+      encodeURIComponent(path) + '&size=' + thumbnail_size;
+    return this.req.get(url, {headers: {'X-Requested-With': 'XMLHttpRequest'}});
+  }
   
 }
 export { SeafileAPI };
