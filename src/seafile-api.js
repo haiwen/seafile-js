@@ -415,7 +415,7 @@ class SeafileAPI {
       encodeURIComponent(path) + '&size=' + thumbnail_size;
     return this.req.get(url, {headers: {'X-Requested-With': 'XMLHttpRequest'}});
   }
-  
+
   createDraftReview(id) {
     const url = this.server + '/api/v2.1/reviews/';
     const params = {
@@ -440,6 +440,11 @@ class SeafileAPI {
       status: st
     }
     return this.req.put(url, params);
+  }
+
+  getUserAvatar(user, size) {
+    const url = this.server + '/api2/avatars/user/' + user + '/resized/' + size +'/';
+    return this.req.get(url);
   }
 }
 
