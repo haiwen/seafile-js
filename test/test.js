@@ -174,4 +174,11 @@ test("listComments test", () => {
   });
 });
 
+test("getUserAvatar test", () => {
+  return seafileAPI.getUserAvatar(config.username, 40).then((response) => {
+    // console.log(response.data);
+    expect(response.data).not.toBe(null);
+  });
+});
+
 // test end
