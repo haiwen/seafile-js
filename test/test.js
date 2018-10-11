@@ -174,6 +174,13 @@ test("listComments test", () => {
   });
 });
 
+test("updateComment test", () => {
+  return seafileAPI.updateComment(repoID, 57, 'true', comment).then((response) => {
+    // console.log(response.data);
+    expect(response.data).not.toBe(null);
+  });
+});
+
 test("getUserAvatar test", () => {
   return seafileAPI.getUserAvatar(config.username, 40).then((response) => {
     // console.log(response.data);

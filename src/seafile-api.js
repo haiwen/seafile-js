@@ -370,7 +370,8 @@ class SeafileAPI {
 
   // file comments api
   postComment(repoID, filePath, comment) {
-    const url = this.server +  '/api2/repos/'+ repoID + '/file/comments/?p=' + filePath;
+    const path = encodeURIComponent(filePath);
+    const url = this.server + '/api2/repos/' + repoID + '/file/comments/?p=' + path;
     let form = new FormData();
     form.append("comment", comment);
     return this._sendPostRequest(url, form);
@@ -381,9 +382,27 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  listComments(repoID, filePath) {
-    const url = this.server + '/api2/repos/' + repoID + '/file/comments/?p=' + filePath;
+  listComments(repoID, filePath, resolved) {
+    const path = encodeURIComponent(filePath);
+    let url = this.server + '/api2/repos/' + repoID + '/file/comments/?p=' + path;
+    if (resolved) {
+      url = url + '&resolved=' + resolved;
+    }
     return this.req.get(url);
+  }
+
+  deleteComment(repoID, commentID) {
+    const url = this.server + '/api2/repos/' + repoID + '/file/comments/' + commentID + '/';
+    return this.req.delete(url);
+  }
+
+  updateComment(repoID, commentID, resolved, detail) {
+    const url = this.server + '/api2/repos/' + repoID + '/file/comments/' + commentID + '/';
+    const params = {
+      detail: detail,
+      resolved: resolved
+    }
+    return this.req.put(url, params);
   }
 
   zipDownload(repoID, parent_dir, dirents) {
