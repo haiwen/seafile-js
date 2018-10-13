@@ -107,10 +107,9 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  listRepoDir(repoID, dirPath, thumbnail_size) {
-    const time = new Date().getTime();
-    const url = this.server + '/ajax/lib/' + repoID + '/dir/?p=' + dirPath + '&thumbnail_size=' + thumbnail_size + '&_=' + time;
-    return this.req.get(url, { headers: {'X-Requested-With': 'XMLHttpRequest'}});
+  getRepoInfo(repoID) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/';
+    return this.req.get(url);
   }
 
   //---- file api
