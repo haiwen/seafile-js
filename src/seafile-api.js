@@ -107,6 +107,11 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  getRepoInfo(repoID) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/';
+    return this.req.get(url);
+  }
+
   //---- file api
   getInternalLink(repoID, filePath) {
     const path = encodeURIComponent(filePath);
