@@ -8,7 +8,7 @@ class SeafileAPI {
     this.server = server;
     this.username = username;
     this.password = password;
-    this.token = token;  //none
+    this.token = token;  //none 
     if (this.token && this.server) {
       this.req = axios.create({
         baseURL: this.server,
@@ -247,7 +247,8 @@ class SeafileAPI {
   }
 
   deleteDir(repoID, dirPath) {
-    const url = this.server + '/api2/repos/' +  repoID + '/dir/?p=' + dirPath;
+    const path = encodeURIComponent(dirPath);
+    const url = this.server + '/api2/repos/' +  repoID + '/dir/?p=' + path;
     return this.req.delete(url);
   }
 
