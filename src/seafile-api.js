@@ -233,7 +233,8 @@ class SeafileAPI {
   }
 
   deleteFile(repoID, filePath) {
-    const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + filePath;
+    const path = encodeURIComponent(filePath);
+    const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + path;
     return this.req.delete(url);
   }
 
