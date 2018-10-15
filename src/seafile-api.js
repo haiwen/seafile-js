@@ -8,7 +8,7 @@ class SeafileAPI {
     this.server = server;
     this.username = username;
     this.password = password;
-    this.token = token;  //none 
+    this.token = token;  //none
     if (this.token && this.server) {
       this.req = axios.create({
         baseURL: this.server,
@@ -304,7 +304,8 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  getShareLink(repoID, path) {
+  getShareLink(repoID, filePath) {
+    const path = encodeURIComponent(filePath);
     const url = this.server + '/api/v2.1/share-links/?repo_id=' + repoID + '&path=' + path;
     return this.req.get(url);
   }
