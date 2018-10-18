@@ -413,6 +413,35 @@ class SeafileAPI {
     return this.req.put(url, params);
   }
 
+  // review comments api
+  addReviewComment(reviewID, comment, detail, avatarSize) {
+    const url = this.server + '/api2/review/' + reviewID + '/comments/';
+    let form = new FormData();
+    form.append('comment', comment);
+    form.append('detail', detail);
+    form.append('avatar_size', avatarSize);
+    return this._sendPostRequest(url, form);
+  }
+
+  listReviewComments(reviewID, page, perPage, avatarSize) {
+    const url = this.server + '/api2/review/' + reviewID + '/comments/?page=' + page + '&per_page=' + perPage + '&avatar_size=' + avatarSize;
+    return this.req.get(url);
+  }
+
+  deleteReviewComment(reviewID, commentID) {
+    const url = this.server + '/api2/review/' + reviewID + '/comment/' + commentID + '/';
+    return this.req.delete(url);
+  }
+
+  updateReviewComment(reviewID, commentID, resolved, detail) {
+    const url = this.server + '/api2/review/' + reviewID + '/comment/' + commentID + '/';
+    const params = {
+      detail: detail,
+      resolved: resolved
+    }
+    return this.req.put(url, params);
+  }
+
   zipDownload(repoID, parent_dir, dirents) {
     const url = this.server + '/api/v2.1/repos/' + repoID + '/zip-task/?parent_dir=' + parent_dir + '&dirents=' + dirents;
     return this.req.get(url);
