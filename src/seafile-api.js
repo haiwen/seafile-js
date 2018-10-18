@@ -217,10 +217,11 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
-  createFile(repoID, filePath) {
+  createFile(repoID, filePath, isDraft) {
     const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + filePath;
     let form = new FormData();
     form.append('operation', 'create');
+    form.append('is_draft', isDraft);
     return this._sendPostRequest(url, form);
   }
 
