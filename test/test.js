@@ -18,6 +18,8 @@ const dstfilePath = config.dstfilePath;
 const newdirName = config.newdirName;
 const filesName = config.filesName;
 const comment = config.comment;
+const detail = config.detail;
+const reviewID = config.reviewID;
 console.log(filesName);
 
 beforeAll(() => {
@@ -183,6 +185,27 @@ test("updateComment test", () => {
 
 test("getUserAvatar test", () => {
   return seafileAPI.getUserAvatar(config.username, 40).then((response) => {
+    // console.log(response.data);
+    expect(response.data).not.toBe(null);
+  });
+});
+
+test("addReviewComment test", () => {
+  return seafileAPI.addReviewComment(reviewID, comment, detail).then((response) => {
+    // console.log(response.data);
+    expect(response.data).not.toBe(null);
+  });
+});
+
+test("listReviewComments test", () => {
+  return seafileAPI.listReviewComments(reviewID).then((response) => {
+    // console.log(response.data);
+    expect(response.data).not.toBe(null);
+  });
+});
+
+test("updateReviewComment test", () => {
+  return seafileAPI.updateReviewComment(reviewID, 1, 'true', detail).then((response) => {
     // console.log(response.data);
     expect(response.data).not.toBe(null);
   });
