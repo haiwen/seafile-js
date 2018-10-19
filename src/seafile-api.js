@@ -238,13 +238,13 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  lockFile(repoID, filePath) {
+  lockfile(repoID, filePath) {
     const url = this.server + '/api2/repos/'+ repoID + '/file/'
     let params = {p: filePath, operation: 'lock'};
     return this.req.put(url, params);
   }
 
-  unLockFile(repoID, filePath) {
+  unlockfile(repoID, filePath) {
     const url = this.server + '/api2/repos/'+ repoID + '/file/'
     let params = {p: filePath, operation: 'unlock'};
     return this.req.put(url, params);
@@ -370,7 +370,7 @@ class SeafileAPI {
   }
 
   // draft operation api
-  newDraft(repoID, filePath) {
+  createDraft(repoID, filePath) {
     const url = this.server + '/api/v2.1/drafts/';
     const form = new FormData();
     form.append("repo_id", repoID);
