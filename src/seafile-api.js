@@ -239,6 +239,18 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
+  lockfile(repoID, filePath) {
+    const url = this.server + '/api2/repos/'+ repoID + '/file/'
+    let params = {p: filePath, operation: 'lock'};
+    return this.req.put(url, params);
+  }
+
+  unlockfile(repoID, filePath) {
+    const url = this.server + '/api2/repos/'+ repoID + '/file/'
+    let params = {p: filePath, operation: 'unlock'};
+    return this.req.put(url, params);
+  }
+
   //function don't have response
   renameDir(repoID, dirPath, newdirName) {
     const url = this.server + '/api2/repos/' + repoID + '/dir/?p=' + dirPath;
@@ -359,6 +371,14 @@ class SeafileAPI {
   }
 
   // draft operation api
+  createDraft(repoID, filePath) {
+    const url = this.server + '/api/v2.1/drafts/';
+    const form = new FormData();
+    form.append("repo_id", repoID);
+    form.append("file_path", filePath);
+    return this.req.post(url, form);
+  }
+
   listDrafts() {
     const url = this.server + '/api/v2.1/drafts';
     return this.req.get(url);
