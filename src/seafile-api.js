@@ -305,6 +305,12 @@ class SeafileAPI {
     return source;
   }
 
+  getDirInfo(repoID, dirPath) {
+    const path = encodeURIComponent(dirPath);
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/dir/detail/?path=' + path;
+    return this.req.get(url);
+  }
+
   //---- ShareLink API
   createShareLink(repoID, path, password, expireDays) {
     const url = this.server + '/api/v2.1/share-links/';
