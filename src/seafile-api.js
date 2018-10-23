@@ -86,8 +86,12 @@ class SeafileAPI {
 
   //---- repo API
 
-  listRepos() {
-    const url = this.server + '/api2/repos/';
+  listRepos(type) {
+    let url = this.server + '/api/v2.1/repos/';
+    if (type) {
+      url = url + '?' + type;
+      return this.req.get(url);
+    }
     return this.req.get(url);
   }
 
