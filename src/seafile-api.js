@@ -86,8 +86,12 @@ class SeafileAPI {
 
   //---- repo API
 
-  listRepos() {
-    const url = this.server + '/api2/repos/';
+  listRepos(type) {
+    let url = this.server + '/api/v2.1/repos/';
+    if (type) {
+      url = url + '?' + type;
+      return this.req.get(url);
+    }
     return this.req.get(url);
   }
 
@@ -267,8 +271,20 @@ class SeafileAPI {
   }
 
   // copy files or dirs
-  copyDir(repoID, dstrepoID, dstfilePath, filesName) {
-    const url = this.server + '/api2/repos/' + repoID + '/fileops/copy/';
+  copyDir(repoID, dstrepoID, dstfilePath, dirPath, filesName) {
+    const path = encodeURIComponent(dirPath);
+    const url = this.server + '/api2/repos/' + repoID + '/fileops/copy/?p=' + path;
+    let form = new FormData();
+    form.append('dst_repo', dstrepoID);
+    form.append('dst_dir', dstfilePath);
+    form.append('file_names', filesName);
+    return this._sendPostRequest(url, form);
+  }
+  
+  //move files or dirs
+  moveDir(repoID, dstrepoID, dstfilePath, dirPath, filesName) {
+    const path = encodeURIComponent(dirPath);
+    const url = this.server + '/api2/repos/' + repoID + '/fileops/move/?p=' + path;
     let form = new FormData();
     form.append('dst_repo', dstrepoID);
     form.append('dst_dir', dstfilePath);
@@ -285,6 +301,12 @@ class SeafileAPI {
     let CancelToken = axios.CancelToken;
     let source = CancelToken.source();
     return source;
+  }
+
+  getDirInfo(repoID, dirPath) {
+    const path = encodeURIComponent(dirPath);
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/dir/detail/?path=' + path;
+    return this.req.get(url);
   }
 
   //---- ShareLink API
