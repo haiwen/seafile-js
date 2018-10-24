@@ -272,17 +272,19 @@ class SeafileAPI {
 
   // copy files or dirs
   copyDir(repoID, dstrepoID, dstfilePath, dirPath, filesName) {
-    const url = this.server + '/api2/repos/' + repoID + '/fileops/copy/?p=' + dirPath;
+    const path = encodeURIComponent(dirPath);
+    const url = this.server + '/api2/repos/' + repoID + '/fileops/copy/?p=' + path;
     let form = new FormData();
     form.append('dst_repo', dstrepoID);
     form.append('dst_dir', dstfilePath);
     form.append('file_names', filesName);
     return this._sendPostRequest(url, form);
   }
-
+  
   //move files or dirs
   moveDir(repoID, dstrepoID, dstfilePath, dirPath, filesName) {
-    const url = this.server + '/api2/repos/' + repoID + '/fileops/move/?p=' + dirPath;
+    const path = encodeURIComponent(dirPath);
+    const url = this.server + '/api2/repos/' + repoID + '/fileops/move/?p=' + path;
     let form = new FormData();
     form.append('dst_repo', dstrepoID);
     form.append('dst_dir', dstfilePath);
