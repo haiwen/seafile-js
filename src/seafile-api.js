@@ -545,6 +545,20 @@ class SeafileAPI {
     const url = this.server + '/api2/avatars/user/' + user + '/resized/' + size +'/';
     return this.req.get(url);
   }
+
+  listReviewers(reviewID) {
+    const url = this.server + '/api/v2.1/review/' + reviewID + '/reviewer/';
+    return this.req.get(url);
+  }
+
+  addReviewers(reviewID, reviewers) {
+    const url = this.server + '/api/v2.1/review/' + reviewID + '/reviewer/';
+    let form = new FormData();
+    for(let i = 0 ; i < rreviewers.length ; i ++) {
+      form.append('reviewer', reviewers[i]);
+    }
+    return this._sendPostRequest(url, form);
+  }
 }
 
 export { SeafileAPI };
