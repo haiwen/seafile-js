@@ -562,30 +562,30 @@ class SeafileAPI {
 
   //--- RepoTag API
   listRepoTags(repoID) {
-	var url = this.server + '/api/v2.1/repos/' + repoID + '/repo-tags/';
+    var url = this.server + '/api/v2.1/repos/' + repoID + '/repo-tags/';
     return this.req.get(url);
   }
 
   createRepoTag(repoID, name, color) {
-	var url = this.server + '/api/v2.1/repos/' + repoID + '/repo-tags/';
-	var form = new FormData();
-	form.append('name', name);
-	form.append('color', color);
-	return this._sendPostRequest(url, form);
+    var url = this.server + '/api/v2.1/repos/' + repoID + '/repo-tags/';
+    var form = new FormData();
+    form.append('name', name);
+    form.append('color', color);
+    return this._sendPostRequest(url, form);
   }
 
   deleteRepoTag(repoID, repo_tag_id) {
-	var url = this.server + '/api/v2.1/repos/' + repoID + '/repo-tags/' + repo_tag_id + '/';
+    var url = this.server + '/api/v2.1/repos/' + repoID + '/repo-tags/' + repo_tag_id + '/';
     return this.req.delete(url);
   }
 
   updateRepotag(repoID, repo_tag_id, name, color) {
-	var url = this.server + '/api/v2.1/repos/' + repoID + '/repo-tags/' + repo_tag_id + '/';
-	var params = {
-	  name: name,
-	  color: color,
-	};
-	return this.req.put(url, params);
+    var url = this.server + '/api/v2.1/repos/' + repoID + '/repo-tags/' + repo_tag_id + '/';
+    var params = {
+      name: name,
+      color: color,
+    };
+    return this.req.put(url, params);
   }
 }
 
