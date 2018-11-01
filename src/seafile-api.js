@@ -554,7 +554,7 @@ class SeafileAPI {
   addReviewers(reviewID, reviewers) {
     const url = this.server + '/api/v2.1/review/' + reviewID + '/reviewer/';
     let form = new FormData();
-    for(let i = 0 ; i < rreviewers.length ; i ++) {
+    for(let i = 0 ; i < reviewers.length ; i ++) {
       form.append('reviewer', reviewers[i]);
     }
     return this._sendPostRequest(url, form);
