@@ -579,7 +579,7 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  updateRepotag(repoID, repo_tag_id, name, color) {
+  updateRepoTag(repoID, repo_tag_id, name, color) {
     var url = this.server + '/api/v2.1/repos/' + repoID + '/repo-tags/' + repo_tag_id + '/';
     var params = {
       name: name,
