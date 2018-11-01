@@ -588,8 +588,8 @@ class SeafileAPI {
     return this.req.put(url, params);
   }
 
-  searchUsers(searchParams) {
-    const url = this.server + '/api2/search-user/?q=' + searchParams;
+  searchUsers(searchParam) {
+    const url = this.server + '/api2/search-user/?q=' + encodeURIComponent(searchParam);
     return this.req.get(url);
   }
 }
