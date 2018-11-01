@@ -587,11 +587,6 @@ class SeafileAPI {
     };
     return this.req.put(url, params);
   }
-
-  searchUsers(searchParams) {
-    const url = this.server + '/api2/search-user/?q=' + searchParams;
-    return this.req.get(url);
-  }
 }
 
 export { SeafileAPI };
