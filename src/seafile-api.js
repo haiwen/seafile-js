@@ -203,6 +203,15 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  getFileUploadedBytes(repoID, filePath, fileName) {
+    let url = this.server + '/api/v2.1/repos/' + repoID + '/file-uploaded-bytes/';
+    let params = {
+      parent_dir: filePath,
+      file_name: fileName,
+    };
+    return this.req.get(url, {params: params});
+  }
+
   getSharedRepos() {
     const url = this.server + '/api2/shared-repos/';
     return this.req.get(url);
