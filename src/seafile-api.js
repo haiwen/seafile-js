@@ -433,6 +433,11 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  getFileCommentsNumber(repoID, filePath) {
+    const url = this.server + '/api2/repos/' + repoID + '/file/comments/counts/?p=' + filePath;
+    return this.req.get(url);
+  }
+
   listComments(repoID, filePath, resolved) {
     const path = encodeURIComponent(filePath);
     let url = this.server + '/api2/repos/' + repoID + '/file/comments/?p=' + path;

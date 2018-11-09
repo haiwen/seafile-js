@@ -169,6 +169,13 @@ test("getCommentsNumber test", () => {
   });
 });
 
+test("getFileCommentsNumber test", () => {
+  return seafileAPI.getFileCommentsNumber(repoID, filePath).then((response) => {
+    // console.log(response.data);
+    expect(response.data).not.toBe(null);
+  });
+});
+
 test("listComments test", () => {
   return seafileAPI.listComments(repoID, filePath).then((response) => {
     // console.log(response.data);
