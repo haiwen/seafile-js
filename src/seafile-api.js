@@ -532,6 +532,14 @@ class SeafileAPI {
     return this.req.post(url, params);
   }
 
+  createFileReview(repoID, filePath) {
+    const url = this.server + '/api/v2.1/file-review/';
+    const form = new FormData();
+    form.append("repo_id", repoID);
+    form.append("file_path", filePath);
+    return this.req.post(url, form);
+  }
+
   getDraft(id) {
     const url = this.server + '/api/v2.1/drafts/' + id + '/';
     return this.req.get(url)
