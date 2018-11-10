@@ -518,6 +518,21 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  //---- Linked Devices API
+  listLinkedDevices() {
+    const url = this.server + '/api2/devices/';
+    return this.req.get(url);
+  }
+
+  unlinkDevice(platform, device_id) {
+    const url = this.server + "/api2/devices/";
+    let param = {
+        platform: platform,
+        device_id: device_id
+    };
+    return this.req.delete(url, {data: param});
+  }
+
   //---- Thumbnail API
   createThumbnail(repo_id, path, thumbnail_size) {
     const url = this.server + '/thumbnail/' + repo_id + '/create/?path=' +
