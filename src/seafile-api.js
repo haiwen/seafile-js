@@ -613,21 +613,21 @@ class SeafileAPI {
 
   //---- FileTag API
   listFileTags(repoID, filePath) {
-    var file_path = encodeURIComponent(filePath)
-    var url = this.server + '/api/v2.1/repos/' + repoID + '/file-tags/?file_path=' + file_path + '/';
+    var p = encodeURIComponent(filePath)
+    var url = this.server + '/api/v2.1/repos/' + repoID + '/file-tags/?file_path=' + p;
     return this.req.get(url);
   }
 
-  addFileTag(repoID, filePath, repo_tag_id) {
+  addFileTag(repoID, filePath, repoTagId) {
     var form = new FormData();
     form.append('file_path', filePath);
-    form.append('repo_tag_id', repo_tag_id);
+    form.append('repo_tag_id', repoTagId);
     var url = this.server + '/api/v2.1/repos/' + repoID + '/file-tags/';
     return this._sendPostRequest(url, form);
   }
 
-  deleteFileTag(repoID, file_tag_id) {
-    var url = this.server + '/api/v2.1/repos/' + repoID + '/file-tags/' + file_tag_id + '/';
+  deleteFileTag(repoID, fileTagId) {
+    var url = this.server + '/api/v2.1/repos/' + repoID + '/file-tags/' + fileTagId + '/';
     return this.req.delete(url);
   }
 }
