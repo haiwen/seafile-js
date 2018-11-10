@@ -610,6 +610,26 @@ class SeafileAPI {
     const url = this.server + '/api2/search-user/?q=' + encodeURIComponent(searchParam);
     return this.req.get(url);
   }
+
+  //---- FileTag API
+  listFileTags(repoID, filePath) {
+    var file_path = encodeURIComponent(filePath)
+    var url = this.server + '/api/v2.1/repos/' + repoID + '/file-tags/?file_path=' + file_path + '/';
+    return this.req.get(url);
+  }
+
+  addFileTag(repoID, filePath, repo_tag_id) {
+    var form = new FormData();
+    form.append('file_path', filePath);
+    form.append('repo_tag_id', repo_tag_id);
+    var url = this.server + '/api/v2.1/repos/' + repoID + '/file-tags/';
+    return this._sendPostRequest(url, form);
+  }
+
+  deleteFileTag(repoID, file_tag_id) {
+    var url = this.server + '/api/v2.1/repos/' + repoID + '/file-tags/' + file_tag_id + '/';
+    return this.req.delete(url);
+  }
 }
 
 export { SeafileAPI };
