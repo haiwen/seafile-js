@@ -561,8 +561,8 @@ class SeafileAPI {
     return this.req.get(url)
   }
 
-  listReviews() {
-    const url = this.server + '/api/v2.1/reviews/';
+  listReviews(status) {
+    const url = this.server + '/api/v2.1/reviews/?status=' + status;
     return this.req.get(url);
   }
 
