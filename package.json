@@ -1,11 +1,12 @@
 {
   "name": "seafile-js",
-  "version": "0.2.37",
+  "version": "0.2.38",
   "private": false,
   "main": "lib/seafile-api.js",
   "dependencies": {
     "axios": "^0.18.0",
-    "form-data": "^2.3.2"
+    "form-data": "^2.3.2",
+    "package.json": "^2.0.1"
   },
   "scripts": {
     "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib",
