@@ -429,11 +429,14 @@ class SeafileAPI {
   }
 
   // file comments api
-  postComment(repoID, filePath, comment) {
+  postComment(repoID, filePath, comment, detail) {
     const path = encodeURIComponent(filePath);
     const url = this.server + '/api2/repos/' + repoID + '/file/comments/?p=' + path;
     let form = new FormData();
     form.append("comment", comment);
+    if (detail) {
+      form.append("detail", detail);
+    }
     return this._sendPostRequest(url, form);
   }
 
