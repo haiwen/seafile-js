@@ -648,6 +648,52 @@ class SeafileAPI {
     var url = this.server + '/api/v2.1/repos/' + repoID + '/file-tags/' + fileTagId + '/';
     return this.req.delete(url);
   }
+
+  listSharedRepos() {
+    const url = this.server + '/api/v2.1/shared-repos/';
+    return this.req.get(url);
+  }
+
+  updateRepoSharePerm(repoID, options) {
+    const url = this.server + '/api/v2.1/shared-repos/' + repoID + '/';
+    return this.req.put(url, options);
+  }
+
+  unshareRepo(repoID, options) {
+    const url = this.server + '/api/v2.1/shared-repos/' + repoID + '/';
+    return this.req.delete(url, {params: options});
+  }
+
+  listSharedFolders() {
+    const url = this.server + '/api/v2.1/shared-folders/';
+    return this.req.get(url);
+  }
+
+  updateFolderSharePerm(repoID, data, options) {
+    const url = this.server + '/api2/repos/' + repoID + '/dir/shared_items/';
+    return this.req.post(url, data, {params: options}); // due to the old api, use 'post' here
+  }
+
+  unshareFolder(repoID, options) {
+    const url = this.server + '/api2/repos/' + repoID + '/dir/shared_items/';
+    return this.req.delete(url, {params: options});
+  }
+
+  listShareLinks() {
+    const url = this.server + '/api/v2.1/share-links/';
+    return this.req.get(url);
+  }
+
+  listUploadLinks() {
+    const url = this.server + '/api/v2.1/upload-links/';
+    return this.req.get(url);
+  }
+
+  deleteUploadLink(token) {
+    const url = this.server + '/api/v2.1/upload-links/' + token + '/';
+    return this.req.delete(url);
+  }
+
 }
 
 export { SeafileAPI };
