@@ -482,20 +482,23 @@ class SeafileAPI {
 
   updateComment(repoID, commentID, resolved, detail) {
     const url = this.server + '/api2/repos/' + repoID + '/file/comments/' + commentID + '/';
-    const params = {
-      detail: detail,
+    let params = {
       resolved: resolved
+    }
+    if (detail) {
+      params.detail = detail;
     }
     return this.req.put(url, params);
   }
 
   // review comments api
-  addReviewComment(reviewID, comment, detail, avatarSize) {
+  addReviewComment(reviewID, comment, detail) {
     const url = this.server + '/api2/review/' + reviewID + '/comments/';
     let form = new FormData();
     form.append('comment', comment);
-    form.append('detail', detail);
-    form.append('avatar_size', avatarSize);
+    if (detail) {
+      form.append('detail', detail);
+    }
     return this._sendPostRequest(url, form);
   }
 
@@ -511,9 +514,11 @@ class SeafileAPI {
 
   updateReviewComment(reviewID, commentID, resolved, detail) {
     const url = this.server + '/api2/review/' + reviewID + '/comment/' + commentID + '/';
-    const params = {
-      detail: detail,
+    let params = {
       resolved: resolved
+    }
+    if (detail) {
+      params.detail = detail;
     }
     return this.req.put(url, params);
   }
