@@ -86,13 +86,33 @@ class SeafileAPI {
 
   //---- repo API
 
-  listRepos(type) {
+  listRepos(options) {
+    /*
+     * options: `{type: 'shared'}`, `{type: ['mine', 'shared', ...]}`
+     */
     let url = this.server + '/api/v2.1/repos/';
-    if (type) {
-      url = url + '?' + type;
+
+    if (!options) {
+      // fetch all types of repos
       return this.req.get(url);
     }
-    return this.req.get(url);
+
+    return this.req.get(url, {
+      params: options,
+      paramsSerializer: function(params) {
+        let list = [];
+        for (let key in params) {
+          if (Array.isArray(params[key])) {
+            for (let i = 0, len = params[key].length; i < len; i++) {
+              list.push(key + '=' + encodeURIComponent(params[key][i]));
+            }
+          } else {
+            list.push(key + '=' + encodeURIComponent(params[key]));
+          }
+        }
+        return list.join('&');
+      }
+    });
   }
 
   //---- folder API
@@ -691,6 +711,16 @@ class SeafileAPI {
 
   deleteUploadLink(token) {
     const url = this.server + '/api/v2.1/upload-links/' + token + '/';
+    return this.req.delete(url);
+  }
+
+  leaveShareRepo(repoID, options) {
+    const url = this.server + '/api2/beshared-repos/' + repoID + '/';
+    return this.req.delete(url, {params: options});
+  }
+
+  leaveShareGroupOwnedRepo(repoID) {
+    const url = this.server + '/api/v2.1/group-owned-libraries/user-share-in-libraries/' + repoID + '/';
     return this.req.delete(url);
   }
 
