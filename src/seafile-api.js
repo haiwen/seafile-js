@@ -343,7 +343,7 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
-  deleteMutipleDirents(repoID, parentPath, direntNames) {
+  deleteMutipleDirents(repoID, parentDir, direntNames) {
     let fileNames = '';
     for (let i = 0; i < direntNames.length; i++) {
       if (i < direntNames.length - 1) {
@@ -352,7 +352,7 @@ class SeafileAPI {
         fileNames += direntNames[i];
       }
     }
-    const path = encodeURIComponent(parentPath);
+    const path = encodeURIComponent(parentDir);
     const url = this.server + '/api2/repos/' + repoID + '/fileops/delete/?p=' + path;
     let form = new FormData();
     form.append('file_names', fileNames);
