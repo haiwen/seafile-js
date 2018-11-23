@@ -621,6 +621,11 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
+  deleteReviewer(reviewID, reviewer) {
+    const url = this.server + '/api/v2.1/review/' + reviewID + '/reviewer/?username=' + reviewer;
+    return this.req.delete(url);
+  }
+
   //--- RepoTag API
   listRepoTags(repoID) {
     var url = this.server + '/api/v2.1/repos/' + repoID + '/repo-tags/';
