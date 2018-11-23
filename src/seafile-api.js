@@ -300,29 +300,59 @@ class SeafileAPI {
   }
 
   // copy files or dirs
-  copyDir(repoID, dstrepoID, dstfilePath, dirPath, filesName) {
+  copyDir(repoID, dstrepoID, dstfilePath, dirPath, direntNames) {
+    let fileNames = direntNames;
+    if (Array.isArray(direntNames)) {
+      fileNames = '';
+      for (let i = 0; i < direntNames.length; i++) {
+        if (i < direntNames.length - 1) {
+          fileNames += direntNames[i] + ':';
+        } else {
+          fileNames += direntNames[i];
+        }
+      }
+    }
     const path = encodeURIComponent(dirPath);
     const url = this.server + '/api2/repos/' + repoID + '/fileops/copy/?p=' + path;
     let form = new FormData();
     form.append('dst_repo', dstrepoID);
     form.append('dst_dir', dstfilePath);
-    form.append('file_names', filesName);
+    form.append('file_names', fileNames);
     return this._sendPostRequest(url, form);
   }
   
   //move files or dirs
-  moveDir(repoID, dstrepoID, dstfilePath, dirPath, filesName) {
+  moveDir(repoID, dstrepoID, dstfilePath, dirPath, direntNames) {
+    let fileNames = direntNames;
+    if (Array.isArray(direntNames)) {
+      fileNames = '';
+      for (let i = 0; i < direntNames.length; i++) {
+        if (i < direntNames.length - 1) {
+          fileNames += direntNames[i] + ':';
+        } else {
+          fileNames += direntNames[i];
+        }
+      }
+    }
     const path = encodeURIComponent(dirPath);
     const url = this.server + '/api2/repos/' + repoID + '/fileops/move/?p=' + path;
     let form = new FormData();
     form.append('dst_repo', dstrepoID);
     form.append('dst_dir', dstfilePath);
-    form.append('file_names', filesName);
+    form.append('file_names', fileNames);
     return this._sendPostRequest(url, form);
   }
 
-  deleteMutipleDir(repoID, sourcePath, fileNames) {
-    const path = encodeURIComponent(sourcePath);
+  deleteMutipleDirents(repoID, parentPath, direntNames) {
+    let fileNames = '';
+    for (let i = 0; i < direntNames.length; i++) {
+      if (i < direntNames.length - 1) {
+        fileNames += direntNames[i] + ':';
+      } else {
+        fileNames += direntNames[i];
+      }
+    }
+    const path = encodeURIComponent(parentPath);
     const url = this.server + '/api2/repos/' + repoID + '/fileops/delete/?p=' + path;
     let form = new FormData();
     form.append('file_names', fileNames);
