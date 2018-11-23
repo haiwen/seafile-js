@@ -321,6 +321,14 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
+  deleteMutipleDir(repoID, sourcePath, fileNames) {
+    const path = encodeURIComponent(sourcePath);
+    const url = this.server + '/api2/repos/' + repoID + '/fileops/delete/?p=' + path;
+    let form = new FormData();
+    form.append('file_names', fileNames);
+    return this._sendPostRequest(url, form);
+  }
+
   searchFiles(searchParams, cancelToken) {
     const url = this.server + '/api2/search/';
     return this.req.get(url, {params: searchParams, cancelToken : cancelToken});
