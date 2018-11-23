@@ -300,24 +300,62 @@ class SeafileAPI {
   }
 
   // copy files or dirs
-  copyDir(repoID, dstrepoID, dstfilePath, dirPath, filesName) {
+  copyDir(repoID, dstrepoID, dstfilePath, dirPath, direntNames) {
+    let fileNames = direntNames;
+    if (Array.isArray(direntNames)) {
+      fileNames = '';
+      for (let i = 0; i < direntNames.length; i++) {
+        if (i < direntNames.length - 1) {
+          fileNames += direntNames[i] + ':';
+        } else {
+          fileNames += direntNames[i];
+        }
+      }
+    }
     const path = encodeURIComponent(dirPath);
     const url = this.server + '/api2/repos/' + repoID + '/fileops/copy/?p=' + path;
     let form = new FormData();
     form.append('dst_repo', dstrepoID);
     form.append('dst_dir', dstfilePath);
-    form.append('file_names', filesName);
+    form.append('file_names', fileNames);
     return this._sendPostRequest(url, form);
   }
   
   //move files or dirs
-  moveDir(repoID, dstrepoID, dstfilePath, dirPath, filesName) {
+  moveDir(repoID, dstrepoID, dstfilePath, dirPath, direntNames) {
+    let fileNames = direntNames;
+    if (Array.isArray(direntNames)) {
+      fileNames = '';
+      for (let i = 0; i < direntNames.length; i++) {
+        if (i < direntNames.length - 1) {
+          fileNames += direntNames[i] + ':';
+        } else {
+          fileNames += direntNames[i];
+        }
+      }
+    }
     const path = encodeURIComponent(dirPath);
     const url = this.server + '/api2/repos/' + repoID + '/fileops/move/?p=' + path;
     let form = new FormData();
     form.append('dst_repo', dstrepoID);
     form.append('dst_dir', dstfilePath);
-    form.append('file_names', filesName);
+    form.append('file_names', fileNames);
+    return this._sendPostRequest(url, form);
+  }
+
+  deleteMutipleDirents(repoID, parentDir, direntNames) {
+    let fileNames = '';
+    for (let i = 0; i < direntNames.length; i++) {
+      if (i < direntNames.length - 1) {
+        fileNames += direntNames[i] + ':';
+      } else {
+        fileNames += direntNames[i];
+      }
+    }
+    const path = encodeURIComponent(parentDir);
+    const url = this.server + '/api2/repos/' + repoID + '/fileops/delete/?p=' + path;
+    let form = new FormData();
+    form.append('file_names', fileNames);
     return this._sendPostRequest(url, form);
   }
 
@@ -524,7 +562,16 @@ class SeafileAPI {
   }
 
   zipDownload(repoID, parent_dir, dirents) {
-    const url = this.server + '/api/v2.1/repos/' + repoID + '/zip-task/?parent_dir=' + parent_dir + '&dirents=' + dirents;
+    let url = '';
+    if (Array.isArray(dirents)) {
+      let params = '';
+      for (let i = 0; i < dirents.length; i++) {
+        params += '&dirents=' + dirents[i];
+      }
+      url = this.server + '/api/v2.1/repos/' + repoID + '/zip-task/?parent_dir=' + parent_dir + params;
+    } else {
+      url = this.server + '/api/v2.1/repos/' + repoID + '/zip-task/?parent_dir=' + parent_dir + '&dirents=' + dirents;
+    }
     return this.req.get(url);
   }
 
