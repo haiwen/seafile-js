@@ -533,7 +533,7 @@ class SeafileAPI {
 
   zipDownload(repoID, parent_dir, dirents) {
     let url = '';
-    if (Array.isArray(dirents)){
+    if (Array.isArray(dirents)) {
       let params = '';
       for (let i = 0; i < dirents.length; i++) {
         params += '&dirents=' + dirents[i];
