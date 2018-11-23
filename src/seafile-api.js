@@ -729,6 +729,11 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
+  listTaggedFiles(repoID, repoTagId) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/tagged-files/' + repoTagId + '/';
+    return this.req.get(url);
+  }
+
 }
 
 export { SeafileAPI };
