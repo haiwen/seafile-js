@@ -115,6 +115,11 @@ class SeafileAPI {
     });
   }
 
+  deleteRepo(repoID) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/';
+    return this.req.delete(url);
+  }
+
   //---- folder API
 
   listDir(repoID, dirPath, opts = {}) {
