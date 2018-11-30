@@ -382,11 +382,12 @@ class SeafileAPI {
   }
 
   //---- ShareLink API
-  createShareLink(repoID, path, password, expireDays) {
+  createShareLink(repoID, path, password, expireDays, permissions) {
     const url = this.server + '/api/v2.1/share-links/';
     let form = new FormData();
     form.append('path', path);
     form.append('repo_id', repoID);
+    form.append('permissions', permissions);
     if (password) {
       form.append('password', password);
     }
@@ -751,6 +752,28 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  shareFolder(repoID, path, shareType, permission, paramArray) {
+    var form = new FormData();
+    form.append('share_type', shareType);
+    form.append('permission', permission);
+    if (shareType == 'user') {
+      for (let i = 0; i < paramArray.length; i++) {
+        form.append('username', paramArray[i]);
+      }
+    } else {
+      for (let i = 0; i < paramArray.length; i++) {
+        form.append('group_id', paramArray[i]);
+      }
+    }
+    const url = this.server + '/api2/repos/' + repoID + '/dir/shared_items/?p=' + path;
+    return this.req.put(url, form); 
+  }
+
+  listSharedItems(repoID, path, shareType) {
+    const url = this.server + '/api2/repos/' + repoID + '/dir/shared_items/?p=' + path + '&share_type=' + shareType;
+    return this.req.get(url);
+  }
+
   updateFolderSharePerm(repoID, data, options) {
     const url = this.server + '/api2/repos/' + repoID + '/dir/shared_items/';
     return this.req.post(url, data, {params: options}); // due to the old api, use 'post' here
@@ -763,6 +786,22 @@ class SeafileAPI {
 
   listShareLinks() {
     const url = this.server + '/api/v2.1/share-links/';
+    return this.req.get(url);
+  }
+
+  createUploadLink(repoID, path, password) {
+    const url = this.server + '/api/v2.1/upload-links/';
+    let form = new FormData();
+    form.append('path', path);
+    form.append('repo_id', repoID);
+    if (password) {
+      form.append('password', password);
+    }
+    return this._sendPostRequest(url, form);
+  }
+
+  getUploadLinks(repoID, path) {
+    const url = this.server + '/api/v2.1/upload-links/?repo_id=' + repoID + '&path=' + path;
     return this.req.get(url);
   }
 
@@ -815,6 +854,35 @@ class SeafileAPI {
       file_path: filePath
     };
     return this.req.delete(url, { data: params });
+  }
+
+  shareableGroups() {
+    const url = this.server + '/api/v2.1/shareable-groups/';
+    return this.req.get(url);
+  }
+
+  deleteShareToUserItem(repoID, path, shareType, username) {
+    const url = this.server + '/api2/repos/' + repoID + '/dir/shared_items/?p=' + path + '&share_type=' + shareType + '&username=' + username;
+    return this.req.delete(url); 
+  }
+
+  updateShareToUserItemPermission(repoID, path, shareType, username, permission) {
+    const url = this.server + '/api2/repos/' + repoID + '/dir/shared_items/?p=' + path + '&share_type=' + shareType + '&username=' + username;
+    let form = new FormData();
+    form.append('permission', permission);
+    return this._sendPostRequest(url, form);
+  }
+
+  deleteShareToGroupItem(repoID, path, shareType, groupID) {
+    const url = this.server + '/api2/repos/' + repoID + '/dir/shared_items/?p=' + path + '&share_type=' + shareType + '&group_id=' + groupID;
+    return this.req.delete(url);
+  }
+
+  updateShareToGroupItemPermission(repoID, path, shareType, groupID, permission) {
+    const url = this.server + '/api2/repos/' + repoID + '/dir/shared_items/?p=' + path + '&share_type=' + shareType + '&group_id=' + groupID;
+    let form = new FormData();
+    form.append('permission', permission);
+    return this._sendPostRequest(url, form);
   }
 }
 
