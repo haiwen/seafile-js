@@ -884,6 +884,21 @@ class SeafileAPI {
     form.append('permission', permission);
     return this._sendPostRequest(url, form);
   }
+
+  listGroupsV2(options) {
+    const url = this.server + '/api/v2.1/groups/';
+    return this.req.get(url, {params: options});
+  }
+
+  getGroup(groupID) {
+    const url = this.server + '/api/v2.1/groups/' + groupID + '/';
+    return this.req.get(url);
+  }
+
+  listGroupRepos(groupID) {
+    const url = this.server + '/api/v2.1/groups/' + groupID + '/libraries/';
+    return this.req.get(url);
+  }
 }
 
 export { SeafileAPI };
