@@ -899,6 +899,22 @@ class SeafileAPI {
     const url = this.server + '/api/v2.1/groups/' + groupID + '/libraries/';
     return this.req.get(url);
   }
+
+  // create Repo
+  createMineRepo(repo) {
+    const url = this.server + '/api2/repos/?from=web';
+    return this.req.post(url, repo);
+  }
+  
+  createPublicRepo(repo) {
+    const url = this.server + '/api2/repos/public/';
+    return this.req.post(url, repo);
+  }
+  
+  createGroupRepo(groupID, repo) {
+    const url = this.server + '/api2/groups/'+ groupID + '/repos/';
+    return this.req.post(url, repo);
+  }
 }
 
 export { SeafileAPI };
