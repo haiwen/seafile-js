@@ -120,6 +120,27 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
+  createMineRepo(repo) {
+    const url = this.server + '/api2/repos/?from=web';
+    return this.req.post(url, repo);
+  }
+  
+  createPublicRepo(repo) {
+    const url = this.server + '/api2/repos/public/';
+    return this.req.post(url, repo);
+  }
+  
+  createGroupRepo(groupID, repo) {
+    const url = this.server + '/api/v2.1/groups/'+ groupID + '/libraries/';
+    let form = new FormData();
+    form.append("repo_name", repo.repo_name);
+    if (repo.password) {
+      form.append("password", repo.password);
+    }
+    form.append("permission", repo.permission);
+    return this._sendPostRequest(url, form);
+  }
+
   //---- folder API
 
   listDir(repoID, dirPath, opts = {}) {
@@ -900,21 +921,6 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  // create Repo
-  createMineRepo(repo) {
-    const url = this.server + '/api2/repos/?from=web';
-    return this.req.post(url, repo);
-  }
-  
-  createPublicRepo(repo) {
-    const url = this.server + '/api2/repos/public/';
-    return this.req.post(url, repo);
-  }
-  
-  createGroupRepo(groupID, repo) {
-    const url = this.server + '/api2/groups/'+ groupID + '/repos/';
-    return this.req.post(url, repo);
-  }
 }
 
 export { SeafileAPI };
