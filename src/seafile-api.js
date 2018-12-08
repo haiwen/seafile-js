@@ -921,6 +921,55 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  //---- wiki API
+  listWikis(options) {
+    /*
+     * options: `{type: 'shared'}`, `{type: ['mine', 'shared', ...]}`
+     */
+    let url = this.server + '/api/v2.1/wikis/';
+    if (!options) {
+      // fetch all types of wikis
+      return this.req.get(url);
+    }
+    return this.req.get(url, {
+      params: options,
+      paramsSerializer: function paramsSerializer(params) {
+        let list = [];
+        for (let key in params) {
+          if (Array.isArray(params[key])) {
+            for (let i = 0, len = params[key].length; i < len; i++) {
+              list.push(key + '=' + encodeURIComponent(params[key][i]));
+            }
+          } else {
+            list.push(key + '=' + encodeURIComponent(params[key]));
+          }
+        }
+        return list.join('&');
+      }
+    });
+  }
+
+  addWiki(isExist, name, repoID) {
+    const url = this.server + '/api/v2.1/wikis/';
+    let form = new FormData();
+    form.append('use_exist_repo', isExist);
+    form.append('repo_id', repoID);
+    form.append('name', name);
+    return this._sendPostRequest(url, form);
+  }
+
+  renameWiki(slug, name) {
+    const url = this.server + '/api/v2.1/wikis/' + slug + '/';
+    let form = new FormData();
+    form.append('wiki_name', name);
+    return this._sendPostRequest(url, form);
+  }
+
+  deleteWiki(slug) {
+    const url = this.server + '/api/v2.1/wikis/' + slug + '/';
+    return this.req.delete(url);
+  }
+
 }
 
 export { SeafileAPI };
