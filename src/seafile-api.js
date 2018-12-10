@@ -141,6 +141,49 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
+  getRepoInfo(repoID) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/';
+    return this.req.get(url);
+  }
+
+  transferRepo(repoID, owner) {
+    const url = this.server + '/api2/repos/' + repoID + '/owner/';
+    let form = new FormData();
+    form.append('owner', owner);
+    return this.req.put(url, form);
+  }
+
+  getRepoHistoryLimit(repoID) {
+    const url = this.server + '/api2/repos/' + repoID + '/history-limit/';
+    return this.req.get(url);
+  }
+
+  setRepoHistoryLimit(repoID, historyDays) {
+    const url = this.server + '/api2/repos/' + repoID + '/history-limit/';
+    let form = new FormData();
+    form.append('keep_days', historyDays);
+    return this.req.put(url, form);
+  }
+
+  renameRepo(repoID, newName) {
+    const url = this.server + '/api2/repos/' + repoID + '/?op=rename';
+    let form = new FormData();
+    form.append('repo_name', newName);
+    return this._sendPostRequest(url, form);
+  }
+
+  listDeletedRepo() {
+    const url = this.server + '/api/v2.1/deleted-repos/';
+    return this.req.get(url);
+  }
+
+  restoreDeletedRepo(repoID) {
+    const url = this.server + '/api/v2.1/deleted-repos/';
+    let form = new FormData();
+    form.append('repo_id', repoID);
+    return this._sendPostRequest(url, form);
+  }
+
   //---- folder API
 
   listDir(repoID, dirPath, opts = {}) {
@@ -154,11 +197,6 @@ class SeafileAPI {
 
   listWikiDir(slug, dirPath) {
     const url = this.server + '/api/v2.1/wikis/' + slug + '/dir/?p=' + dirPath;
-    return this.req.get(url);
-  }
-
-  getRepoInfo(repoID) {
-    const url = this.server + '/api/v2.1/repos/' + repoID + '/';
     return this.req.get(url);
   }
 
