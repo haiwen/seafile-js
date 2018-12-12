@@ -483,6 +483,13 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  createGroup(name) {
+    const url = this.server + '/api/v2.1/groups/';
+    let form = new FormData();
+    form.append('name', name);
+    return this._sendPostRequest(url, form);
+  }
+
   // ---- Activities API
   listActivities(pageNum, avatarSize=36) {
     const url = this.server + '/api/v2.1/activities/?page=' + pageNum + '&size=' + avatarSize;
