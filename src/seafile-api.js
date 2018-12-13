@@ -188,7 +188,8 @@ class SeafileAPI {
 
   listDir(repoID, dirPath, opts = {}) {
     const { recursive } = opts;
-    var url =  this.server + '/api/v2.1/repos/' + repoID + '/dir/?p=' + dirPath;
+    const path = encodeURIComponent(dirPath);
+    var url =  this.server + '/api/v2.1/repos/' + repoID + '/dir/?p=' + path;
     if (recursive) {
       url = url + '&recursive=1';
     }
@@ -196,7 +197,8 @@ class SeafileAPI {
   }
 
   listWikiDir(slug, dirPath) {
-    const url = this.server + '/api/v2.1/wikis/' + slug + '/dir/?p=' + dirPath;
+    const path = encodeURIComponent(dirPath);
+    const url = this.server + '/api/v2.1/wikis/' + slug + '/dir/?p=' + path;
     return this.req.get(url);
   }
 
