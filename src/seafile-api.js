@@ -308,14 +308,16 @@ class SeafileAPI {
 
   //----file and dir API
   createDir(repoID, dirPath) {
-    const url =  this.server + '/api2/repos/' + repoID + '/dir/?p=' + dirPath;
+    const path = encodeURIComponent(dirPath);
+    const url =  this.server + '/api2/repos/' + repoID + '/dir/?p=' + path;
     let form = new FormData();
     form.append('operation', 'mkdir');
     return this._sendPostRequest(url, form);
   }
 
   createFile(repoID, filePath, isDraft) {
-    const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + filePath;
+    const path = encodeURIComponent(filePath);
+    const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + path;
     let form = new FormData();
     form.append('operation', 'create');
     form.append('is_draft', isDraft);
@@ -323,7 +325,8 @@ class SeafileAPI {
   }
 
   renameFile(repoID, filePath, newfileName) {
-    const url = this.server + '/api/v2.1/repos/' + repoID + '/file/?p=' + filePath;
+    const path = encodeURIComponent(filePath);
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/file/?p=' + path;
     let form = new FormData();
     form.append('operation', 'rename');
     form.append('newname', newfileName);
@@ -350,7 +353,8 @@ class SeafileAPI {
 
   //function don't have response
   renameDir(repoID, dirPath, newdirName) {
-    const url = this.server + '/api2/repos/' + repoID + '/dir/?p=' + dirPath;
+    const path = encodeURIComponent(dirPath);
+    const url = this.server + '/api2/repos/' + repoID + '/dir/?p=' + path;
     let form = new FormData();
     form.append("operation", 'rename');
     form.append("newname", newdirName);
