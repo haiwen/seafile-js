@@ -340,16 +340,14 @@ class SeafileAPI {
   }
 
   lockfile(repoID, filePath) {
-    const path = encodeURIComponent(filePath);
     const url = this.server + '/api2/repos/'+ repoID + '/file/'
-    let params = {p: path, operation: 'lock'};
+    let params = {p: filePath, operation: 'lock'};
     return this.req.put(url, params);
   }
 
   unlockfile(repoID, filePath) {
-    const path = encodeURIComponent(filePath);
     const url = this.server + '/api2/repos/'+ repoID + '/file/'
-    let params = {p: path, operation: 'unlock'};
+    let params = {p: filePath, operation: 'unlock'};
     return this.req.put(url, params);
   }
 
