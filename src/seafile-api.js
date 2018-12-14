@@ -184,6 +184,13 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
+  setRepoDecryptPassword(repoID, password) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/set-password/';
+    let form = new FormData();
+    form.append('password', password);
+    return this._sendPostRequest(url, form);
+  }
+
   //---- folder API
 
   listDir(repoID, dirPath, opts = {}) {
