@@ -1029,17 +1029,17 @@ class SeafileAPI {
   }
 
     // group owner repo (department)
-    createGroupOwnedLibrary(groupID, repoName, password, permission) { // need check
-      permission = permission ? permission : 'rw';
-      const url = this.server + '/api/v2.1/groups/'+ groupID + 'group-owned-libraries/';
+    createGroupOwnedLibrary(groupID, repo) {
+      let repoName = repo.repo_name;
+      let permission = repo.permission ? permission : 'rw';
+      const url = this.server + '/api/v2.1/groups/'+ groupID + '/group-owned-libraries/';
       let form = new FormData();
-      form.append('repo_name', repoName);
-      form.append('password', password);
+      form.append('name', repoName);  // need to modify endpoint api;
       form.append('permission', permission);
       return this._sendPostRequest(url, form);
     }
     
-    deleteGroupOwnedLibrary(groupID, repoID) { // need check
+    deleteGroupOwnedLibrary(groupID, repoID) {
       const url = this.server + '/api/v2.1/groups/'+ groupID + '/group-owned-libraries/' + repoID+ '/';
       return this.req.delete(url);
     }
