@@ -191,6 +191,78 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
+  // group owner repo (department)
+  createGroupOwnedLibrary(groupID, repo) {
+    let repoName = repo.repo_name;
+    let permission = repo.permission ? permission : 'rw';
+    const url = this.server + '/api/v2.1/groups/'+ groupID + '/group-owned-libraries/';
+    let form = new FormData();
+    form.append('name', repoName);  // need to modify endpoint api;
+    form.append('permission', permission);
+    return this._sendPostRequest(url, form);
+  }
+  
+  deleteGroupOwnedLibrary(groupID, repoID) {
+    const url = this.server + '/api/v2.1/groups/'+ groupID + '/group-owned-libraries/' + repoID+ '/';
+    return this.req.delete(url);
+  }
+  
+  shareGroupOwnedRepoToUser(repoID, permission, username) {
+    const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/user-share/'
+    let form = new FormData();
+    form.append('permission', permission);
+    if (Array.isArray(username)) {
+      username.forEach(item => {
+        form.append('username', item);
+      });
+    } else {
+      form.append('username', username);
+    }
+    return this._sendPostRequest(url, form);
+  }
+
+  modifyGroupOwnedRepoUserSharedPermission(repoID, permission, username) { //need check
+    const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/user-share/'
+    let form = new FormData();
+    form.append('permission', permission);
+    form.append('username', username);
+    return this.req.put(url, form);
+  }
+
+  deleteGroupOwnedRepoSharedUserItem(repoID, username) {
+    const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/user-share/'
+    let params = {username: username};
+    return this.req.delete(url, {data: params});
+  }
+
+  shareGroupOwnedRepoToGroup(repoID, permission, groupID) {
+    const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/group-share/'
+    let form = new FormData();
+    form.append('permission', permission);
+    if (Array.isArray(groupID)) {
+      groupID.forEach(item => {
+        form.append('group_id', item);
+      });
+    } else {
+      form.append('group_id', groupID);
+    }
+    return this._sendPostRequest(url, form);
+  }
+
+  modifyGroupOwnedRepoGroupSharedPermission(repoID, permission, groupID) { //need check
+    const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/group-share/'
+    let form = new FormData();
+    form.append('permission', permission);
+    form.append('group_id', groupID);
+    return this.req.put(url, form);
+  }
+
+  deleteGroupOwnedRepoSharedGroupItem(repoID, groupID) {
+    const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/group-share/'
+    let params = {group_id: groupID};
+    return this.req.delete(url, {data: params});
+  }
+
   //---- folder API
 
   listDir(repoID, dirPath, opts = {}) {
@@ -1027,78 +1099,6 @@ class SeafileAPI {
     const url = this.server + '/api/v2.1/wikis/' + slug + '/';
     return this.req.delete(url);
   }
-
-    // group owner repo (department)
-    createGroupOwnedLibrary(groupID, repo) {
-      let repoName = repo.repo_name;
-      let permission = repo.permission ? permission : 'rw';
-      const url = this.server + '/api/v2.1/groups/'+ groupID + '/group-owned-libraries/';
-      let form = new FormData();
-      form.append('name', repoName);  // need to modify endpoint api;
-      form.append('permission', permission);
-      return this._sendPostRequest(url, form);
-    }
-    
-    deleteGroupOwnedLibrary(groupID, repoID) {
-      const url = this.server + '/api/v2.1/groups/'+ groupID + '/group-owned-libraries/' + repoID+ '/';
-      return this.req.delete(url);
-    }
-    
-    shareGroupOwnedRepoToUser(repoID, permission, username) {
-      const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/user-share/'
-      let form = new FormData();
-      form.append('permission', permission);
-      if (Array.isArray(username)) {
-        username.forEach(item => {
-          form.append('username', item);
-        });
-      } else {
-        form.append('username', username);
-      }
-      return this._sendPostRequest(url, form);
-    }
-  
-    modifyGroupOwnedRepoUserSharedPermission(repoID, permission, username) { //need check
-      const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/user-share/'
-      let form = new FormData();
-      form.append('permission', permission);
-      form.append('username', username);
-      return this.req.put(url, form);
-    }
-  
-    deleteGroupOwnedRepoSharedUserItem(repoID, username) {
-      const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/user-share/'
-      let params = {username: username};
-      return this.req.delete(url, {data: params});
-    }
-  
-    shareGroupOwnedRepoToGroup(repoID, permission, groupID) {
-      const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/group-share/'
-      let form = new FormData();
-      form.append('permission', permission);
-      if (Array.isArray(groupID)) {
-        groupID.forEach(item => {
-          form.append('group_id', item);
-        });
-      } else {
-        form.append('group_id', groupID);
-      }
-      return this._sendPostRequest(url, form);
-    }
-  
-    modifyGroupOwnedRepoGroupSharedPermission(repoID, permission, groupID) { //need check
-      const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/group-share/'
-      let form = new FormData();
-      form.append('permission', permission);
-      form.append('group_id', groupID);
-      return this.req.put(url, form);
-    }
-  
-    deleteGroupOwnedRepoSharedGroupItem(repoID, groupID) {
-      const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/group-share/'
-      let params = {group_id: groupID};
-      return this.req.delete(url, {data: params});
-    }
 
 }
 
