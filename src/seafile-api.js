@@ -904,6 +904,7 @@ class SeafileAPI {
   }
 
   shareFolder(repoID, path, shareType, permission, paramArray) {
+    path = encodeURIComponent(path);
     var form = new FormData();
     form.append('share_type', shareType);
     form.append('permission', permission);
@@ -921,6 +922,7 @@ class SeafileAPI {
   }
 
   listSharedItems(repoID, path, shareType) {
+    path = encodeURIComponent(path);
     const url = this.server + '/api2/repos/' + repoID + '/dir/shared_items/?p=' + path + '&share_type=' + shareType;
     return this.req.get(url);
   }
