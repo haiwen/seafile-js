@@ -83,7 +83,7 @@ class SeafileAPI {
     return this.req.get(url);
   }
   
-  // -- begin group operation -- //
+  //---- Group operation
   listGroups() {
     const url = this.server + '/api2/groups/';
     return this.req.get(url);
@@ -194,9 +194,8 @@ class SeafileAPI {
     let params = {group_id: groupID};
     return this.req.delete(url, {data: params});
   }
-  // -- end group operation -- //
 
-  // -- begin share operation -- //
+  //---- share operation
 
   // share-link
   listShareLinks() {
@@ -383,9 +382,8 @@ class SeafileAPI {
     const url = this.server + '/api2/repos/' + repoID + '/dir/shared_items/';
     return this.req.delete(url, {params: options});
   }
-  // -- end share operation -- //
 
-  // -- begin repo(library) operation -- //
+  //---- repo(library) operation 
   createMineRepo(repo) {
     const url = this.server + '/api2/repos/?from=web';
     return this.req.post(url, repo);
@@ -484,10 +482,9 @@ class SeafileAPI {
     return this.req.put(url, options);
   }
 
-  // remove Public repo is same to unshareRepo;
+  // remove public repo is same to unshareRepo;
 
-  // for search
-  getSource() {
+  getSource() {   // for search
     let CancelToken = axios.CancelToken;
     let source = CancelToken.source();
     return source;
@@ -496,39 +493,6 @@ class SeafileAPI {
   searchFiles(searchParams, cancelToken) {
     const url = this.server + '/api2/search/';
     return this.req.get(url, {params: searchParams, cancelToken : cancelToken});
-  }
-
-  // repo tags
-  listRepoTags(repoID) {
-    var url = this.server + '/api/v2.1/repos/' + repoID + '/repo-tags/';
-    return this.req.get(url);
-  }
-
-  createRepoTag(repoID, name, color) {
-    var url = this.server + '/api/v2.1/repos/' + repoID + '/repo-tags/';
-    var form = new FormData();
-    form.append('name', name);
-    form.append('color', color);
-    return this._sendPostRequest(url, form);
-  }
-
-  deleteRepoTag(repoID, repo_tag_id) {
-    var url = this.server + '/api/v2.1/repos/' + repoID + '/repo-tags/' + repo_tag_id + '/';
-    return this.req.delete(url);
-  }
-
-  updateRepoTag(repoID, repo_tag_id, name, color) {
-    var url = this.server + '/api/v2.1/repos/' + repoID + '/repo-tags/' + repo_tag_id + '/';
-    var params = {
-      name: name,
-      color: color,
-    };
-    return this.req.put(url, params);
-  }
-
-  listTaggedFiles(repoID, repoTagId) {
-    const url = this.server + '/api/v2.1/repos/' + repoID + '/tagged-files/' + repoTagId + '/';
-    return this.req.get(url);
   }
 
   //admin 
@@ -544,9 +508,7 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
-  // -- end repo(library) operation -- //
-
-  // -- begin directory operation -- //
+  //---- directory operation
   listDir(repoID, dirPath, opts = {}) {
     const { recursive } = opts;
     const path = encodeURIComponent(dirPath);
@@ -592,9 +554,7 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  // -- end directory operation -- //
-
-  // -- beigin multiple(File&Folder) operation -- //
+  //---- multiple(File&Folder) operation
   copyDir(repoID, dstrepoID, dstfilePath, dirPath, direntNames) {
     let fileNames = direntNames;
     if (Array.isArray(direntNames)) {
@@ -678,9 +638,8 @@ class SeafileAPI {
     form.append("token", zip_token);
     return this.req.post(url, form);
   }
-  // -- end multiple(File&Folder) operation -- //
 
-  // -- beigin file operation -- //
+  //---- File Operation
   getFileInfo(repoID, filePath) {
     const path = encodeURIComponent(filePath);
     const url = this.server + '/api2/repos/' + repoID + '/file/detail/?p=' + path;
@@ -810,26 +769,6 @@ class SeafileAPI {
   getFileRevision(repoID, commitID, filePath) {
     let url = this.server + '/api2/' + 'repos/' + repoID + '/file' + '/revision/?p=' + filePath + '&commit_id=' + commitID
     return this.req.get(url);
-  }
-
-  // file tag api
-  listFileTags(repoID, filePath) {
-    var p = encodeURIComponent(filePath)
-    var url = this.server + '/api/v2.1/repos/' + repoID + '/file-tags/?file_path=' + p;
-    return this.req.get(url);
-  }
-
-  addFileTag(repoID, filePath, repoTagId) {
-    var form = new FormData();
-    form.append('file_path', filePath);
-    form.append('repo_tag_id', repoTagId);
-    var url = this.server + '/api/v2.1/repos/' + repoID + '/file-tags/';
-    return this._sendPostRequest(url, form);
-  }
-
-  deleteFileTag(repoID, fileTagId) {
-    var url = this.server + '/api/v2.1/repos/' + repoID + '/file-tags/' + fileTagId + '/';
-    return this.req.delete(url);
   }
 
   // file commit api
@@ -1008,6 +947,60 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
+  //---- tags module api
+  // repo tags
+  listRepoTags(repoID) {
+    var url = this.server + '/api/v2.1/repos/' + repoID + '/repo-tags/';
+    return this.req.get(url);
+  }
+
+  createRepoTag(repoID, name, color) {
+    var url = this.server + '/api/v2.1/repos/' + repoID + '/repo-tags/';
+    var form = new FormData();
+    form.append('name', name);
+    form.append('color', color);
+    return this._sendPostRequest(url, form);
+  }
+
+  deleteRepoTag(repoID, repo_tag_id) {
+    var url = this.server + '/api/v2.1/repos/' + repoID + '/repo-tags/' + repo_tag_id + '/';
+    return this.req.delete(url);
+  }
+
+  updateRepoTag(repoID, repo_tag_id, name, color) {
+    var url = this.server + '/api/v2.1/repos/' + repoID + '/repo-tags/' + repo_tag_id + '/';
+    var params = {
+      name: name,
+      color: color,
+    };
+    return this.req.put(url, params);
+  }
+
+  listTaggedFiles(repoID, repoTagId) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/tagged-files/' + repoTagId + '/';
+    return this.req.get(url);
+  }
+
+  // file tag api
+  listFileTags(repoID, filePath) {
+    var p = encodeURIComponent(filePath)
+    var url = this.server + '/api/v2.1/repos/' + repoID + '/file-tags/?file_path=' + p;
+    return this.req.get(url);
+  }
+
+  addFileTag(repoID, filePath, repoTagId) {
+    var form = new FormData();
+    form.append('file_path', filePath);
+    form.append('repo_tag_id', repoTagId);
+    var url = this.server + '/api/v2.1/repos/' + repoID + '/file-tags/';
+    return this._sendPostRequest(url, form);
+  }
+
+  deleteFileTag(repoID, fileTagId) {
+    var url = this.server + '/api/v2.1/repos/' + repoID + '/file-tags/' + fileTagId + '/';
+    return this.req.delete(url);
+  }
+
   //---- RelatedFile API
   listRelatedFiles(repoID, filePath) {
     const p = encodeURIComponent(filePath);
@@ -1046,16 +1039,14 @@ class SeafileAPI {
     const url = this.server + '/api/v2.1/wikis/' + slug + '/content/' + '?p=' + path + '&_=' + time;
     return this.req.get(url)
   }
-  // -- end file operation -- //
 
-  // -- beigin Avatar API -- //
+  //---- Avatar API
   getUserAvatar(user, size) {
     const url = this.server + '/api2/avatars/user/' + user + '/resized/' + size +'/';
     return this.req.get(url);
   }
-  // -- end Avatar API -- //
 
-  // -- begin Notification API -- //
+  //---- Notification API
   listPopupNotices() {
     const url = this.server + '/ajax/get_popup_notices/';
     return this.req.get(url, { headers: {'X-Requested-With': 'XMLHttpRequest'}});
@@ -1065,9 +1056,8 @@ class SeafileAPI {
     const url = this.server + '/api/v2.1/notifications/';
     return this.req.put(url);
   }
-  // -- end Notification API -- //
 
-  //-- begin Linked Devices API -- //
+  //---- Linked Devices API
   listLinkedDevices() {
     const url = this.server + '/api2/devices/';
     return this.req.get(url);
@@ -1081,31 +1071,27 @@ class SeafileAPI {
     };
     return this.req.delete(url, {data: param});
   }
-  //-- end Linked Devices API -- //
   
-  // -- begin Activities API -- //
+  //---- Activities API
   listActivities(pageNum, avatarSize=36) {
     const url = this.server + '/api/v2.1/activities/?page=' + pageNum + '&size=' + avatarSize;
     return this.req.get(url);
   }
-  // -- end Activities API -- //
 
-  // -- begin Thumbnail API -- //
+  //---- Thumbnail API
   createThumbnail(repo_id, path, thumbnail_size) {
     const url = this.server + '/thumbnail/' + repo_id + '/create/?path=' +
     encodeURIComponent(path) + '&size=' + thumbnail_size;
     return this.req.get(url, {headers: {'X-Requested-With': 'XMLHttpRequest'}});
   }
-  // -- end Thumbnail API -- //
 
-  // -- beign Users API -- //
+  //---- Users API
   searchUsers(searchParam) {
     const url = this.server + '/api2/search-user/?q=' + encodeURIComponent(searchParam);
     return this.req.get(url);
   }
-  // -- end Users API -- //
 
-  //-- begin wiki module API -- //
+  //---- wiki module API
   listWikis(options) {
     /*
      * options: `{type: 'shared'}`, `{type: ['mine', 'shared', ...]}`
@@ -1153,7 +1139,6 @@ class SeafileAPI {
     const url = this.server + '/api/v2.1/wikis/' + slug + '/';
     return this.req.delete(url);
   }
-  //-- end wiki module API -- //
 }
 
 export { SeafileAPI };
