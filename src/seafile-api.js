@@ -575,6 +575,19 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
+  renameGroup(groupID, name) {
+    const url = this.server + '/api/v2.1/groups/' + groupID + '/';
+    const params = {
+      name: name
+    }
+    return this.req.put(url, params);
+  }
+  
+  deleteGroup(groupID) {
+    const url = this.server + '/api/v2.1/groups/' + groupID + '/';
+    return this.req.delete(url);
+  }
+
   // ---- Activities API
   listActivities(pageNum, avatarSize=36) {
     const url = this.server + '/api/v2.1/activities/?page=' + pageNum + '&size=' + avatarSize;
