@@ -1,6 +1,5 @@
 var axios = require('axios');
 var FormData = require('form-data');
-var fs = require('fs');
 
 class SeafileAPI {
 
@@ -480,7 +479,7 @@ class SeafileAPI {
     return this.req.post(url, repo);
   }
 
-  shareRepo(repoID, options) { // todo change a exist repo to public
+  selectOwnedRepoToPublic(repoID, options) { // todo change a exist repo to public
     const url = this.server + '/api/v2.1/shared-repos/' + repoID + '/';
     return this.req.put(url, options);
   }
@@ -1083,7 +1082,6 @@ class SeafileAPI {
     return this.req.delete(url, {data: param});
   }
   //-- end Linked Devices API -- //
-  
   
   // -- begin Activities API -- //
   listActivities(pageNum, avatarSize=36) {
