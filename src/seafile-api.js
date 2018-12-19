@@ -906,6 +906,11 @@ class SeafileAPI {
     return this.req.put(url, options);
   }
 
+  shareRepo(repoID, options) {
+    const url = this.server + '/api/v2.1/shared-repos/' + repoID + '/';
+    return this.req.put(url, options);
+  }
+
   unshareRepo(repoID, options) {
     const url = this.server + '/api/v2.1/shared-repos/' + repoID + '/';
     return this.req.delete(url, {params: options});
