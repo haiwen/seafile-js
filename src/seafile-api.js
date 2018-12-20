@@ -1139,6 +1139,17 @@ class SeafileAPI {
     const url = this.server + '/api/v2.1/wikis/' + slug + '/';
     return this.req.delete(url);
   }
+
+  //----MetaData API
+  fileMetaData(repoID, filePath) {
+    const url = this.server + '/api2/repos/' + repoID + '/file/metadata/?p=' + filePath;
+    return this.req.get(url);
+  }
+
+  dirMetaData(repoID, dirPath) {
+    const url = this.server + '/api2/repos/' + repoID + '/dir/metadata/?p=' + dirPath;
+    return this.req.get(url);
+  }
 }
 
 export { SeafileAPI };
