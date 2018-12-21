@@ -666,7 +666,7 @@ class SeafileAPI {
 
   createFile(repoID, filePath, isDraft) {
     const path = encodeURIComponent(filePath);
-    const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + path;
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/file/?p=' + path;
     let form = new FormData();
     form.append('operation', 'create');
     form.append('is_draft', isDraft);
