@@ -124,6 +124,57 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
+  transferGroup(groupID, ownerName) {
+    const url = this.server + '/api/v2.1/groups/' + groupID + '/';
+    const params = {
+      owner: ownerName
+    }
+    return this.req.put(url, params);
+  }
+
+  quitGroup(groupID, userName) {
+    const name = encodeURIComponent(userName);
+    const url = this.server + '/api/v2.1/groups/' + groupID + '/members/' + name + '/';
+    return this.req.delete(url);
+  }
+
+  listGroupMembers(groupID, isAdmin=false, avatarSize=64) {
+    let url = this.server + '/api/v2.1/groups/' + groupID + '/members/?avatar_size=' + avatarSize + '&is_admin=' + isAdmin;
+    return this.req.get(url);
+  }
+
+  addGroupMember(groupID, userName) {
+    const url = this.server + '/api/v2.1/groups/' + groupID + '/members/';
+    const params = {
+      email: userName
+    }
+    return this.req.post(url, params);
+  }
+
+  addGroupMembers(groupID, userNames) {
+    const url = this.server + '/api/v2.1/groups/' + groupID + '/members/bulk/';
+    let form = new FormData();
+    for (let i = 0; i < userNames.length; i++) {
+      form.append("email", userNames[i]);
+    }
+    return this._sendPostRequest(url, form);
+  }
+
+  deleteGroupMember(groupID, userName) {
+    const name = encodeURIComponent(userName);
+    const url = this.server + '/api/v2.1/groups/' + groupID + '/members/' + name + '/';
+    return this.req.delete(url);
+  }
+
+  setGroupAdmin(groupID, userName, isAdmin) {
+    let name = encodeURIComponent(userName);
+    let url = this.server + '/api/v2.1/groups/' + groupID + '/members/' + name + '/';
+    const params = {
+      is_admin: isAdmin
+    }
+    return this.req.put(url, params);
+  }
+
   createGroupOwnedLibrary(groupID, repo) {
     let repoName = repo.repo_name;
     let permission = repo.permission ? permission : 'rw';
