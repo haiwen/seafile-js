@@ -1112,6 +1112,11 @@ class SeafileAPI {
     return this.req.put(url);
   }
 
+  getUnseenNotificationCount() {
+    const url = this.server + '/api/v2.1/notifications/';
+    return this.req.get(url);
+  }
+
   //---- Linked Devices API
   listLinkedDevices() {
     const url = this.server + '/api2/devices/';
