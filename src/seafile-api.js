@@ -1108,9 +1108,8 @@ class SeafileAPI {
     return this.req.put(url);
   }
 
-  getUnseenCount() {
-    const time = new Date().getTime();
-    const url = this.server + '/api/v2.1/notifications/?_=' + time;
+  getUnseenNotificationCount() {
+    const url = this.server + '/api/v2.1/notifications/';
     return this.req.get(url);
   }
 
