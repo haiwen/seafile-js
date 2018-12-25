@@ -1108,6 +1108,12 @@ class SeafileAPI {
     return this.req.put(url);
   }
 
+  getUnseenCount() {
+    const time = new Date().getTime();
+    const url = this.server + '/api/v2.1/notifications/?_=' + time;
+    return this.req.get(url);
+  }
+
   //---- Linked Devices API
   listLinkedDevices() {
     const url = this.server + '/api2/devices/';
