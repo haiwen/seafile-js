@@ -348,11 +348,13 @@ class SeafileAPI {
   // unshare repo to user is same to unshare Folder
 
   deleteShareToUserItem(repoID, path, shareType, username) {
+    path = encodeURIComponent(path);
     const url = this.server + '/api2/repos/' + repoID + '/dir/shared_items/?p=' + path + '&share_type=' + shareType + '&username=' + username;
     return this.req.delete(url); 
   }
 
   updateShareToUserItemPermission(repoID, path, shareType, username, permission) {
+    path = encodeURIComponent(path);
     const url = this.server + '/api2/repos/' + repoID + '/dir/shared_items/?p=' + path + '&share_type=' + shareType + '&username=' + username;
     let form = new FormData();
     form.append('permission', permission);
@@ -364,11 +366,13 @@ class SeafileAPI {
   // unshare repo to group is same to unshare folder
 
   deleteShareToGroupItem(repoID, path, shareType, groupID) {
+    path = encodeURIComponent(path);
     const url = this.server + '/api2/repos/' + repoID + '/dir/shared_items/?p=' + path + '&share_type=' + shareType + '&group_id=' + groupID;
     return this.req.delete(url);
   }
-
+  
   updateShareToGroupItemPermission(repoID, path, shareType, groupID, permission) {
+    path = encodeURIComponent(path);
     const url = this.server + '/api2/repos/' + repoID + '/dir/shared_items/?p=' + path + '&share_type=' + shareType + '&group_id=' + groupID;
     let form = new FormData();
     form.append('permission', permission);
