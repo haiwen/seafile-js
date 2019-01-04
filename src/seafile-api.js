@@ -1082,6 +1082,15 @@ class SeafileAPI {
     return this.req.delete(url, { data: params });
   }
 
+  saveSharedFile(repoID, filePath, sharedToken) {
+    const url = this.server + '/share/link/save/?t=' + sharedToken;
+    let form = new FormData();
+    form.append('dst_repo', repoID);
+    form.append('dst_path', filePath);
+    form.append('s_token', sharedToken);
+    return this._sendPostRequest(url, form);
+  }
+
   getInternalLink(repoID, filePath) {
     const path = encodeURIComponent(filePath);
     const url = this.server + '/api/v2.1/smart-link/?repo_id=' + repoID + '&path=' + path + '&is_dir=false';
