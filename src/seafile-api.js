@@ -154,9 +154,7 @@ class SeafileAPI {
   addGroupMembers(groupID, userNames) {
     const url = this.server + '/api/v2.1/groups/' + groupID + '/members/bulk/';
     let form = new FormData();
-    for (let i = 0; i < userNames.length; i++) {
-      form.append("email", userNames[i]);
-    }
+    form.append('emails', userNames.join(','));
     return this._sendPostRequest(url, form);
   }
 
