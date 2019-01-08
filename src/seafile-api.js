@@ -84,9 +84,9 @@ class SeafileAPI {
   }
   
   //---- Group operation
-  listGroups() {
-    const url = this.server + '/api2/groups/';
-    return this.req.get(url);
+  listGroups(options) {
+    const url = this.server + '/api/v2.1/groups/';
+    return this.req.get(url, {params: options});
   }
 
   listGroupRepos(groupID) {
@@ -94,10 +94,6 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  listGroupsV2(options) {
-    const url = this.server + '/api/v2.1/groups/';
-    return this.req.get(url, {params: options});
-  }
 
   getGroup(groupID) {
     const url = this.server + '/api/v2.1/groups/' + groupID + '/';
