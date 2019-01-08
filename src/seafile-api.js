@@ -85,7 +85,7 @@ class SeafileAPI {
   
   //---- Group operation
   listGroups(withRepos = false) {
-    let options = {with_repos: withRepos};
+    let options = {with_repos: withRepos ? 1 : 0};
     const url = this.server + '/api/v2.1/groups/';
     return this.req.get(url, {params: options});
   }
