@@ -155,6 +155,16 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
+  importGroupMembers(groupID, file) {
+    const url = this.server + '/ajax/group/' + groupID + '/members/import/';
+    let form = new FormData();
+    form.append('file', file);
+    form.getHeaders = function() {
+      return {'X-Requested-With': 'XMLHttpRequest'};
+    }
+    return this._sendPostRequest(url, form);
+  }
+
   deleteGroupMember(groupID, userName) {
     const name = encodeURIComponent(userName);
     const url = this.server + '/api/v2.1/groups/' + groupID + '/members/' + name + '/';
