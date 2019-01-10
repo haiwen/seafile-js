@@ -1199,6 +1199,14 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
+  editWikiPermission(slug, permission) {
+    const url = this.server + '/api/v2.1/wikis/' + slug + '/';
+    let params = {
+      permission: permission
+    };
+    return this.req.put(url, params);
+  }
+
   deleteWiki(slug) {
     const url = this.server + '/api/v2.1/wikis/' + slug + '/';
     return this.req.delete(url);
