@@ -559,14 +559,16 @@ class SeafileAPI {
   }
 
   //---- directory operation
-  listDir(repoID, dirPath, opts = {}) {
+  listDir(repoID, dirPath, { recursive = false, type = '', with_thumbnail = false } = {}) {
     /*
      * opts: `{recursive: true}`, `{'with_thumbnail': true}`
      */
     const url = this.server + '/api/v2.1/repos/' + repoID + '/dir/';
-    let params = opts;
+    let params = {};
     params.p = dirPath;
-    params.recursive = opts.recursive ? 1 : 0;
+    params.recursive = recursive ? 1 : 0;
+    params.t = type;
+    params.with_thumbnail = with_thumbnail;
     return this.req.get(url, {params: params});
   }
 
