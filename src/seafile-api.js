@@ -560,13 +560,14 @@ class SeafileAPI {
 
   //---- directory operation
   listDir(repoID, dirPath, opts = {}) {
-    const { recursive } = opts;
-    const path = encodeURIComponent(dirPath);
-    var url =  this.server + '/api/v2.1/repos/' + repoID + '/dir/?p=' + path;
-    if (recursive) {
-      url = url + '&recursive=1';
-    }
-    return this.req.get(url);
+    /*
+     * opts: `{recursive: true}`, `{'with_thumbnail': true}`
+     */
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/dir/';
+    let params = opts;
+    params.p = dirPath;
+    params.recursive = opts.recursive ? 1 : 0;
+    return this.req.get(url, {params: params});
   }
 
   listWikiDir(slug, dirPath) {
