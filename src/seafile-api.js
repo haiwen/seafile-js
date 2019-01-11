@@ -559,7 +559,7 @@ class SeafileAPI {
   }
 
   //---- directory operation
-  listDir(repoID, dirPath, { recursive = 0, type = '', with_thumbnail = false }) {
+  listDir(repoID, dirPath, { recursive = 0, type = '', with_thumbnail = false } = {}) {
     /*
      * opts: `{recursive: true}`, `{'with_thumbnail': true}`
      */
