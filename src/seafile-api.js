@@ -564,7 +564,7 @@ class SeafileAPI {
      * opts: `{recursive: true}`, `{'with_thumbnail': true}`
      */
     const url = this.server + '/api/v2.1/repos/' + repoID + '/dir/';
-    let params = opts;
+    let params = {};
     params.p = dirPath;
     params.recursive = recursive;
     params.t = type;
