@@ -567,7 +567,7 @@ class SeafileAPI {
     let params = opts;
     params.p = dirPath;
     params.recursive = recursive;
-    params.type = type;
+    params.t = type;
     params.with_thumbnail = with_thumbnail;
     return this.req.get(url, {params: params});
   }
