@@ -873,6 +873,22 @@ class SeafileAPI {
     return this.req.put(url, params);
   }
 
+  getRepoDraftReviewCounts(repoID) {
+    const url = this.server + '/api/v2.1/repo/' + repoID + '/draft-review-counts/'
+    return this.req.get(url);
+  }
+
+  listRepoDrafts(repoID) {
+    const url = this.server + '/api/v2.1/repo/' + repoID + '/drafts/';
+    return this.req.get(url); 
+  }
+
+  // List the review of the open state under the repo
+  listRepoReviews(repoID) {
+    const url = this.server + '/api/v2.1/repo/' + repoID + '/reviews/';
+    return this.req.get(url);
+  }
+
   // draft operation api
   getDraft(id) {
     const url = this.server + '/api/v2.1/drafts/' + id + '/';
