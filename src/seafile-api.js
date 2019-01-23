@@ -559,7 +559,7 @@ class SeafileAPI {
   }
 
   //---- directory operation
-  listDir(repoID, dirPath, { recursive = false, type = '', with_thumbnail = false } = {}) {
+  listDir(repoID, dirPath, { recursive = false, type = '', with_thumbnail = false, with_parents = false } = {}) {
     /*
      * opts: `{recursive: true}`, `{'with_thumbnail': true}`
      */
@@ -574,6 +574,9 @@ class SeafileAPI {
     }
     if (with_thumbnail) {
       params.with_thumbnail = with_thumbnail;
+    }
+    if (with_parents) {
+      params.with_parents = with_parents;
     }
     return this.req.get(url, {params: params});
   }
