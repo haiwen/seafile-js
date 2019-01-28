@@ -1164,6 +1164,17 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
+  addIllegalReport(sharedToken, illegalType, description, reporter, filePath) {
+    const url = this.server + '/api/v2.1/illegal-reports/';
+    let form = new FormData();
+    form.append('share_link_token', sharedToken);
+    form.append('illegal_type', illegalType);
+    form.append('description', description);
+    form.append('reporter', reporter);
+    form.append('file_path', filePath);
+    return this._sendPostRequest(url, form);
+  }
+
   getInternalLink(repoID, filePath, direntType) {
     let isDir = direntType === 'dir' ? true : false;
     const path = encodeURIComponent(filePath);
