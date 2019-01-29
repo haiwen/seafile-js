@@ -581,9 +581,12 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
-  listWikiDir(slug, dirPath) {
+  listWikiDir(slug, dirPath, withParents) {
     const path = encodeURIComponent(dirPath);
-    const url = this.server + '/api/v2.1/wikis/' + slug + '/dir/?p=' + path;
+    let url =this.server + '/api/v2.1/wikis/' + slug + '/dir/?p=' + path;
+    if (withParents) {
+      url =this.server + '/api/v2.1/wikis/' + slug + '/dir/?p=' + path + '&with_parents=' + withParents;
+    }
     return this.req.get(url);
   }
 
@@ -757,8 +760,26 @@ class SeafileAPI {
   }
 
   // move need to add
+  moveFile(repoID, destRepo, destDir, path) {
+    path = encodeURIComponent(path);
+    const url = this.server + 'repos/' + repoID + '/file/?p=' + path;
+    let form = new FormData();
+    form.append("operation", 'move');
+    form.append("dst_repo", destRepo);
+    form.append("dst_dir", destDir);
+    return this._sendPostRequest(url, form);
+  }
 
   // copy need to add
+  copyFile(repoID, destRepo, destDir, path) {
+    path = encodeURIComponent(path);
+    const url = this.server + 'repos/' + repoID + '/file/?p=' + path;
+    let form = new FormData();
+    form.append("operation", 'copy');
+    form.append("dst_repo", destRepo);
+    form.append("dst_dir", destDir);
+    return this._sendPostRequest(url, form);
+  }
 
   revertFile(repoID, path, commitID) {
     const url = this.server +  '/api/v2.1/repos/'+ repoID + '/file/?p=' + path;
