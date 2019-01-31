@@ -737,6 +737,11 @@ class SeafileAPI {
     return axios.create().get(downloadLink);
   }
 
+  getSharedFileContent(sharedToken, codeType) {
+    const url = this.server + "/api/v2.1/f/" + sharedToken + "/content/?file_enc=" + codeType;
+    return this.req.get(url);
+  }
+
   createFile(repoID, filePath, isDraft) {
     const path = encodeURIComponent(filePath);
     const url = this.server + '/api/v2.1/repos/' + repoID + '/file/?p=' + path;
