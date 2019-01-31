@@ -496,6 +496,14 @@ class SeafileAPI {
     return this.req.put(url, form);
   }
   
+  resetEncryptedRepoPassword(repoID, newPassword) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/set-password/';
+    let form = new FormData();
+    form.append('operation', 'reset-password');
+    form.append('new_password', newPassword);
+    return this.req.put(url, form);
+  }
+
   deleteRepo(repoID) {
     const url = this.server + '/api/v2.1/repos/' + repoID + '/';
     return this.req.delete(url);
