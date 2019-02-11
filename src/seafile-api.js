@@ -184,6 +184,13 @@ class SeafileAPI {
     const url = this.server + '/api/v2.1/groups/'+ groupID + '/group-owned-libraries/' + repoID+ '/';
     return this.req.delete(url);
   }
+
+  renameGroupOwnedLibrary(groupID, repoID, newName) {
+    const url = this.server + '/api/v2.1/groups/'+ groupID + '/group-owned-libraries/' + repoID + '/';
+    let form = new FormData();
+    form.append('name', newName);
+    return this.req.put(url, form);
+  }
   
   shareGroupOwnedRepoToUser(repoID, permission, username) {
     const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/user-share/'
