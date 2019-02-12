@@ -503,7 +503,7 @@ class SeafileAPI {
     return this.req.put(url, form);
   }
 
-  resetEncryptedRepoPassword(repoID) {
+  resetAndSendEncryptedRepoPassword(repoID) {
     const url = this.server + '/api/v2.1/repos/' + repoID + '/send-new-password/';
     let form = new FormData();
     return this._sendPostRequest(url, form);
