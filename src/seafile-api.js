@@ -1277,6 +1277,45 @@ class SeafileAPI {
     const url = this.server + '/api2/repos/' + repoID + '/dir/metadata/?p=' + dirPath;
     return this.req.get(url);
   }
+
+  // single org admin api
+  listOrgUsers(orgID, isStaff, page) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/users/?is_staff=' + isStaff + '&page=' + page;
+    return this.req.get(url);
+  }
+
+  deleteOrgUser(orgID, email) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/users/'+ encodeURIComponent(email) + '/';
+    return this.req.delete(url);
+  }
+
+  resetOrgUserPassword(orgID, email) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/users/'+ encodeURIComponent(email) + '/set-password/';
+    return this.req.put(url);
+  }
+
+  changeOrgUserStatus(userID, statusCode) {
+    const url = this.server + '/org/useradmin/toggle_status/' + userID + '/';
+    let form = new FormData();
+    form.append('s', statusCode);
+    return this.req.post(url, form, { headers: {'X-Requested-With': 'XMLHttpRequest'}});
+  }
+
+  addOrgUser(orgID, email, name, password) {
+    const url =  this.server + '/api/v2.1/org/' + orgID +'/admin/users/';
+    let form = new FormData();
+    form.append('email', email);
+    form.append('name', name);
+    form.append('password', password);
+    return this._sendPostRequest(url, form);
+  }
+
+  setOrgAdmin(orgID, email, isStaff) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/users/' + encodeURIComponent(email) + '/';
+    let form = new FormData();
+    form.append('is_staff', isStaff)
+    return this.req.put(url, form);
+  }
 }
 
 export { SeafileAPI };
