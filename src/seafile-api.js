@@ -502,13 +502,11 @@ class SeafileAPI {
     form.append('keep_days', historyDays);
     return this.req.put(url, form);
   }
-  
-  resetEncryptedRepoPassword(repoID, newPassword) {
-    const url = this.server + '/api/v2.1/repos/' + repoID + '/set-password/';
+
+  resetAndSendEncryptedRepoPassword(repoID) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/send-new-password/';
     let form = new FormData();
-    form.append('operation', 'reset-password');
-    form.append('new_password', newPassword);
-    return this.req.put(url, form);
+    return this._sendPostRequest(url, form);
   }
 
   deleteRepo(repoID) {
