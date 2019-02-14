@@ -770,15 +770,17 @@ class SeafileAPI {
   }
 
   lockfile(repoID, filePath) {
-    const url = this.server + '/api2/repos/'+ repoID + '/file/'
-    let params = {p: filePath, operation: 'lock'};
-    return this.req.put(url, params);
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/file/?p=' + encodeURIComponent(filePath);
+    let form = new FormData();
+    form.append('operation', 'lock');
+    return this.req.put(url, form);
   }
 
   unlockfile(repoID, filePath) {
-    const url = this.server + '/api2/repos/'+ repoID + '/file/'
-    let params = {p: filePath, operation: 'unlock'};
-    return this.req.put(url, params);
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/file/?p=' + encodeURIComponent(filePath);
+    let form = new FormData();
+    form.append('operation', 'unlock');
+    return this.req.put(url, form);
   }
 
   // move need to add
