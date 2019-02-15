@@ -1033,22 +1033,22 @@ class SeafileAPI {
   }
 
   // starred
-  listStarred() {
-    const url = this.server + '/api2/starredfiles/';
+  listStarredItems() {
+    const url = this.server + '/api/v2.1/starred-items/';
     return this.req.get(url);
   }
 
-  starFile(repoID, filePath) {
-    const url = this.server + '/api2/starredfiles/';
+  starItem(repoID, filePath, isDir) {
+    const url = this.server + '/api/v2.1/starred-items/';
     let form = new FormData();
     form.append('repo_id', repoID);
-    form.append('p', filePath);
+    form.append('path', filePath);
+    form.append('is_dir', isDir);
     return this._sendPostRequest(url, form);
   }
 
-  unStarFile(repoID, filePath) {
-    const path = encodeURIComponent(filePath);
-    const url = this.server + "/api2/starredfiles/?repo_id=" + repoID + "&p=" + path;
+  unStarItem(starItemID) {
+    const url = this.server + '/api/v2.1/starred-items/' + starItemID + '/';
     return this.req.delete(url);
   }
 
