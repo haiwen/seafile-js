@@ -1315,6 +1315,13 @@ class SeafileAPI {
     form.append('is_staff', isStaff)
     return this.req.put(url, form);
   }
+
+  markdownLint(slateValue) {
+    const url = this.server + '/api/v2.1/markdown-lint/';
+    let form = new FormData();
+    form.append('slate', slateValue);
+    return this._sendPostRequest(url, form);
+  }
 }
 
 export { SeafileAPI };
