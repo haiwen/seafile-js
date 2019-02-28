@@ -903,20 +903,14 @@ class SeafileAPI {
     return this.req.put(url, params);
   }
 
-  getRepoDraftReviewCounts(repoID) {
-    const url = this.server + '/api/v2.1/repo/' + repoID + '/draft-review-counts/'
+  getRepoDraftCounts(repoID) {
+    const url = this.server + '/api/v2.1/repo/' + repoID + '/draft-counts/'
     return this.req.get(url);
   }
 
   listRepoDrafts(repoID) {
     const url = this.server + '/api/v2.1/repo/' + repoID + '/drafts/';
     return this.req.get(url); 
-  }
-
-  // List the review of the open state under the repo
-  listRepoReviews(repoID) {
-    const url = this.server + '/api/v2.1/repo/' + repoID + '/reviews/';
-    return this.req.get(url);
   }
 
   // draft operation api
@@ -952,34 +946,13 @@ class SeafileAPI {
   }
 
   // review api
-  createDraftReview(id) {
-    const url = this.server + '/api/v2.1/reviews/';
-    const params = {
-      draft_id: id
-    }
-    return this.req.post(url, params);
-  }
-
-  createFileReview(repoID, filePath) {
-    const url = this.server + '/api/v2.1/file-review/';
-    const form = new FormData();
-    form.append("repo_id", repoID);
-    form.append("file_path", filePath);
-    return this.req.post(url, form);
-  }
-
-  listReviews(status) {
-    const url = this.server + '/api/v2.1/reviews/?status=' + status;
+  listDraftReviewers(draftID) {
+    const url = this.server + '/api/v2.1/drafts/' + draftID + '/reviewer/';
     return this.req.get(url);
   }
 
-  listReviewers(reviewID) {
-    const url = this.server + '/api/v2.1/review/' + reviewID + '/reviewer/';
-    return this.req.get(url);
-  }
-
-  addReviewers(reviewID, reviewers) {
-    const url = this.server + '/api/v2.1/review/' + reviewID + '/reviewer/';
+  addDraftReviewers(draftID, reviewers) {
+    const url = this.server + '/api/v2.1/drafts/' + draftID + '/reviewer/';
     let form = new FormData();
     for(let i = 0 ; i < reviewers.length ; i ++) {
       form.append('reviewer', reviewers[i]);
@@ -987,49 +960,9 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
-  deleteReviewer(reviewID, reviewer) {
-    const url = this.server + '/api/v2.1/review/' + reviewID + '/reviewer/?username=' + reviewer;
+  deleteDraftReviewer(draftID, reviewer) {
+    const url = this.server + '/api/v2.1/drafts/' + draftID + '/reviewer/?username=' + reviewer;
     return this.req.delete(url);
-  }
-
-  updateReviewStatus(id, st) {
-    const url = this.server + '/api/v2.1/review/'+ id + '/';
-    const params = {
-      status: st
-    }
-    return this.req.put(url, params);
-  }
-
-  // review comments api
-  addReviewComment(reviewID, comment, detail) {
-    const url = this.server + '/api2/review/' + reviewID + '/comments/';
-    let form = new FormData();
-    form.append('comment', comment);
-    if (detail) {
-      form.append('detail', detail);
-    }
-    return this._sendPostRequest(url, form);
-  }
-
-  listReviewComments(reviewID, page, perPage, avatarSize) {
-    const url = this.server + '/api2/review/' + reviewID + '/comments/?page=' + page + '&per_page=' + perPage + '&avatar_size=' + avatarSize;
-    return this.req.get(url);
-  }
-
-  deleteReviewComment(reviewID, commentID) {
-    const url = this.server + '/api2/review/' + reviewID + '/comment/' + commentID + '/';
-    return this.req.delete(url);
-  }
-
-  updateReviewComment(reviewID, commentID, resolved, detail) {
-    const url = this.server + '/api2/review/' + reviewID + '/comment/' + commentID + '/';
-    let params = {
-      resolved: resolved
-    }
-    if (detail) {
-      params.detail = detail;
-    }
-    return this.req.put(url, params);
   }
 
   // starred
