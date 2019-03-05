@@ -1255,6 +1255,12 @@ class SeafileAPI {
     form.append('slate', slateValue);
     return this._sendPostRequest(url, form);
   }
+
+  listFileScanRecords() {
+    const url = this.server + '/api/v2.1/admin/file-scan-records/';
+    return this.req.get(url);
+  }
+
 }
 
 export { SeafileAPI };
