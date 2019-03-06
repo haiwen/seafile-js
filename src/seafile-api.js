@@ -892,7 +892,7 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  updateComment(repoID, commentID, resolved, detail) {
+  updateComment(repoID, commentID, resolved, detail, comment) {
     const url = this.server + '/api2/repos/' + repoID + '/file/comments/' + commentID + '/';
     let params = {
       resolved: resolved
@@ -900,6 +900,11 @@ class SeafileAPI {
     if (detail) {
       params.detail = detail;
     }
+
+    if (comment) {
+      params.comment = comment;
+    }
+
     return this.req.put(url, params);
   }
 
