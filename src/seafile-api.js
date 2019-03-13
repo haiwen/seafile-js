@@ -1249,6 +1249,16 @@ class SeafileAPI {
     return this.req.put(url, form);
   }
 
+  listOrgGroups(orgID, page) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/groups/?page=' + page;
+    return this.req.get(url);
+  }
+
+  deleteOrgGroup(orgID, groupID) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/groups/' + groupID + '/';
+    return this.req.delete(url);
+  }
+
   markdownLint(slateValue) {
     const url = this.server + '/api/v2.1/markdown-lint/';
     let form = new FormData();
