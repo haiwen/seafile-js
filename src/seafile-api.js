@@ -1257,6 +1257,23 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
+  listOrgRepos(orgID, page) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/repos/?page=' + page;
+    return this.req.get(url);
+  }
+
+  deleteOrgRepo(orgID, repoID) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/repos/' + repoID + '/';
+    return this.req.delete(url);
+  }
+
+  transferOrgRepo(orgID, repoID, email) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/repos/' + repoID + '/';
+    let form = new FormData();
+    form.append('email', email);
+    return this.req.put(url, form);
+  }
+
   markdownLint(slateValue) {
     const url = this.server + '/api/v2.1/markdown-lint/';
     let form = new FormData();
