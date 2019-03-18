@@ -1092,8 +1092,8 @@ class SeafileAPI {
 
   //---- Notification API
   listPopupNotices() {
-    const url = this.server + '/ajax/get_popup_notices/';
-    return this.req.get(url, { headers: {'X-Requested-With': 'XMLHttpRequest'}});
+    const url = this.server + '/api/v2.1/popup-notices/';
+    return this.req.get(url);
   }
   
   updateNotifications() {
