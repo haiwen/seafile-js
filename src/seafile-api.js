@@ -1209,6 +1209,11 @@ class SeafileAPI {
   }
 
   // single org admin api
+  orgAdminGetOrgInfo() {
+    const url = this.server + '/api/v2.1/org/admin/info/';
+    return this.req.get(url);
+  }
+
   listOrgUsers(orgID, isStaff, page) {
     const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/users/?is_staff=' + isStaff + '&page=' + page;
     return this.req.get(url);
