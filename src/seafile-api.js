@@ -1110,7 +1110,7 @@ class SeafileAPI {
     const url = this.server + '/api/v2.1/notification/';
     let from = new FormData();
     from.append('notice_id', noticeId);
-    this.req.put(url, from);
+    return this.req.put(url, from);
   }
 
   //---- Linked Devices API
