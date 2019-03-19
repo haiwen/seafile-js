@@ -1291,6 +1291,11 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  getFileVisitedCounts(repoID, filePath) {
+    const url = this.server + this.server + '/api/v2.1/repos/' + repoID + '/file/visited-counts/?file_path=' + filePath;
+    return this.req.get(url);
+  }
+
 }
 
 export { SeafileAPI };
