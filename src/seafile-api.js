@@ -1291,6 +1291,24 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  queryDocumentConvertStatus(repoID, commitID, path, shareToken) {
+    const url = this.server + '/office-convert/status/';
+    const params = {
+      repo_id: repoID,
+      commit_id: commitID,
+      path: path,
+      doctype: 'document'
+    };
+    // for document file share link
+    if (shareToken) {
+      params['token'] = shareToken;
+    }
+    return this.req.get(url, {
+      headers: {'X-Requested-With': 'XMLHttpRequest'},
+      params: params
+    });
+  }
+
 }
 
 export { SeafileAPI };
