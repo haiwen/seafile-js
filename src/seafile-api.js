@@ -1091,9 +1091,12 @@ class SeafileAPI {
   }
 
   //---- Notification API
-  listPopupNotices() {
-    const url = this.server + '/api/v2.1/popup-notices/';
-    return this.req.get(url);
+  listPopupNotices(page, perPage) {
+    const url = this.server + '/api/v2.1/notifications/';
+    let form = new FormData();
+    form.append('page', page);
+    form.append('per_page', perPage);
+    return this.req.get(url, form);
   }
   
   updateNotifications() {
