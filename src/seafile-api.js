@@ -1291,15 +1291,15 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  queryDocumentConvertStatus(repoID, commitID, path, shareToken) {
+  queryOfficeFileConvertStatus(repoID, commitID, path, fileType, shareToken) {
     const url = this.server + '/office-convert/status/';
     const params = {
       repo_id: repoID,
       commit_id: commitID,
       path: path,
-      doctype: 'document'
+      doctype: fileType // 'document' or 'spreadsheet'
     };
-    // for document file share link
+    // for view of share link
     if (shareToken) {
       params['token'] = shareToken;
     }
