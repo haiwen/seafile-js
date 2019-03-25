@@ -1289,6 +1289,17 @@ class SeafileAPI {
     return this.req.put(url, form);
   }
 
+  // org links
+  orgAdminListOrgLinks(page) {
+    const url = this.server + '/api/v2.1/org/admin/links/?page=' + page;
+    return this.req.get(url);
+  }
+
+  orgAdminDeleteOrgLink(token) {
+    const url = this.server + '/api/v2.1/org/admin/links/' + token + '/';
+    return this.req.delete(url);
+  }
+
   markdownLint(slateValue) {
     const url = this.server + '/api/v2.1/markdown-lint/';
     let form = new FormData();
