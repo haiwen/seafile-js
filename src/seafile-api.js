@@ -977,7 +977,7 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
-  unStarItem(repoID, path) {
+  unstarItem(repoID, path) {
     const url = this.server + '/api/v2.1/starred-items/?repo_id=' + repoID + '&path=' + path;
     return this.req.delete(url);
   }
