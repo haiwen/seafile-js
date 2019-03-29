@@ -1300,6 +1300,81 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
+  // org depart group
+  orgAdminListDepartGroups(orgID) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/address-book/groups/';
+    return this.req.get(url);
+  }
+
+  orgAdminListGroupInfo(orgID, groupID, showAncestors) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/address-book/groups/' + groupID + '/?return_ancestors=' + showAncestors;
+    return this.req.get(url);
+  }
+
+  orgAdminAddDepartGroup(orgID, parentGroup, groupName, groupOwner, groupStaff) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/address-book/groups/';
+    let form = new FormData();
+    form.append('parent_group', parentGroup);
+    form.append('group_name', groupName);
+    if (groupOwner) {
+      form.append('group_owner', groupOwner);
+    }
+    if (groupStaff) {
+      form.append('group_staff', groupStaff.join(','));
+    }
+    return this._sendPostRequest(url, form);
+  }
+
+  orgAdminDeleteDepartGroup(orgID, groupID) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/address-book/groups/' + groupID + '/';
+    return this.req.delete(url);
+  }
+
+  orgAdminSetGroupQuota(orgID, groupID, quota) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/groups/' + groupID + '/';
+    let form = new FormData();
+    form.append('quota', quota);
+    return this.req.put(url, form);
+  }
+
+  // org depart repo
+  orgAdminListDepartGroupRepos(orgID, groupID) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/groups/' + groupID + '/libraries/';
+    return this.req.get(url);
+  }
+
+  orgAdminAddDepartGroupRepo(orgID, groupID, repoName) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/groups/' + groupID + '/group-owned-libraries/';
+    let form = new FormData();
+    form.append('repo_name', repoName);
+    return this._sendPostRequest(url, form);
+  }
+
+  orgAdminDeleteDepartGroupRepo(orgID, groupID, repoID) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/groups/' + groupID + '/group-owned-libraries/' + repoID;
+    return this.req.delete(url);
+  }
+  
+  // org depart member
+  orgAdminDeleteDepartGroupUser(orgID, groupID, userEmail) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/groups/' + groupID + '/members/' + userEmail + '/';
+    return this.req.delete(url);
+  }
+
+  orgAdminAddDepartGroupUser(orgID, groupID, userEmail) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/groups/' + groupID +  '/members/';
+    let form = new FormData();
+    form.append('email', userEmail);
+    return this._sendPostRequest(url, form);
+  }
+
+  orgAdminSetDepartGroupUserRole(orgID, groupID, userEmail, isAdmin) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/groups/' + groupID +  '/members/' + userEmail + '/';
+    let form = new FormData();
+    form.append('is_admin', isAdmin);
+    return this.req.put(url, form);
+  }
+  
   markdownLint(slateValue) {
     const url = this.server + '/api/v2.1/markdown-lint/';
     let form = new FormData();
