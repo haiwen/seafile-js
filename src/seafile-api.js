@@ -1375,6 +1375,50 @@ class SeafileAPI {
     return this.req.put(url, form);
   }
   
+  // org admin logs
+  orgAdminListFileAudit(page, email, repoID) {
+    let url = this.server + '/api/v2.1/org/admin/logs/file-audit/?page=' + page;
+    if (email) {
+      url = url + '&email=' + email;
+    }
+
+    if (repoID) {
+      url = url + '&repo_id=' + repoID;
+    }
+    return this.req.get(url);
+  }
+
+  orgAdminListFileUpdate(page, email, repoID) {
+    let url = this.server + '/api/v2.1/org/admin/logs/file-update/?page=' + page;
+    if (email) {
+      url = url + '&email=' + email;
+    }
+
+    if (repoID) {
+      url = url + '&repo_id=' + repoID;
+    }
+
+    return this.req.get(url);
+  }
+
+  orgAdminListPermAudit(page, email, repoID) {
+    let url = this.server + '/api/v2.1/org/admin/logs/perm-audit/?page=' + page;
+    if (email) {
+      url = url + '&email=' + email;
+    }
+
+    if (repoID) {
+      url = url + '&repo_id=' + repoID;
+    }
+
+    return this.req.get(url);
+  }
+
+  orgAdminGetFileUpdateDetail(repoID, commitID) {
+    let url = this.server + '/ajax/repo/' + repoID + '/history/changes/?commit_id=' + commitID;   
+    return this.req.get(url, { headers: {'X-Requested-With': 'XMLHttpRequest'}});
+  }
+
   markdownLint(slateValue) {
     const url = this.server + '/api/v2.1/markdown-lint/';
     let form = new FormData();
