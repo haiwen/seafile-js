@@ -1381,7 +1381,6 @@ class SeafileAPI {
     if (email) {
       url = url + '&email=' + email;
     }
-
     if (repoID) {
       url = url + '&repo_id=' + repoID;
     }
@@ -1393,11 +1392,9 @@ class SeafileAPI {
     if (email) {
       url = url + '&email=' + email;
     }
-
     if (repoID) {
       url = url + '&repo_id=' + repoID;
     }
-
     return this.req.get(url);
   }
 
@@ -1406,11 +1403,9 @@ class SeafileAPI {
     if (email) {
       url = url + '&email=' + email;
     }
-
     if (repoID) {
       url = url + '&repo_id=' + repoID;
     }
-
     return this.req.get(url);
   }
 
