@@ -1377,7 +1377,7 @@ class SeafileAPI {
   
   // org admin logs
   orgAdminListFileAudit(page, email, repoID) {
-    let url = this.server + '/api/v2.1/org/admin/logs/file-audit/?page=' + page;
+    let url = this.server + '/api/v2.1/org/admin/logs/file-access/?page=' + page;
     if (email) {
       url = url + '&email=' + email;
     }
@@ -1399,7 +1399,7 @@ class SeafileAPI {
   }
 
   orgAdminListPermAudit(page, email, repoID) {
-    let url = this.server + '/api/v2.1/org/admin/logs/perm-audit/?page=' + page;
+    let url = this.server + '/api/v2.1/org/admin/logs/repo-permission/?page=' + page;
     if (email) {
       url = url + '&email=' + email;
     }
