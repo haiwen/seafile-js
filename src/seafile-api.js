@@ -1444,6 +1444,27 @@ class SeafileAPI {
     });
   }
 
+  listSharedDir(token, path) {
+    const url = this.server + '/api/v2.1/share-links/' + token + '/dirents/';
+    const params = {
+      path: path
+    };
+    return this.req.get(url, {
+      params: params
+    });
+  }
+
+  getShareLinkZipTask(token, path) {
+    const url = this.server + '/api/v2.1/share-link-zip-task/';
+    const params = {
+      share_link_token: token,
+      path: path
+    };
+    return this.req.get(url, {
+      params: params
+    });
+  }
+
 }
 
 export { SeafileAPI };
