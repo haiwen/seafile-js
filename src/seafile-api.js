@@ -1465,6 +1465,17 @@ class SeafileAPI {
     });
   }
 
+  getShareLinkThumbnail(token, filePath, thumbnailSize) {
+    const url = this.server + '/thumbnail/' + token + '/create/';
+    const params = {
+      path: filePath,
+      size: thumbnailSize
+    };
+    return this.req.get(url, {
+      params: params
+    });
+  }
+
 }
 
 export { SeafileAPI };
