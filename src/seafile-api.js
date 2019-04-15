@@ -1178,12 +1178,10 @@ class SeafileAPI {
     });
   }
 
-  addWiki(isExist, name, repoID) {
+  addWiki(repoID) {
     const url = this.server + '/api/v2.1/wikis/';
     let form = new FormData();
-    form.append('use_exist_repo', isExist);
     form.append('repo_id', repoID);
-    form.append('name', name);
     return this._sendPostRequest(url, form);
   }
 
