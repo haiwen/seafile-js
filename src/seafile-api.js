@@ -287,6 +287,13 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
+  updateShareLink(token, permissions) {
+    var url = this.server + '/api/v2.1/share-links/' + token + '/';
+    let form = new FormData();
+    form.append('permissions', permissions);
+    return this.req.put(url, form);
+  }
+
   deleteShareLink(token) {
     const url = this.server + '/api/v2.1/share-links/' + token + '/';
     return this.req.delete(url);
