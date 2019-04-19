@@ -190,4 +190,25 @@ test("getUserAvatar test", () => {
   });
 });
 
+test("invitePeople test", () => {
+  return seafileAPI.invitePeople(config.inviteEmails).then((response) => {
+    // console.log(response.data);
+    expect(response.data).not.toBe(null);
+  });
+});
+
+test("listInvitations test", () => {
+  return seafileAPI.listInvitations().then((response) => {
+    // console.log(response.data);
+    expect(response.data).not.toBe(null);
+  });
+});
+
+test("deleteInvitation test", () => {
+  return seafileAPI.deleteInvitation(config.invitationToken).then((response) => {
+    // console.log(response.status);
+    expect(response.status).toBe(204);
+  });
+});
+
 // test end
