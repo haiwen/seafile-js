@@ -1481,6 +1481,21 @@ class SeafileAPI {
     });
   }
 
+  // get all existing repo snapshot labels of the user
+  getAllRepoSnapshotLabels() {
+    const url = this.server + '/api/v2.1/revision-tags/tag-names/';
+    return this.req.get(url);
+  }
+
+  addNewRepoLabels(repoID, labels) {
+    const url = this.server + '/api/v2.1/revision-tags/tagged-items/';
+    const data = {
+      'repo_id': repoID,
+      'tag_names': labels
+    };
+    return this.req.post(url, data);
+  }
+
 }
 
 export { SeafileAPI };
