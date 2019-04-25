@@ -1505,6 +1505,26 @@ class SeafileAPI {
     return this.req.post(url, data);
   }
 
+  invitePeople(emails) {
+    const url = this.server + '/api/v2.1/invitations/batch/';
+    let form = new FormData();
+    form.append('type', 'guest');
+    for (let i = 0; i < emails.length; i++) {
+      form.append('accepter', emails[i]);
+    }
+    return this._sendPostRequest(url, form);
+  }
+
+  listInvitations() {
+    const url = this.server + '/api/v2.1/invitations/';
+    return this.req.get(url);
+  }
+
+  deleteInvitation(token) {
+    const url = this.server + '/api/v2.1/invitations/' + token;
+    return this.req.delete(url);
+  }
+
 }
 
 export { SeafileAPI };
