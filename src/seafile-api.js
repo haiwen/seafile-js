@@ -1525,6 +1525,54 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
+  updateUserAvatar(avatar, size) {
+    const url = this.server + '/api/v2.1/user-avatar/';
+    const data = {
+      'avatar': avatar,
+      'avatar_size': size
+    };
+    return this.req.post(url, data);
+  }
+
+  getUserInfo() {
+    const url = this.server + '/api/v2.1/user/';
+    return this.req.get(url);
+  }
+
+  updateUserInfo({name, telephone, contact_email, list_in_address_book}) {
+    const url = this.server + '/api/v2.1/user/';
+    let data = {};
+    if (name != undefined) {
+      data.name = name;
+    }
+    if (telephone != undefined) {
+      data.telephone = telephone;
+    }
+    if (contact_email != undefined) {
+      data.contact_email = contact_email;
+    }
+    if (list_in_address_book != undefined) {
+      data.list_in_address_book = list_in_address_book;
+    }
+    return this.req.put(url, data);
+  }
+
+  updateEmailNotificationInterval(interval) {
+    const url = this.server + '/api2/account/info/';
+    const data = {
+      'email_notification_interval': interval
+    };
+    return this.req.put(url, data);
+  }
+
+  updateWebdavSecret(password) {
+    const url = this.server + '/api/v2.1/webdav-secret/';
+    const data = {
+      'secret': password
+    };
+    return this.req.put(url, data);
+  }
+
 }
 
 export { SeafileAPI };
