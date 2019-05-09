@@ -84,6 +84,12 @@ class SeafileAPI {
   }
   
   //---- Group operation
+
+  listDepartments() {
+    const url = this.server + '/api/v2.1/departments/';
+    return this.req.get(url);
+  }
+
   listGroups(withRepos = false) {
     let options = {with_repos: withRepos ? 1 : 0};
     const url = this.server + '/api/v2.1/groups/';
@@ -1590,11 +1596,6 @@ class SeafileAPI {
       'secret': password
     };
     return this.req.put(url, data);
-  }
-
-  listDepartments() {
-    const url = this.server + '/api/v2.1/all-departments/';
-    return this.req.get(url);
   }
 
 }
