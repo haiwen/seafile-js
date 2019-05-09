@@ -1592,6 +1592,11 @@ class SeafileAPI {
     return this.req.put(url, data);
   }
 
+  listDepartments() {
+    const url = this.server + '/api/v2.1/all-departments/';
+    return this.req.get(url);
+  }
+
 }
 
 export { SeafileAPI };
