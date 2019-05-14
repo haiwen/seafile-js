@@ -305,12 +305,21 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
+  sendShareLink(token, email, extraMsg) {
+    const url = this.server + '/api2/send-share-link/';
+    let form = new FormData();
+    form.append('token', token);
+    form.append('email', email);
+    if (extraMsg) {
+      form.append('extra_msg', extraMsg);
+    }
+    return this._sendPostRequest(url, form);
+  }
+
   listSharedRepos() {
     const url = this.server + '/api/v2.1/shared-repos/';
     return this.req.get(url);
   }
-
-  // todo send email
 
   // upload-link
   listUploadLinks() {
