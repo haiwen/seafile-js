@@ -1763,6 +1763,21 @@ class SeafileAPI {
     return this.req.delete(url, {data: param});
   }
 
+  adminListWorkWeixinDepartments() {
+    const url = this.server + '/api/v2.1/admin/work-weixin/departments/';
+    return this.req.get(url);
+  }
+
+  adminListWorkWeixinDepartmentMembers(department_id, params) {
+    const url = this.server + '/api/v2.1/admin/work-weixin/departments/' + department_id + '/members/';
+    return this.req.get(url, {params: params});
+  }
+
+  adminAddWorkWeixinUsers(userList) {
+    const url = this.server + '/api/v2.1/admin/work-weixin/users/';
+    return this.req.post(url, {user_list: userList});
+  }
+
 }
 
 export { SeafileAPI };
