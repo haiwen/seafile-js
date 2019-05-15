@@ -1607,6 +1607,84 @@ class SeafileAPI {
     return this.req.put(url, data);
   }
 
+  listUserFolderPerm(repoID, folderPath) {
+    let url = this.server + '/api2/repos/' + repoID + '/user-folder-perm/';
+    if (folderPath) {
+      url = url + '?folder_path=' + folderPath;
+    }
+    return this.req.get(url);
+  }
+
+  addUserFolderPerm(repoID, permission, folderPath, userEmail) {
+    const url = this.server + '/api2/repos/' + repoID + '/user-folder-perm/';
+    let form = new FormData();
+    form.append('permission', permission);
+    form.append('folder_path', folderPath);
+    if (Array.isArray(userEmail)) {
+      userEmail.forEach(item => {
+        form.append('user_email', item);
+      });
+    } else {
+      form.append('user_email', userEmail);
+    }
+    return this._sendPostRequest(url, form);
+  }
+
+  updateUserFolderPerm(repoID, permission, folderPath, userEmail) {
+    const url = this.server + '/api2/repos/' + repoID + '/user-folder-perm/';
+    let form = new FormData();
+    form.append('permission', permission);
+    form.append('folder_path', folderPath);
+    form.append('user_email', userEmail);
+    return this.req.put(url, form);
+  }
+
+  deleteUserFolderPerm(repoID, permission, folderPath, userEmail) {
+    const url = this.server + '/api2/repos/' + repoID + '/user-folder-perm/';
+    let param = {
+      permission: permission,
+      folder_path: folderPath,
+      user_email: userEmail,
+    };
+    return this.req.delete(url, {data: param});
+  }
+
+  listGroupFolderPerm(repoID, folderPath) {
+    let url = this.server + '/api2/repos/' + repoID + '/group-folder-perm/';
+    if (folderPath) {
+      url = url + '?folder_path=' + folderPath;
+    }
+    return this.req.get(url);
+  }
+
+  addGroupFolderPerm(repoID, permission, folderPath, groupID) {
+    const url = this.server + '/api2/repos/' + repoID + '/group-folder-perm/';
+    let form = new FormData();
+    form.append('permission', permission);
+    form.append('folder_path', folderPath);
+    form.append('group_id', groupID);
+    return this._sendPostRequest(url, form);
+  }
+
+  updateGroupFolderPerm(repoID, permission, folderPath, groupID) {
+    const url = this.server + '/api2/repos/' + repoID + '/group-folder-perm/';
+    let form = new FormData();
+    form.append('permission', permission);
+    form.append('folder_path', folderPath);
+    form.append('group_id', groupID);
+    return this.req.put(url, form);
+  }
+
+  deleteGroupFolderPerm(repoID, permission, folderPath, groupID) {
+    const url = this.server + '/api2/repos/' + repoID + '/group-folder-perm/';
+    let param = {
+      permission: permission,
+      folder_path: folderPath,
+      group_id: groupID,
+    };
+    return this.req.delete(url, {data: param});
+  }
+
 }
 
 export { SeafileAPI };
