@@ -1685,6 +1685,84 @@ class SeafileAPI {
     return this.req.delete(url, {data: param});
   }
 
+  listDepartmentRepoUserFolderPerm(repoID, folderPath) {
+    let url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/user-folder-permission/';
+    if (folderPath) {
+      url = url + '?folder_path=' + folderPath;
+    }
+    return this.req.get(url);
+  }
+
+  addDepartmentRepoUserFolderPerm(repoID, permission, folderPath, userEmail) {
+    const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/user-folder-permission/';
+    let form = new FormData();
+    form.append('permission', permission);
+    form.append('folder_path', folderPath);
+    if (Array.isArray(userEmail)) {
+      userEmail.forEach(item => {
+        form.append('user_email', item);
+      });
+    } else {
+      form.append('user_email', userEmail);
+    }
+    return this._sendPostRequest(url, form);
+  }
+
+  updateDepartmentRepoUserFolderPerm(repoID, permission, folderPath, userEmail) {
+    const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/user-folder-permission/';
+    let form = new FormData();
+    form.append('permission', permission);
+    form.append('folder_path', folderPath);
+    form.append('user_email', userEmail);
+    return this.req.put(url, form);
+  }
+
+  deleteDepartmentRepoUserFolderPerm(repoID, permission, folderPath, userEmail) {
+    const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/user-folder-permission/';
+    let param = {
+      permission: permission,
+      folder_path: folderPath,
+      user_email: userEmail,
+    };
+    return this.req.delete(url, {data: param});
+  }
+
+  listDepartmentRepoGroupFolderPerm(repoID, folderPath) {
+    let url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/group-folder-permission/';
+    if (folderPath) {
+      url = url + '?folder_path=' + folderPath;
+    }
+    return this.req.get(url);
+  }
+
+  addDepartmentRepoGroupFolderPerm(repoID, permission, folderPath, groupID) {
+    const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/group-folder-permission/';
+    let form = new FormData();
+    form.append('permission', permission);
+    form.append('folder_path', folderPath);
+    form.append('group_id', groupID);
+    return this._sendPostRequest(url, form);
+  }
+
+  updateDepartmentRepoGroupFolderPerm(repoID, permission, folderPath, groupID) {
+    const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/group-folder-permission/';
+    let form = new FormData();
+    form.append('permission', permission);
+    form.append('folder_path', folderPath);
+    form.append('group_id', groupID);
+    return this.req.put(url, form);
+  }
+
+  deleteDepartmentRepoGroupFolderPerm(repoID, permission, folderPath, groupID) {
+    const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/group-folder-permission/';
+    let param = {
+      permission: permission,
+      folder_path: folderPath,
+      group_id: groupID,
+    };
+    return this.req.delete(url, {data: param});
+  }
+
 }
 
 export { SeafileAPI };
