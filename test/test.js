@@ -20,7 +20,6 @@ const filesName = config.filesName;
 const comment = config.comment;
 const detail = config.detail;
 const reviewID = config.reviewID;
-console.log(filesName);
 
 beforeAll(() => {
   return seafileAPI.login();
@@ -112,15 +111,15 @@ test("getBeSharedRepos", () => {
 });
 
 test('createFile test', () => {
-  return seafileAPI.createFile(repoID, filePath).then((response) => {
+  return seafileAPI.createFile(repoID, filePath, 'false').then((response) => {
     // console.log(response.data);
-    expect(response.data).toBe('success');
+    expect(response.data).not.toBe(null);
   });
 });
 
 
 test('renameFile test', () => {
-  return seafileAPI.renameFile(repoID, filePath,newfileName).then((response) => {
+  return seafileAPI.renameFile(repoID, filePath, newfileName).then((response) => {
     // console.log(response.data);
     expect(response.data).not.toBe(null);
   });
@@ -149,7 +148,7 @@ test("deleteDirectory test", () => {
 });
 
 test("copyDirectory test", () => {
-  return seafileAPI.copyDir(repoID, dstrepoID, dstfilePath, filesName).then((response) => {
+  return seafileAPI.copyDir(repoID, dstrepoID, dstfilePath, dirPath, config.direntNames).then((response) => {
     // console.log(response.data);
     expect(response.data).not.toBe(null);
   });
