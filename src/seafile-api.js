@@ -1539,6 +1539,16 @@ class SeafileAPI {
     return this.req.post(url, data);
   }
 
+  updateRepoCommitLabels(repoID, commitID, labels) {
+    const url = this.server + '/api/v2.1/revision-tags/tagged-items/';
+    const data = {
+      'repo_id': repoID,
+      'commit_id': commitID,
+      'tag_names': labels
+    };
+    return this.req.put(url, data);
+  }
+
   invitePeople(emails) {
     const url = this.server + '/api/v2.1/invitations/batch/';
     let form = new FormData();
@@ -1776,6 +1786,26 @@ class SeafileAPI {
   adminAddWorkWeixinUsers(userList) {
     const url = this.server + '/api/v2.1/admin/work-weixin/users/';
     return this.req.post(url, {user_list: userList});
+  }
+
+  getRepoHistory(repoID, page, perPage) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/history/';
+    const params = {
+      page: page || 1,
+      per_page: perPage || 100
+    };
+    return this.req.get(url, {params: params});
+  }
+
+  getCommitDetails(repoID, commitID) {
+    const url = this.server + '/ajax/repo/' + repoID + '/history/changes/';
+    const params = {
+      commit_id: commitID
+    };
+    return this.req.get(url, {
+      headers: {'X-Requested-With': 'XMLHttpRequest'},
+      params: params
+    });
   }
 
 }
