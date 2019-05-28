@@ -1783,9 +1783,9 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
-  adminAddWorkWeixinUsers(userList) {
-    const url = this.server + '/api/v2.1/admin/work-weixin/users/';
-    return this.req.post(url, {user_list: userList});
+  adminAddWorkWeixinUsersBatch(userList) {
+    const url = this.server + '/api/v2.1/admin/work-weixin/users/batch/';
+    return this.req.post(url, {userlist: userList});
   }
 
   getRepoHistory(repoID, page, perPage) {
