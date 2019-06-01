@@ -1808,6 +1808,51 @@ class SeafileAPI {
     });
   }
 
+  listWorkSpaces() {
+    const url = this.server + '/api/v2.1/workspaces/';
+    return this.req.get(url);
+  }
+
+  createWorkSpace(name) {
+    const url = this.server + '/api/v2.1/workspaces/';
+    let form = new FormData();
+    form.append('name', name);
+    return this._sendPostRequest(url, form);
+  }
+
+  renameWorkSpace(workspaceID, name) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/';
+    let form = new FormData();
+    form.append('name', name);
+    return this.req.put(url, form);
+  }
+
+  deleteWorkSpace(workspaceID) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/';
+    return this.req.delete(url);
+  }
+
+  createTable(workspaceID, name) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/';
+    let form = new FormData();
+    form.append('name', name);
+    return this._sendPostRequest(url, form);
+  }
+
+  renameTable(workspaceID, old_name, new_name) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/';
+    let form = new FormData();
+    form.append('old_name', old_name);
+    form.append('new_name', new_name);
+    return this.req.put(url, form);
+  }
+
+  deleteTable(workspaceID, name) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/';
+    let params = { name: name };
+    return this.req.delete(url, { data: params });
+  }
+
 }
 
 export { SeafileAPI };
