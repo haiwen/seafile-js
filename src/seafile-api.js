@@ -1827,6 +1827,11 @@ class SeafileAPI {
     return this.req.put(url, form);
   }
 
+  getTableDownloadLink(workspaceID, name) {
+    var url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/?name=' + name + '&reuse=1';
+    return this.req.get(url);
+  }
+
   deleteWorkSpace(workspaceID) {
     const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/';
     return this.req.delete(url);
