@@ -1828,7 +1828,12 @@ class SeafileAPI {
   }
 
   getTableDownloadLink(workspaceID, name) {
-    var url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/?name=' + name + '&reuse=1';
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/?name=' + name + '&reuse=1';
+    return this.req.get(url);
+  }
+
+  getTableUpdateLink(workspaceID) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable-update-link/';
     return this.req.get(url);
   }
 
