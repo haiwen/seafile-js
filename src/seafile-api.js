@@ -1808,23 +1808,28 @@ class SeafileAPI {
     });
   }
 
-  listWorkSpaces() {
+  listWorkspaces() {
     const url = this.server + '/api/v2.1/workspaces/';
     return this.req.get(url);
   }
 
-  createWorkSpace(name) {
+  createWorkspace(name) {
     const url = this.server + '/api/v2.1/workspaces/';
     let form = new FormData();
     form.append('name', name);
     return this._sendPostRequest(url, form);
   }
 
-  renameWorkSpace(workspaceID, name) {
+  renameWorkspace(workspaceID, name) {
     const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/';
     let form = new FormData();
     form.append('name', name);
     return this.req.put(url, form);
+  }
+
+  deleteWorkspace(workspaceID) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/';
+    return this.req.delete(url);
   }
 
   getTableDownloadLink(workspaceID, name) {
@@ -1835,11 +1840,6 @@ class SeafileAPI {
   getTableUpdateLink(workspaceID) {
     const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable-update-link/';
     return this.req.get(url);
-  }
-
-  deleteWorkSpace(workspaceID) {
-    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/';
-    return this.req.delete(url);
   }
 
   createTable(workspaceID, name) {
