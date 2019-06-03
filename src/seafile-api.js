@@ -1808,6 +1808,61 @@ class SeafileAPI {
     });
   }
 
+  listWorkspaces() {
+    const url = this.server + '/api/v2.1/workspaces/';
+    return this.req.get(url);
+  }
+
+  createWorkspace(name) {
+    const url = this.server + '/api/v2.1/workspaces/';
+    let form = new FormData();
+    form.append('name', name);
+    return this._sendPostRequest(url, form);
+  }
+
+  renameWorkspace(workspaceID, name) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/';
+    let form = new FormData();
+    form.append('name', name);
+    return this.req.put(url, form);
+  }
+
+  deleteWorkspace(workspaceID) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/';
+    return this.req.delete(url);
+  }
+
+  getTableDownloadLink(workspaceID, name) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/?name=' + name + '&reuse=1';
+    return this.req.get(url);
+  }
+
+  getTableUpdateLink(workspaceID) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable-update-link/';
+    return this.req.get(url);
+  }
+
+  createTable(workspaceID, name) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/';
+    let form = new FormData();
+    form.append('name', name);
+    return this._sendPostRequest(url, form);
+  }
+
+  renameTable(workspaceID, old_name, new_name) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/';
+    let form = new FormData();
+    form.append('old_name', old_name);
+    form.append('new_name', new_name);
+    return this.req.put(url, form);
+  }
+
+  deleteTable(workspaceID, name) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/';
+    let params = { name: name };
+    return this.req.delete(url, { data: params });
+  }
+
 }
 
 export { SeafileAPI };
