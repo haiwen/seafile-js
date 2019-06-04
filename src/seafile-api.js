@@ -678,7 +678,7 @@ class SeafileAPI {
 
   deleteDir(repoID, dirPath) {
     const path = encodeURIComponent(dirPath);
-    const url = this.server + '/api2/repos/' +  repoID + '/dir/?p=' + path;
+    const url = this.server + '/api/v2.1/repos/' +  repoID + '/dir/?p=' + path;
     return this.req.delete(url);
   }
 
@@ -838,7 +838,7 @@ class SeafileAPI {
 
   deleteFile(repoID, filePath) {
     const path = encodeURIComponent(filePath);
-    const url = this.server + '/api2/repos/' + repoID + '/file/?p=' + path;
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/file/?p=' + path;
     return this.req.delete(url);
   }
 
