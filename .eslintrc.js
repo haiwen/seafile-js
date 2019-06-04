@@ -1,6 +1,8 @@
 module.exports = {
   "env": {
-    "node": true
+    "node": true,
+    "es6": true,
+    "jest": true
   },
   "extends": [
     "eslint:recommended"
@@ -23,6 +25,15 @@ module.exports = {
           "error",
           "always"
       ],
-      "no-console": "off"
+      "no-console": "off",
+      "no-undef": "off",
+  },
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "sourceType": "module",
+    "ecmaFeatures": {
+        "jsx": true,
+        "modules": true
+    }
   }
 }

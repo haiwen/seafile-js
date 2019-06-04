@@ -18,7 +18,7 @@ class SeafileAPI {
   }
 
   initForSeahubUsage({ siteRoot, xcsrfHeaders }) {
-    if (siteRoot && siteRoot.charAt(siteRoot.length-1) === "/") {
+    if (siteRoot && siteRoot.charAt(siteRoot.length-1) === '/') {
       var server = siteRoot.substring(0, siteRoot.length-1);
       this.server = server;
     } else {
@@ -51,7 +51,7 @@ class SeafileAPI {
     }).then((response) => {
       this.token = response.data;
       return this.token;
-    })
+    });
   }
 
   /**
@@ -68,7 +68,7 @@ class SeafileAPI {
         baseURL: this.server,
         headers: { 'Authorization': 'Token ' + this.token }
       });
-    })
+    });
   }
 
   authPing() {
@@ -118,7 +118,7 @@ class SeafileAPI {
     const url = this.server + '/api/v2.1/groups/' + groupID + '/';
     const params = {
       name: name
-    }
+    };
     return this.req.put(url, params);
   }
   
@@ -131,7 +131,7 @@ class SeafileAPI {
     const url = this.server + '/api/v2.1/groups/' + groupID + '/';
     const params = {
       owner: ownerName
-    }
+    };
     return this.req.put(url, params);
   }
 
@@ -150,7 +150,7 @@ class SeafileAPI {
     const url = this.server + '/api/v2.1/groups/' + groupID + '/members/';
     const params = {
       email: userName
-    }
+    };
     return this.req.post(url, params);
   }
 
@@ -172,7 +172,7 @@ class SeafileAPI {
     let url = this.server + '/api/v2.1/groups/' + groupID + '/members/' + name + '/';
     const params = {
       is_admin: isAdmin
-    }
+    };
     return this.req.put(url, params);
   }
 
@@ -199,7 +199,7 @@ class SeafileAPI {
   }
   
   shareGroupOwnedRepoToUser(repoID, permission, username) {
-    const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/user-share/'
+    const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/user-share/';
     let form = new FormData();
     form.append('permission', permission);
     if (Array.isArray(username)) {
@@ -213,7 +213,7 @@ class SeafileAPI {
   }
 
   modifyGroupOwnedRepoUserSharedPermission(repoID, permission, username) { //need check
-    const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/user-share/'
+    const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/user-share/';
     let form = new FormData();
     form.append('permission', permission);
     form.append('username', username);
@@ -221,13 +221,13 @@ class SeafileAPI {
   }
 
   deleteGroupOwnedRepoSharedUserItem(repoID, username) {
-    const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/user-share/'
+    const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/user-share/';
     let params = {username: username};
     return this.req.delete(url, {data: params});
   }
 
   shareGroupOwnedRepoToGroup(repoID, permission, groupID) {
-    const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/group-share/'
+    const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/group-share/';
     let form = new FormData();
     form.append('permission', permission);
     if (Array.isArray(groupID)) {
@@ -241,7 +241,7 @@ class SeafileAPI {
   }
 
   modifyGroupOwnedRepoGroupSharedPermission(repoID, permission, groupID) { //need check
-    const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/group-share/'
+    const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/group-share/';
     let form = new FormData();
     form.append('permission', permission);
     form.append('group_id', groupID);
@@ -249,7 +249,7 @@ class SeafileAPI {
   }
 
   deleteGroupOwnedRepoSharedGroupItem(repoID, groupID) {
-    const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/group-share/'
+    const url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/group-share/';
     let params = {group_id: groupID};
     return this.req.delete(url, {data: params});
   }
@@ -471,11 +471,11 @@ class SeafileAPI {
   createGroupRepo(groupID, repo) {
     const url = this.server + '/api/v2.1/groups/'+ groupID + '/libraries/';
     let form = new FormData();
-    form.append("repo_name", repo.repo_name);
+    form.append('repo_name', repo.repo_name);
     if (repo.password) {
-      form.append("password", repo.password);
+      form.append('password', repo.password);
     }
-    form.append("permission", repo.permission);
+    form.append('permission', repo.permission);
     return this._sendPostRequest(url, form);
   }
 
@@ -671,8 +671,8 @@ class SeafileAPI {
     const path = encodeURIComponent(dirPath);
     const url = this.server + '/api2/repos/' + repoID + '/dir/?p=' + path;
     let form = new FormData();
-    form.append("operation", 'rename');
-    form.append("newname", newdirName);
+    form.append('operation', 'rename');
+    form.append('newname', newdirName);
     return this._sendPostRequest(url, form);
   }
 
@@ -763,7 +763,7 @@ class SeafileAPI {
   cancelZipTask(zip_token) {
     const url = this.server + '/api/v2.1/cancel-zip-task/';
     const form = new FormData();
-    form.append("token", zip_token);
+    form.append('token', zip_token);
     return this.req.post(url, form);
   }
 
@@ -775,7 +775,7 @@ class SeafileAPI {
   }
 
   getFileHistory(repoID, folderPath) {
-    const url = this.server + "/api2/repos/" + repoID + "/file/history/?p=" + folderPath;
+    const url = this.server + '/api2/repos/' + repoID + '/file/history/?p=' + folderPath;
     return this.req.get(url);
   }
 
@@ -831,8 +831,8 @@ class SeafileAPI {
   revertFile(repoID, path, commitID) {
     const url = this.server +  '/api/v2.1/repos/'+ repoID + '/file/?p=' + path;
     let form = new FormData();
-    form.append("operation", 'revert');
-    form.append("commit_id", commitID);
+    form.append('operation', 'revert');
+    form.append('commit_id', commitID);
     return this._sendPostRequest(url, form);
   }
 
@@ -859,7 +859,7 @@ class SeafileAPI {
   uploadImage (uploadLink, formData) {
     return (
       axios.create()({
-        method: "post",
+        method: 'post',
         data: formData,
         url: uploadLink
       })
@@ -868,15 +868,15 @@ class SeafileAPI {
 
   getUpdateLink(repoID, folderPath) {
     const url = this.server + '/api2/repos/' + repoID + '/update-link/?p=' + folderPath;
-    return this.req.get(url)
+    return this.req.get(url);
   }
 
   updateFile(uploadLink, filePath, fileName, data) {
     let formData = new FormData();
-    formData.append("target_file", filePath);
-    formData.append("filename", fileName);
-    let blob = new Blob([data], { type: "text/plain" });
-    formData.append("file", blob);
+    formData.append('target_file', filePath);
+    formData.append('filename', fileName);
+    let blob = new Blob([data], { type: 'text/plain' });
+    formData.append('file', blob);
     return (
       axios.create()({
         method: 'post',
@@ -892,7 +892,7 @@ class SeafileAPI {
       path: path,
       page: page,
       per_page: per_page,
-    }
+    };
     return this.req.get(url, {params: params});
   }
 
@@ -906,7 +906,7 @@ class SeafileAPI {
   }
 
   getFileRevision(repoID, commitID, filePath) {
-    let url = this.server + '/api2/' + 'repos/' + repoID + '/file' + '/revision/?p=' + filePath + '&commit_id=' + commitID
+    let url = this.server + '/api2/' + 'repos/' + repoID + '/file' + '/revision/?p=' + filePath + '&commit_id=' + commitID;
     return this.req.get(url);
   }
 
@@ -929,9 +929,9 @@ class SeafileAPI {
     const path = encodeURIComponent(filePath);
     const url = this.server + '/api2/repos/' + repoID + '/file/comments/?p=' + path;
     let form = new FormData();
-    form.append("comment", comment);
+    form.append('comment', comment);
     if (detail) {
-      form.append("detail", detail);
+      form.append('detail', detail);
     }
     return this._sendPostRequest(url, form);
   }
@@ -952,7 +952,7 @@ class SeafileAPI {
   }
 
   getRepoDraftCounts(repoID) {
-    const url = this.server + '/api/v2.1/repo/' + repoID + '/draft-counts/'
+    const url = this.server + '/api/v2.1/repo/' + repoID + '/draft-counts/';
     return this.req.get(url);
   }
 
@@ -964,7 +964,7 @@ class SeafileAPI {
   // draft operation api
   getDraft(id) {
     const url = this.server + '/api/v2.1/drafts/' + id + '/';
-    return this.req.get(url)
+    return this.req.get(url);
   }
 
   listDrafts() {
@@ -975,8 +975,8 @@ class SeafileAPI {
   createDraft(repoID, filePath) {
     const url = this.server + '/api/v2.1/drafts/';
     const form = new FormData();
-    form.append("repo_id", repoID);
-    form.append("file_path", filePath);
+    form.append('repo_id', repoID);
+    form.append('file_path', filePath);
     return this.req.post(url, form);
   }
 
@@ -989,7 +989,7 @@ class SeafileAPI {
     const url = this.server + '/api/v2.1/drafts/' + id + '/';
     const params = {
       operation: 'publish'
-    }
+    };
     return this.req.put(url, params);
   }
 
@@ -1068,7 +1068,7 @@ class SeafileAPI {
 
   // file tag api
   listFileTags(repoID, filePath) {
-    var p = encodeURIComponent(filePath)
+    var p = encodeURIComponent(filePath);
     var url = this.server + '/api/v2.1/repos/' + repoID + '/file-tags/?file_path=' + p;
     return this.req.get(url);
   }
@@ -1131,7 +1131,7 @@ class SeafileAPI {
     const path = encodeURIComponent(filePath);
     const time = new Date().getTime();
     const url = this.server + '/api/v2.1/wikis/' + slug + '/content/' + '?p=' + path + '&_=' + time;
-    return this.req.get(url)
+    return this.req.get(url);
   }
 
   //---- Avatar API
@@ -1173,7 +1173,7 @@ class SeafileAPI {
   }
   
   unlinkDevice(platform, device_id) {
-    const url = this.server + "/api2/devices/";
+    const url = this.server + '/api2/devices/';
     let param = {
       platform: platform,
       device_id: device_id
@@ -1306,7 +1306,7 @@ class SeafileAPI {
   setOrgAdmin(orgID, email, isStaff) {
     const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/users/' + encodeURIComponent(email) + '/';
     let form = new FormData();
-    form.append('is_staff', isStaff)
+    form.append('is_staff', isStaff);
     return this.req.put(url, form);
   }
 
