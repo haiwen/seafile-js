@@ -1863,6 +1863,51 @@ class SeafileAPI {
     return this.req.delete(url, { data: params });
   }
 
+  getRepoFolderTrash(repoID, path, scanStat) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/trash/';
+    let params = {
+      path: path
+    };
+    if (scanStat) {
+      params.scan_stat = scanStat;
+    }
+    return this.req.get(url, {params: params});
+  }
+
+  deleteRepoTrash(repoID, days) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/trash/';
+    const params = {
+      keep_days: days
+    };
+    return this.req.delete(url, {data: params});
+  }
+
+  restoreFolder(repoID, commitID, path) {
+    const url = this.server + '/api2/repos/' + repoID + '/dir/revert/';
+    const data = {
+      'commit_id': commitID,
+      'p': path
+    };
+    return this.req.put(url, data);
+  }
+
+  restoreFile(repoID, commitID, path) {
+    const url = this.server + '/api2/repos/' + repoID + '/file/revert/';
+    const data = {
+      'commit_id': commitID,
+      'p': path
+    };
+    return this.req.put(url, data);
+  }
+
+  listCommitDir(repoID, commitID, path) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/commits/' + commitID + '/dir/';
+    const params = {
+      path: path
+    };
+    return this.req.get(url, {params: params});
+  }
+
 }
 
 export { SeafileAPI };
