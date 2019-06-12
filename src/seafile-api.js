@@ -686,11 +686,7 @@ class SeafileAPI {
   copyDir(repoID, dstrepoID, dstfilePath, dirPath, direntNames) {
     let paths = [];
     let url = this.server;
-    if (repoID === dstrepoID) {
-      url += '/api/v2.1/repos/sync-batch-copy-item/'
-    } else {
-      url += '/api/v2.1/repos/async-batch-copy-item/'
-    }
+    url += repoID === dstrepoID ? '/api/v2.1/repos/sync-batch-copy-item/' : '/api/v2.1/repos/async-batch-copy-item/';
     if (Array.isArray(direntNames)) {
       paths = direntNames;
     } else {
@@ -710,11 +706,8 @@ class SeafileAPI {
   moveDir(repoID, dstrepoID, dstfilePath, dirPath, direntNames) {
     let paths = [];
     let url = this.server;
-    if (repoID === dstrepoID) {
-      url += '/api/v2.1/repos/sync-batch-move-item/';
-    } else {
-      url += '/api/v2.1/repos/async-batch-move-item/';
-    }
+
+    url += repoID === dstrepoID ? '/api/v2.1/repos/sync-batch-move-item/' : '/api/v2.1/repos/async-batch-move-item/';
     if (Array.isArray(direntNames)) {
       paths = direntNames;
     } else {
