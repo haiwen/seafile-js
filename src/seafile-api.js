@@ -684,45 +684,44 @@ class SeafileAPI {
 
   //---- multiple(File&Folder) operation
   copyDir(repoID, dstrepoID, dstfilePath, dirPath, direntNames) {
-    let fileNames = direntNames;
+    let paths = [];
+    let url = this.server;
+    url += repoID === dstrepoID ? '/api/v2.1/repos/sync-batch-copy-item/' : '/api/v2.1/repos/async-batch-copy-item/';
     if (Array.isArray(direntNames)) {
-      fileNames = '';
-      for (let i = 0; i < direntNames.length; i++) {
-        if (i < direntNames.length - 1) {
-          fileNames += direntNames[i] + ':';
-        } else {
-          fileNames += direntNames[i];
-        }
-      }
+      paths = direntNames;
+    } else {
+      paths.push(direntNames)
+    } 
+    let operation = {
+      'src_repo_id': repoID,
+      'src_parent_dir': dirPath,
+      'dst_repo_id': dstrepoID,
+      'dst_parent_dir': dstfilePath,
+      'src_dirents': paths
     }
-    const path = encodeURIComponent(dirPath);
-    const url = this.server + '/api2/repos/' + repoID + '/fileops/copy/?p=' + path;
-    let form = new FormData();
-    form.append('dst_repo', dstrepoID);
-    form.append('dst_dir', dstfilePath);
-    form.append('file_names', fileNames);
-    return this._sendPostRequest(url, form);
+
+    return this._sendPostRequest(url, operation, {headers: {'Content-Type': 'application/json'}});
   }
   
   moveDir(repoID, dstrepoID, dstfilePath, dirPath, direntNames) {
-    let fileNames = direntNames;
+    let paths = [];
+    let url = this.server;
+
+    url += repoID === dstrepoID ? '/api/v2.1/repos/sync-batch-move-item/' : '/api/v2.1/repos/async-batch-move-item/';
     if (Array.isArray(direntNames)) {
-      fileNames = '';
-      for (let i = 0; i < direntNames.length; i++) {
-        if (i < direntNames.length - 1) {
-          fileNames += direntNames[i] + ':';
-        } else {
-          fileNames += direntNames[i];
-        }
-      }
+      paths = direntNames;
+    } else {
+      paths.push(direntNames);
+    } 
+    let operation = {
+      'src_repo_id': repoID,
+      'src_parent_dir': dirPath,
+      'dst_repo_id': dstrepoID,
+      'dst_parent_dir': dstfilePath,
+      'src_dirents': paths
     }
-    const path = encodeURIComponent(dirPath);
-    const url = this.server + '/api2/repos/' + repoID + '/fileops/move/?p=' + path;
-    let form = new FormData();
-    form.append('dst_repo', dstrepoID);
-    form.append('dst_dir', dstfilePath);
-    form.append('file_names', fileNames);
-    return this._sendPostRequest(url, form);
+
+    return this._sendPostRequest(url, operation, {headers: {'Content-Type': 'application/json'}});
   }
 
   deleteMutipleDirents(repoID, parentDir, direntNames) {
