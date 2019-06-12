@@ -711,14 +711,14 @@ class SeafileAPI {
     let paths = [];
     let url = this.server;
     if (repoID === dstrepoID) {
-      url += '/api/v2.1/repos/sync-batch-move-item/'
+      url += '/api/v2.1/repos/sync-batch-move-item/';
     } else {
-      url += '/api/v2.1/repos/async-batch-move-item/'
+      url += '/api/v2.1/repos/async-batch-move-item/';
     }
     if (Array.isArray(direntNames)) {
       paths = direntNames;
     } else {
-      paths.push(direntNames)
+      paths.push(direntNames);
     } 
     let operation = {
       'src_repo_id': repoID,
