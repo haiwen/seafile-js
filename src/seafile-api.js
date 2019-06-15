@@ -835,6 +835,19 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
+  revertFolder(repoID, path, commitID) {
+    const url = this.server +  '/api/v2.1/repos/'+ repoID + '/dir/?p=' + path;
+    let form = new FormData();
+    form.append("operation", 'revert');
+    form.append("commit_id", commitID);
+    return this._sendPostRequest(url, form);
+  }
+
+  revertRepo(repoID, commitID) {
+    const url = this.server +  '/api/v2.1/repos/'+ repoID + '/commits/' + commitID + '/revert/';
+    return this.req.post(url);
+  }
+
   deleteFile(repoID, filePath) {
     const path = encodeURIComponent(filePath);
     const url = this.server + '/api/v2.1/repos/' + repoID + '/file/?p=' + path;
