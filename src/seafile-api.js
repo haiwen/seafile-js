@@ -1854,6 +1854,11 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  getTableAssetUploadLink(workspaceID, name) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable-asset-upload-link/?name=' + name;
+    return this.req.get(url);
+  }
+
   createTable(workspaceID, name) {
     const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/';
     let form = new FormData();
