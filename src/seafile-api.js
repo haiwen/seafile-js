@@ -1854,8 +1854,8 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  getTableUploadLink(workspaceID, name) {
-    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable-upload-link/?name=' + name;
+  getTableAssetUploadLink(workspaceID, name) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable-asset-upload-link/?name=' + name;
     return this.req.get(url);
   }
 
