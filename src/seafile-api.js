@@ -1925,6 +1925,42 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
+  listUserShareWorkspaces() {
+    const url = this.server + '/api/v2.1/workspaces/user-share/';
+    return this.req.get(url);
+  }
+
+  listUserShareWorkspaceUsers(workspaceID) {
+    const url = this.server + '/api/v2.1/workspaces/' + workspaceID + '/user-share/';
+    return this.req.get(url);
+  }
+
+  addUserShareWorkspace(workspaceID, email, permission) {
+    const url = this.server + '/api/v2.1/workspaces/' + workspaceID + '/user-share/';
+    const data = {
+      email: email,
+      permission: permission
+    };
+    return this.req.post(url, data);
+  }
+
+  modifyUserShareWorkspacePermission(workspaceID, email, permission) {
+    const url = this.server + '/api/v2.1/workspaces/' + workspaceID + '/user-share/';
+    const data = {
+      email: email,
+      permission: permission
+    };
+    return this.req.put(url, data);
+  }
+
+  deleteUserShareWorkspace(workspaceID, email) {
+    const url = this.server + '/api/v2.1/workspaces/' + workspaceID + '/user-share/';
+    const params = {
+      email: email
+    };
+    return this.req.delete(url, { data: params });
+  }
+
 }
 
 export { SeafileAPI };
