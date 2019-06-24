@@ -178,10 +178,13 @@ class SeafileAPI {
 
   createGroupOwnedLibrary(groupID, repo) {
     let repoName = repo.repo_name;
-    let permission = repo.permission ? permission : 'rw';
+    let permission = repo.permission ? repo.permission : 'rw';
     const url = this.server + '/api/v2.1/groups/'+ groupID + '/group-owned-libraries/';
     let form = new FormData();
     form.append('name', repoName);  // need to modify endpoint api;
+    if (repo.passwd) {
+      form.append("passwd", repo.passwd);
+    }
     form.append('permission', permission);
     return this._sendPostRequest(url, form);
   }
