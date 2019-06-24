@@ -725,19 +725,13 @@ class SeafileAPI {
   }
 
   deleteMutipleDirents(repoID, parentDir, direntNames) {
-    let fileNames = '';
-    for (let i = 0; i < direntNames.length; i++) {
-      if (i < direntNames.length - 1) {
-        fileNames += direntNames[i] + ':';
-      } else {
-        fileNames += direntNames[i];
-      }
-    }
-    const path = encodeURIComponent(parentDir);
-    const url = this.server + '/api2/repos/' + repoID + '/fileops/delete/?p=' + path;
-    let form = new FormData();
-    form.append('file_names', fileNames);
-    return this._sendPostRequest(url, form);
+    const url = this.server  + '/api/v2.1/repos/batch-delete-item/';
+    let operation = {
+      'repo_id': repoID,
+      'parent_dir': parentDir,
+      'dirents': direntNames
+    };
+    return this.req.delete(url, {data: operation}, {headers: {'Content-Type': 'application/json'}});
   }
 
   zipDownload(repoID, parent_dir, dirents) { // can download one dir
