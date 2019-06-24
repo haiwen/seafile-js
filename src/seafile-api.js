@@ -767,6 +767,12 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  getFileInfoNew(repoID, filePath) {
+    const path = encodeURIComponent(filePath);
+    const url = this.server + 'api/v2.1/repos/' + repoID + '/file/?p=' + path;
+    return this.req.get(url);
+  }
+
   getFileHistory(repoID, folderPath) {
     const url = this.server + "/api2/repos/" + repoID + "/file/history/?p=" + folderPath;
     return this.req.get(url);
