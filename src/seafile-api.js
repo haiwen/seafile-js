@@ -1846,8 +1846,8 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  getTableUpdateLink(workspaceID) {
-    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable-update-link/';
+  getTableUpdateLink(workspaceID, name) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable-update-link/?name=' + name + '/';
     return this.req.get(url);
   }
 
@@ -1856,10 +1856,11 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  createTable(workspaceID, name) {
-    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/';
+  createTable(name, owner) {
+    const url = this.server + '/api/v2.1/dtables/';
     let form = new FormData();
     form.append('name', name);
+    form.append('owner', owner);
     return this._sendPostRequest(url, form);
   }
 
