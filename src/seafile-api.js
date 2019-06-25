@@ -1843,8 +1843,8 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  getTableUpdateLink(workspaceID) {
-    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable-update-link/';
+  getTableUpdateLink(workspaceID, name) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable-update-link/?name=' + name + '/';
     return this.req.get(url);
   }
 
