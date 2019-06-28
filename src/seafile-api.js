@@ -1589,13 +1589,12 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  updateUserAvatar(avatar, size) {
+  updateUserAvatar(avatarFile, avatarSize) {
     const url = this.server + '/api/v2.1/user-avatar/';
-    const data = {
-      'avatar': avatar,
-      'avatar_size': size
-    };
-    return this.req.post(url, data);
+    let form = new FormData();
+    form.append('avatar', avatarFile);
+    form.append('avatar_size', avatarSize);
+    return this._sendPostRequest(url, form);
   }
 
   getUserInfo() {
