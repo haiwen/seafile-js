@@ -1933,6 +1933,30 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
+  listFileParticipants(repoID, filePath) {
+    const path = encodeURIComponent(filePath);
+    let url = this.server + '/api/v2.1/repos/' + repoID + '/file/participants/?path=' + path;
+    return this.req.get(url);
+  }
+
+  addFileParticipant(repoID, filePath, email) {
+    let url = this.server + '/api/v2.1/repos/' + repoID + '/file/participants/';
+    let params = {
+      path: filePath,
+      email: email
+    };
+    return this.req.post(url, params);
+  }
+
+  deleteFileParticipant(repoID, filePath, email) {
+    let url = this.server + '/api/v2.1/repos/' + repoID + '/file/participant/';
+    let params = {
+      path: filePath,
+      email: email
+    };
+    return this.req.delete(url, { data: params });
+  }
+
 }
 
 export { SeafileAPI };
