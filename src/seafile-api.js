@@ -442,6 +442,11 @@ class SeafileAPI {
     return this.req.delete(url, {params: options});
   }
 
+  unshareRepoToGroup(repoID, groupID) {
+    const url = this.server + '/api/v2.1/groups/' + groupID + '/libraries/' + repoID +'/';
+    return this.req.delete(url);
+  }
+
   // shared folders
   shareFolder(repoID, path, shareType, permission, paramArray) { // shareType: user group
     path = encodeURIComponent(path);
