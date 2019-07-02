@@ -1957,6 +1957,40 @@ class SeafileAPI {
     return this.req.delete(url, { data: params });
   }
 
+  listSharedTables() {
+    let url = this.server + '/api/v2.1/dtables/shared/';
+    return this.req.get(url);
+  }
+
+  listTableShares(workspaceID, name) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + name + '/share/';
+    return this.req.get(url);
+  }
+
+  addTableShare(workspaceID, name, email, permission) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + name + '/share/';
+    let params = {
+      email: email,
+      permission: permission
+    };
+    return this.req.post(url, params);
+  }
+
+  deleteTableShare(workspaceID, name, email) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + name + '/share/';
+    let params = { email: email };
+    return this.req.delete(url, { data: params });
+  }
+
+  updateTableShare(workspaceID, name, email, permission) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + name + '/share/';
+    let params = {
+      email: email,
+      permission: permission
+    };
+    return this.req.put(url, params);
+  }
+
 }
 
 export { SeafileAPI };
