@@ -1518,9 +1518,10 @@ class SeafileAPI {
     });
   }
 
-  listSharedDir(token, path) {
+  listSharedDir(token, path, thumbnailSize) {
     const url = this.server + '/api/v2.1/share-links/' + token + '/dirents/';
     const params = {
+      thumbnail_size: thumbnailSize,
       path: path
     };
     return this.req.get(url, {
