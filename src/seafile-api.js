@@ -342,7 +342,7 @@ class SeafileAPI {
   }
 
   getUploadLinks(repoID, path) {
-    const url = this.server + '/api/v2.1/upload-links/?repo_id=' + repoID + '&path=' + path;
+    const url = this.server + '/api/v2.1/upload-links/?repo_id=' + repoID + '&path=' + encodeURIComponent(path);
     return this.req.get(url);
   }
 
@@ -755,14 +755,17 @@ class SeafileAPI {
 
   zipDownload(repoID, parent_dir, dirents) { // can download one dir
     let url = '';
+    let parent_dir_encoded = encodeURIComponent(parent_dir);
+
+
     if (Array.isArray(dirents)) {
       let params = '';
       for (let i = 0; i < dirents.length; i++) {
-        params += '&dirents=' + dirents[i];
+        params += '&dirents=' + encodeURIComponent(dirents[i]);
       }
-      url = this.server + '/api/v2.1/repos/' + repoID + '/zip-task/?parent_dir=' + parent_dir + params;
+      url = this.server + '/api/v2.1/repos/' + repoID + '/zip-task/?parent_dir=' + parent_dir_encoded + params;
     } else {
-      url = this.server + '/api/v2.1/repos/' + repoID + '/zip-task/?parent_dir=' + parent_dir + '&dirents=' + dirents;
+      url = this.server + '/api/v2.1/repos/' + repoID + '/zip-task/?parent_dir=' + parent_dir_encoded + '&dirents=' + encodeURIComponent(dirents);
     }
     return this.req.get(url);
   }
@@ -787,7 +790,7 @@ class SeafileAPI {
   }
 
   getFileHistory(repoID, folderPath) {
-    const url = this.server + "/api2/repos/" + repoID + "/file/history/?p=" + folderPath;
+    const url = this.server + "/api2/repos/" + repoID + "/file/history/?p=" + encodeURIComponent(folderPath);
     return this.req.get(url);
   }
 
@@ -841,7 +844,7 @@ class SeafileAPI {
   // copy need to add
 
   revertFile(repoID, path, commitID) {
-    const url = this.server +  '/api/v2.1/repos/'+ repoID + '/file/?p=' + path;
+    const url = this.server +  '/api/v2.1/repos/'+ repoID + '/file/?p=' + encodeURIComponent(path);
     let form = new FormData();
     form.append("operation", 'revert');
     form.append("commit_id", commitID);
@@ -849,7 +852,7 @@ class SeafileAPI {
   }
 
   revertFolder(repoID, path, commitID) {
-    const url = this.server +  '/api/v2.1/repos/'+ repoID + '/dir/?p=' + path;
+    const url = this.server +  '/api/v2.1/repos/'+ repoID + '/dir/?p=' + encodeURIComponent(path);
     let form = new FormData();
     form.append("operation", 'revert');
     form.append("commit_id", commitID);
@@ -893,7 +896,7 @@ class SeafileAPI {
   }
 
   getUpdateLink(repoID, folderPath) {
-    const url = this.server + '/api2/repos/' + repoID + '/update-link/?p=' + folderPath;
+    const url = this.server + '/api2/repos/' + repoID + '/update-link/?p=' + encodeURIComponent(folderPath);
     return this.req.get(url)
   }
 
@@ -932,7 +935,7 @@ class SeafileAPI {
   }
 
   getFileRevision(repoID, commitID, filePath) {
-    let url = this.server + '/api2/' + 'repos/' + repoID + '/file' + '/revision/?p=' + filePath + '&commit_id=' + commitID
+    let url = this.server + '/api2/' + 'repos/' + repoID + '/file' + '/revision/?p=' + encodeURIComponent(filePath) + '&commit_id=' + commitID
     return this.req.get(url);
   }
 
@@ -1054,7 +1057,7 @@ class SeafileAPI {
   }
 
   unstarItem(repoID, path) {
-    const url = this.server + '/api/v2.1/starred-items/?repo_id=' + repoID + '&path=' + path;
+    const url = this.server + '/api/v2.1/starred-items/?repo_id=' + repoID + '&path=' + encodeURIComponent(path);
     return this.req.delete(url);
   }
 
@@ -1283,12 +1286,12 @@ class SeafileAPI {
 
   //----MetaData API
   fileMetaData(repoID, filePath) {
-    const url = this.server + '/api2/repos/' + repoID + '/file/metadata/?p=' + filePath;
+    const url = this.server + '/api2/repos/' + repoID + '/file/metadata/?p=' + encodeURIComponent(filePath);
     return this.req.get(url);
   }
 
   dirMetaData(repoID, dirPath) {
-    const url = this.server + '/api2/repos/' + repoID + '/dir/metadata/?p=' + dirPath;
+    const url = this.server + '/api2/repos/' + repoID + '/dir/metadata/?p=' + encodeURIComponent(dirPath);
     return this.req.get(url);
   }
 
@@ -1645,7 +1648,7 @@ class SeafileAPI {
   listUserFolderPerm(repoID, folderPath) {
     let url = this.server + '/api2/repos/' + repoID + '/user-folder-perm/';
     if (folderPath) {
-      url = url + '?folder_path=' + folderPath;
+      url = url + '?folder_path=' + encodeURIComponent(folderPath);
     }
     return this.req.get(url);
   }
@@ -1687,7 +1690,7 @@ class SeafileAPI {
   listGroupFolderPerm(repoID, folderPath) {
     let url = this.server + '/api2/repos/' + repoID + '/group-folder-perm/';
     if (folderPath) {
-      url = url + '?folder_path=' + folderPath;
+      url = url + '?folder_path=' + encodeURIComponent(folderPath);
     }
     return this.req.get(url);
   }
@@ -1723,7 +1726,7 @@ class SeafileAPI {
   listDepartmentRepoUserFolderPerm(repoID, folderPath) {
     let url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/user-folder-permission/';
     if (folderPath) {
-      url = url + '?folder_path=' + folderPath;
+      url = url + '?folder_path=' + encodeURIComponent(folderPath);
     }
     return this.req.get(url);
   }
@@ -1765,7 +1768,7 @@ class SeafileAPI {
   listDepartmentRepoGroupFolderPerm(repoID, folderPath) {
     let url = this.server + '/api/v2.1/group-owned-libraries/' + repoID + '/group-folder-permission/';
     if (folderPath) {
-      url = url + '?folder_path=' + folderPath;
+      url = url + '?folder_path=' + encodeURIComponent(folderPath);
     }
     return this.req.get(url);
   }
