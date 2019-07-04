@@ -885,12 +885,13 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
-  uploadImage (uploadLink, formData) {
+  uploadImage (uploadLink, formData, onUploadProgress = null ) {
     return (
       axios.create()({
         method: "post",
         data: formData,
-        url: uploadLink
+        url: uploadLink,
+        onUploadProgress: onUploadProgress
       })
     );
   }
