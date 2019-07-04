@@ -1802,19 +1802,28 @@ class SeafileAPI {
     return this.req.delete(url, {data: param});
   }
 
-  adminListWorkWeixinDepartments() {
+  adminListWorkWeixinDepartments(departmentID) {
     const url = this.server + '/api/v2.1/admin/work-weixin/departments/';
-    return this.req.get(url);
+    const params = {};
+    if (departmentID) {
+      params.department_id = departmentID;
+    }
+    return this.req.get(url, {params: params});
   }
 
-  adminListWorkWeixinDepartmentMembers(department_id, params) {
-    const url = this.server + '/api/v2.1/admin/work-weixin/departments/' + department_id + '/members/';
+  adminListWorkWeixinDepartmentMembers(departmentID, params) {
+    const url = this.server + '/api/v2.1/admin/work-weixin/departments/' + departmentID + '/members/';
     return this.req.get(url, {params: params});
   }
 
   adminAddWorkWeixinUsersBatch(userList) {
     const url = this.server + '/api/v2.1/admin/work-weixin/users/batch/';
     return this.req.post(url, {userlist: userList});
+  }
+
+  adminImportWorkWeixinDepartment(departmentID) {
+    const url = this.server + '/api/v2.1/admin/work-weixin/departments/import/';
+    return this.req.post(url, {work_weixin_department_id: departmentID});
   }
 
   getRepoHistory(repoID, page, perPage) {
