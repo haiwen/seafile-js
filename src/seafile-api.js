@@ -872,7 +872,7 @@ class SeafileAPI {
 
   getUploadLink(repoID, folderPath) {
     const path = encodeURIComponent(folderPath);
-    const url = this.server + '/api2/repos/' + repoID + '/upload-link/?p=' + path + '&from=web';
+    const url = this.server + '/api2/repos/' + repoID + '/upload-link/?p=' + path;
     return this.req.get(url);
   }
 
