@@ -606,6 +606,11 @@ class SeafileAPI {
     return source;
   }
 
+  searchPublicFiles(q, search_repo) {
+    const url = this.server + '/api/v2.1/public-repos-search/?q=' + q + '&search_repo=' + search_repo;
+    return this.req.get(url);
+  }
+
   searchFiles(searchParams, cancelToken) {
     let url = this.server + '/api2/search/';
     url = url + '?q=' + searchParams.q;
