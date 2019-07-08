@@ -606,8 +606,8 @@ class SeafileAPI {
     return source;
   }
 
-  searchPublicFiles(q, search_repo) {
-    const url = this.server + '/api/v2.1/public-repos-search/?q=' + q + '&search_repo=' + search_repo;
+  searchFilesInPublishedRepo(q, repoID) {
+    const url = this.server + '/api/v2.1/published-repo-search/?q=' + q + '&repo_id=' + repoID;
     return this.req.get(url);
   }
 
