@@ -2010,13 +2010,13 @@ class SeafileAPI {
     return this.req.put(url, params);
   }
 
-  listGroupTableShares(groupID, workspaceID, name) {
-    const url = this.server + '/api/v2.1/group/' + groupID + '/workspace/' + workspaceID + '/dtable/' + name + '/share/';
+  listGroupTableShares(workspaceID, name) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + name + '/group-share/';
     return this.req.get(url);
   }
 
-  addGroupTableShare(groupID, workspaceID, name, email, permission) {
-    const url = this.server + '/api/v2.1/group/' + groupID + '/workspace/' + workspaceID + '/dtable/' + name + '/share/';
+  addGroupTableShare(workspaceID, name, email, permission) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + name + '/group-share/';
     let params = {
       email: email,
       permission: permission
@@ -2024,8 +2024,8 @@ class SeafileAPI {
     return this.req.post(url, params);
   }
 
-  updateGroupTableShare(groupID, workspaceID, name, email, permission) {
-    const url = this.server + '/api/v2.1/group/' + groupID + '/workspace/' + workspaceID + '/dtable/' + name + '/share/';
+  updateGroupTableShare(workspaceID, name, email, permission) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + name + '/group-share/';
     let params = {
       email: email,
       permission: permission
@@ -2033,8 +2033,8 @@ class SeafileAPI {
     return this.req.put(url, params);
   }
 
-  deleteGroupTableShare(groupID, workspaceID, name, email) {
-    const url = this.server + '/api/v2.1/group/' + groupID + '/workspace/' + workspaceID + '/dtable/' + name + '/share/';
+  deleteGroupTableShare(workspaceID, name, email) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + name + '/group-share/';
     let params = { email: email };
     return this.req.delete(url, { data: params });
   }
