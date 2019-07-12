@@ -2010,6 +2010,35 @@ class SeafileAPI {
     return this.req.put(url, params);
   }
 
+  listGroupTableShares(groupID, workspaceID, name) {
+    const url = this.server + '/api/v2.1/group/' + groupID + '/workspace/' + workspaceID + '/dtable/' + name + '/share/';
+    return this.req.get(url);
+  }
+
+  addGroupTableShare(groupID, workspaceID, name, email, permission) {
+    const url = this.server + '/api/v2.1/group/' + groupID + '/workspace/' + workspaceID + '/dtable/' + name + '/share/';
+    let params = {
+      email: email,
+      permission: permission
+    };
+    return this.req.post(url, params);
+  }
+
+  updateGroupTableShare(groupID, workspaceID, name, email, permission) {
+    const url = this.server + '/api/v2.1/group/' + groupID + '/workspace/' + workspaceID + '/dtable/' + name + '/share/';
+    let params = {
+      email: email,
+      permission: permission
+    };
+    return this.req.put(url, params);
+  }
+
+  deleteGroupTableShare(groupID, workspaceID, name, email) {
+    const url = this.server + '/api/v2.1/group/' + groupID + '/workspace/' + workspaceID + '/dtable/' + name + '/share/';
+    let params = { email: email };
+    return this.req.delete(url, { data: params });
+  }
+
 }
 
 export { SeafileAPI };
