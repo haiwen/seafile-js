@@ -390,13 +390,13 @@ class SeafileAPI {
 
   deleteShareToUserItem(repoID, path, shareType, username) {
     path = encodeURIComponent(path);
-    const url = this.server + '/api2/repos/' + repoID + '/dir/shared_items/?p=' + path + '&share_type=' + shareType + '&username=' + username;
+    const url = this.server + '/api2/repos/' + repoID + '/dir/shared_items/?p=' + path + '&share_type=' + shareType + '&username=' + encodeURIComponent(username);
     return this.req.delete(url); 
   }
 
   updateShareToUserItemPermission(repoID, path, shareType, username, permission) {
     path = encodeURIComponent(path);
-    const url = this.server + '/api2/repos/' + repoID + '/dir/shared_items/?p=' + path + '&share_type=' + shareType + '&username=' + username;
+    const url = this.server + '/api2/repos/' + repoID + '/dir/shared_items/?p=' + path + '&share_type=' + shareType + '&username=' + encodeURIComponent(username);
     let form = new FormData();
     form.append('permission', permission);
     return this._sendPostRequest(url, form);
@@ -1047,7 +1047,7 @@ class SeafileAPI {
   }
 
   deleteDraftReviewer(draftID, reviewer) {
-    const url = this.server + '/api/v2.1/drafts/' + draftID + '/reviewer/?username=' + reviewer;
+    const url = this.server + '/api/v2.1/drafts/' + draftID + '/reviewer/?username=' + encodeURIComponent(reviewer);
     return this.req.delete(url);
   }
 
@@ -1174,7 +1174,7 @@ class SeafileAPI {
 
   //---- Avatar API
   getUserAvatar(user, size) {
-    const url = this.server + '/api2/avatars/user/' + user + '/resized/' + size +'/';
+    const url = this.server + '/api2/avatars/user/' + encodeURIComponent(user) + '/resized/' + size +'/';
     return this.req.get(url);
   }
 
@@ -1443,7 +1443,7 @@ class SeafileAPI {
   
   // org depart member
   orgAdminDeleteDepartGroupUser(orgID, groupID, userEmail) {
-    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/groups/' + groupID + '/members/' + userEmail + '/';
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/groups/' + groupID + '/members/' + encodeURIComponent(userEmail) + '/';
     return this.req.delete(url);
   }
 
@@ -1455,7 +1455,7 @@ class SeafileAPI {
   }
 
   orgAdminSetDepartGroupUserRole(orgID, groupID, userEmail, isAdmin) {
-    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/groups/' + groupID +  '/members/' + userEmail + '/';
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/groups/' + groupID +  '/members/' + encodeURIComponent(userEmail) + '/';
     let form = new FormData();
     form.append('is_admin', isAdmin);
     return this.req.put(url, form);
@@ -1465,7 +1465,7 @@ class SeafileAPI {
   orgAdminListFileAudit(email, repoID, page) {
     let url = this.server + '/api/v2.1/org/admin/logs/file-access/?page=' + page;
     if (email) {
-      url = url + '&email=' + email;
+      url = url + '&email=' + encodeURIComponent(email);
     }
     if (repoID) {
       url = url + '&repo_id=' + repoID;
@@ -1476,7 +1476,7 @@ class SeafileAPI {
   orgAdminListFileUpdate(email, repoID, page) {
     let url = this.server + '/api/v2.1/org/admin/logs/file-update/?page=' + page;
     if (email) {
-      url = url + '&email=' + email;
+      url = url + '&email=' + encodeURIComponent(email);
     }
     if (repoID) {
       url = url + '&repo_id=' + repoID;
@@ -1487,7 +1487,7 @@ class SeafileAPI {
   orgAdminListPermAudit(email, repoID, page) {
     let url = this.server + '/api/v2.1/org/admin/logs/repo-permission/?page=' + page;
     if (email) {
-      url = url + '&email=' + email;
+      url = url + '&email=' + encodeURIComponent(email);
     }
     if (repoID) {
       url = url + '&repo_id=' + repoID;
