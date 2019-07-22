@@ -1880,17 +1880,17 @@ class SeafileAPI {
   }
 
   getTableDownloadLink(workspaceID, name) {
-    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/?name=' + name + '&reuse=1';
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/?name=' + encodeURIComponent(name) + '&reuse=1';
     return this.req.get(url);
   }
 
   getTableUpdateLink(workspaceID, name) {
-    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable-update-link/?name=' + name;
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable-update-link/?name=' + encodeURIComponent(name);
     return this.req.get(url);
   }
 
   getTableAssetUploadLink(workspaceID, name) {
-    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable-asset-upload-link/?name=' + name;
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable-asset-upload-link/?name=' + encodeURIComponent(name);
     return this.req.get(url);
   }
 
@@ -1991,12 +1991,12 @@ class SeafileAPI {
   }
 
   listTableShares(workspaceID, name) {
-    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + name + '/share/';
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + encodeURIComponent(name) + '/share/';
     return this.req.get(url);
   }
 
   addTableShare(workspaceID, name, email, permission) {
-    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + name + '/share/';
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + encodeURIComponent(name) + '/share/';
     let params = {
       email: email,
       permission: permission
@@ -2005,13 +2005,13 @@ class SeafileAPI {
   }
 
   deleteTableShare(workspaceID, name, email) {
-    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + name + '/share/';
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + encodeURIComponent(name) + '/share/';
     let params = { email: email };
     return this.req.delete(url, { data: params });
   }
 
   updateTableShare(workspaceID, name, email, permission) {
-    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + name + '/share/';
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + encodeURIComponent(name) + '/share/';
     let params = {
       email: email,
       permission: permission
