@@ -751,6 +751,11 @@ class SeafileAPI {
     return this._sendPostRequest(url, operation, {headers: {'Content-Type': 'application/json'}});
   }
 
+  queryAsyncOperationProgress(task_id) {
+    const url = this.server + '/api/v2.1/query-copy-move-progress/?task_id=' + task_id;
+    return this.req.get(url);
+  }
+
   deleteMutipleDirents(repoID, parentDir, direntNames) {
     const url = this.server  + '/api/v2.1/repos/batch-delete-item/';
     let operation = {
