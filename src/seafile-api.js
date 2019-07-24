@@ -1966,6 +1966,11 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
+  listRepoRelatedUsers(repoID) {
+    let url = this.server + '/api/v2.1/repos/' + repoID + '/related-users/';
+    return this.req.get(url);
+  }
+
   listFileParticipants(repoID, filePath) {
     const path = encodeURIComponent(filePath);
     let url = this.server + '/api/v2.1/repos/' + repoID + '/file/participants/?path=' + path;
