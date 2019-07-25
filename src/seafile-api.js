@@ -2024,6 +2024,18 @@ class SeafileAPI {
     return this.req.put(url, params);
   }
 
+  uploadLicense(file) {
+    const url = this.server + '/api/v2.1/admin/license/';
+    let formData = new FormData();
+    formData.append('license', file);
+    return this._sendPostRequest(url, formData);
+  }
+
+  getSysInfo() {
+    const url = this.server + '/api/v2.1/admin/sysinfo/';
+    return this.req.get(url);
+  }
+
 }
 
 export { SeafileAPI };
