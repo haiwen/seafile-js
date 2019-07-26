@@ -1977,11 +1977,11 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  addFileParticipant(repoID, filePath, email) {
+  addFileParticipants(repoID, filePath, emails) {
     let url = this.server + '/api/v2.1/repos/' + repoID + '/file/participants/';
     let params = {
       path: filePath,
-      email: email
+      emails: emails
     };
     return this.req.post(url, params);
   }
