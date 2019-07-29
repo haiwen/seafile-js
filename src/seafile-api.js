@@ -2099,6 +2099,37 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  listDevicesAdmin(platform, page, per_page) {
+    const url = this.server + '/api/v2.1/admin/devices/';
+    let params = {
+      platform: platform,
+      page: page,
+      per_page: per_page
+    };
+    return this.req.get(url, {params: params});
+  }
+
+  unlinkDevicesAdmin(platform, deviceId, user, wipeDevice) {
+    const url = this.server + '/api/v2.1/admin/devices/';
+    let params = {
+      platform: platform,
+      device_id: deviceId,
+      user: user,
+      wipe_device: wipeDevice
+    };
+    return this.req.delete(url, {data: params});
+  }
+
+  listDevicesErrorsAdmin() {
+    const url = this.server + '/api/v2.1/admin/device-errors/';
+    return this.req.get(url);
+  }
+
+  clearDevicesErrorsAdmin() {
+    const url = this.server + '/api/v2.1/admin/device-errors/';
+    return this.req.delete(url);
+  }
+
 }
 
 export { SeafileAPI };
