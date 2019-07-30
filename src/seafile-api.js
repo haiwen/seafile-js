@@ -1609,8 +1609,13 @@ class SeafileAPI {
   }
 
   deleteInvitation(token) {
-    const url = this.server + '/api/v2.1/invitations/' + token;
+    const url = this.server + '/api/v2.1/invitations/' + token + '/';
     return this.req.delete(url);
+  }
+
+  revokeInvitation(token) {
+    const url = this.server + '/api/v2.1/invitations/' + token + '/revoke/';
+    return this.req.post(url);
   }
 
   updateUserAvatar(avatarFile, avatarSize) {
