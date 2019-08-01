@@ -1484,19 +1484,19 @@ class SeafileAPI {
     return this.req.delete(url);
   }
   
-  orgAdminDeleteGroupUser(orgID, groupID, userEmail) {
+  orgAdminDeleteMember(orgID, groupID, userEmail) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/groups/' + groupID + '/members/' + encodeURIComponent(userEmail) + '/';
     return this.req.delete(url);
   }
 
-  orgAdminAddGroupUser(orgID, groupID, userEmail) {
+  orgAdminAddMember(orgID, groupID, userEmail) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/groups/' + groupID +  '/members/';
     let form = new FormData();
     form.append('email', userEmail);
     return this._sendPostRequest(url, form);
   }
 
-  orgAdminSetGroupUserRole(orgID, groupID, userEmail, isAdmin) {
+  orgAdminSetMemberRole(orgID, groupID, userEmail, isAdmin) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/groups/' + groupID +  '/members/' + encodeURIComponent(userEmail) + '/';
     let form = new FormData();
     form.append('is_admin', isAdmin);
