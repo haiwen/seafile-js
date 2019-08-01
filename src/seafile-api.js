@@ -1467,38 +1467,36 @@ class SeafileAPI {
     return this.req.put(url, form);
   }
 
-  // org depart repo
-  orgAdminListDepartGroupRepos(orgID, groupID) {
+  orgAdminListGroupRepos(orgID, groupID) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/groups/' + groupID + '/libraries/';
     return this.req.get(url);
   }
 
-  orgAdminAddDepartGroupRepo(orgID, groupID, repoName) {
+  orgAdminAddDepartmentRepo(orgID, groupID, repoName) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/groups/' + groupID + '/group-owned-libraries/';
     let form = new FormData();
     form.append('repo_name', repoName);
     return this._sendPostRequest(url, form);
   }
 
-  orgAdminDeleteDepartGroupRepo(orgID, groupID, repoID) {
+  orgAdminDeleteDepartmentRepo(orgID, groupID, repoID) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/groups/' + groupID + '/group-owned-libraries/' + repoID;
     return this.req.delete(url);
   }
   
-  // org depart member
-  orgAdminDeleteDepartGroupUser(orgID, groupID, userEmail) {
+  orgAdminDeleteGroupUser(orgID, groupID, userEmail) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/groups/' + groupID + '/members/' + encodeURIComponent(userEmail) + '/';
     return this.req.delete(url);
   }
 
-  orgAdminAddDepartGroupUser(orgID, groupID, userEmail) {
+  orgAdminAddGroupUser(orgID, groupID, userEmail) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/groups/' + groupID +  '/members/';
     let form = new FormData();
     form.append('email', userEmail);
     return this._sendPostRequest(url, form);
   }
 
-  orgAdminSetDepartGroupUserRole(orgID, groupID, userEmail, isAdmin) {
+  orgAdminSetGroupUserRole(orgID, groupID, userEmail, isAdmin) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/groups/' + groupID +  '/members/' + encodeURIComponent(userEmail) + '/';
     let form = new FormData();
     form.append('is_admin', isAdmin);
