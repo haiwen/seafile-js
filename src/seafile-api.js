@@ -1320,6 +1320,45 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  getOrgUserBesharedRepos(orgID, email) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/users/'+ encodeURIComponent(email) + '/beshared-repos/';
+    return this.req.get(url);
+  }
+
+  getOrgUserOwnedRepos(orgID, email) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/users/'+ encodeURIComponent(email) + '/repos/';
+    return this.req.get(url);
+  }
+
+  getOrgUserInfo(orgID, email) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/users/'+ encodeURIComponent(email) + '/';
+    return this.req.get(url);
+  }
+
+  setOrgUserName(orgID, email, name) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/users/'+ encodeURIComponent(email) + '/';
+    const data = {
+      name: name
+    };
+    return this.req.put(url, data);
+  }
+
+  setOrgUserContactEmail(orgID, email, contactEmail) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/users/'+ encodeURIComponent(email) + '/';
+    const data = {
+      contact_email: contactEmail
+    };
+    return this.req.put(url, data);
+  }
+
+  setOrgUserQuota(orgID, email, quota) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/users/'+ encodeURIComponent(email) + '/';
+    const data = {
+      quota_total: quota
+    };
+    return this.req.put(url, data);
+  }
+
   deleteOrgUser(orgID, email) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/users/'+ encodeURIComponent(email) + '/';
     return this.req.delete(url);
