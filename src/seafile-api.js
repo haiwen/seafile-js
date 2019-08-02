@@ -1397,6 +1397,11 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  orgAdminGetGroup(orgID, groupID) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/groups/' + groupID + '/';
+    return this.req.get(url);
+  }
+
   deleteOrgGroup(orgID, groupID) {
     const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/groups/' + groupID + '/';
     return this.req.delete(url);
@@ -1482,6 +1487,11 @@ class SeafileAPI {
   orgAdminDeleteDepartmentRepo(orgID, groupID, repoID) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/groups/' + groupID + '/group-owned-libraries/' + repoID;
     return this.req.delete(url);
+  }
+
+  orgAdminListGroupMembers(orgID, groupID) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/groups/' + groupID + '/members/';
+    return this.req.get(url);
   }
   
   orgAdminDeleteGroupMember(orgID, groupID, userEmail) {
