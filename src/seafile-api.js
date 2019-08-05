@@ -1164,9 +1164,10 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
-  getInternalLink(repoID, filePath) {
+  getInternalLink(repoID, filePath, direntType) {
+    let isDir = direntType === 'dir' ? true : false;
     const path = encodeURIComponent(filePath);
-    const url = this.server + '/api/v2.1/smart-link/?repo_id=' + repoID + '&path=' + path + '&is_dir=false';
+    const url = this.server + '/api/v2.1/smart-link/?repo_id=' + repoID + '&path=' + path + '&is_dir=' + isDir;
     return this.req.get(url);
   }
 
