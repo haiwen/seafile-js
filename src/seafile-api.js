@@ -1937,6 +1937,11 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
+  getTableAccessToken(workspaceID, name) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + encodeURIComponent(name) + '/access-token/';
+    return this.req.get(url);
+  }
+
   getTableDownloadLink(workspaceID, name) {
     const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/?name=' + encodeURIComponent(name) + '&reuse=1';
     return this.req.get(url);
