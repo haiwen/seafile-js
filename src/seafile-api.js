@@ -1315,27 +1315,27 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  listOrgUsers(orgID, isStaff, page) {
+  orgAdminListOrgUsers(orgID, isStaff, page) {
     const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/users/?is_staff=' + isStaff + '&page=' + page;
     return this.req.get(url);
   }
 
-  getOrgUserBesharedRepos(orgID, email) {
+  orgAdminGetOrgUserBesharedRepos(orgID, email) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/users/'+ encodeURIComponent(email) + '/beshared-repos/';
     return this.req.get(url);
   }
 
-  getOrgUserOwnedRepos(orgID, email) {
+  orgAdminGetOrgUserOwnedRepos(orgID, email) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/users/'+ encodeURIComponent(email) + '/repos/';
     return this.req.get(url);
   }
 
-  getOrgUserInfo(orgID, email) {
+  orgAdminGetOrgUserInfo(orgID, email) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/users/'+ encodeURIComponent(email) + '/';
     return this.req.get(url);
   }
 
-  setOrgUserName(orgID, email, name) {
+  orgAdminSetOrgUserName(orgID, email, name) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/users/'+ encodeURIComponent(email) + '/';
     const data = {
       name: name
@@ -1343,7 +1343,7 @@ class SeafileAPI {
     return this.req.put(url, data);
   }
 
-  setOrgUserContactEmail(orgID, email, contactEmail) {
+  orgAdminSetOrgUserContactEmail(orgID, email, contactEmail) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/users/'+ encodeURIComponent(email) + '/';
     const data = {
       contact_email: contactEmail
@@ -1351,7 +1351,7 @@ class SeafileAPI {
     return this.req.put(url, data);
   }
 
-  setOrgUserQuota(orgID, email, quota) {
+  orgAdminSetOrgUserQuota(orgID, email, quota) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/users/'+ encodeURIComponent(email) + '/';
     const data = {
       quota_total: quota
@@ -1359,24 +1359,24 @@ class SeafileAPI {
     return this.req.put(url, data);
   }
 
-  deleteOrgUser(orgID, email) {
+  orgAdminDeleteOrgUser(orgID, email) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/users/'+ encodeURIComponent(email) + '/';
     return this.req.delete(url);
   }
 
-  resetOrgUserPassword(orgID, email) {
+  orgAdminResetOrgUserPassword(orgID, email) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/users/'+ encodeURIComponent(email) + '/set-password/';
     return this.req.put(url);
   }
 
-  changeOrgUserStatus(userID, statusCode) {
+  orgAdminChangeOrgUserStatus(userID, statusCode) {
     const url = this.server + '/org/useradmin/toggle_status/' + userID + '/';
     let form = new FormData();
     form.append('s', statusCode);
     return this.req.post(url, form, { headers: {'X-Requested-With': 'XMLHttpRequest'}});
   }
 
-  addOrgUser(orgID, email, name, password) {
+  orgAdminAddOrgUser(orgID, email, name, password) {
     const url =  this.server + '/api/v2.1/org/' + orgID +'/admin/users/';
     let form = new FormData();
     form.append('email', email);
@@ -1385,14 +1385,14 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
-  setOrgAdmin(orgID, email, isStaff) {
+  orgAdminSetOrgAdmin(orgID, email, isStaff) {
     const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/users/' + encodeURIComponent(email) + '/';
     let form = new FormData();
     form.append('is_staff', isStaff)
     return this.req.put(url, form);
   }
 
-  listOrgGroups(orgID, page) {
+  orgAdminListOrgGroups(orgID, page) {
     const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/groups/?page=' + page;
     return this.req.get(url);
   }
@@ -1402,22 +1402,22 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  deleteOrgGroup(orgID, groupID) {
+  orgAdminDeleteOrgGroup(orgID, groupID) {
     const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/groups/' + groupID + '/';
     return this.req.delete(url);
   }
 
-  listOrgRepos(orgID, page) {
+  orgAdminListOrgRepos(orgID, page) {
     const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/repos/?page=' + page;
     return this.req.get(url);
   }
 
-  deleteOrgRepo(orgID, repoID) {
+  orgAdminDeleteOrgRepo(orgID, repoID) {
     const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/repos/' + repoID + '/';
     return this.req.delete(url);
   }
 
-  transferOrgRepo(orgID, repoID, email) {
+  orgAdminTransferOrgRepo(orgID, repoID, email) {
     const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/repos/' + repoID + '/';
     let form = new FormData();
     form.append('email', email);
@@ -2081,14 +2081,14 @@ class SeafileAPI {
     return this.req.put(url, params);
   }
 
-  uploadLicense(file) {
+  sysAdminUploadLicense(file) {
     const url = this.server + '/api/v2.1/admin/license/';
     let formData = new FormData();
     formData.append('license', file);
     return this._sendPostRequest(url, formData);
   }
 
-  getSysInfo() {
+  sysAdminGetSysInfo() {
     const url = this.server + '/api/v2.1/admin/sysinfo/';
     return this.req.get(url);
   }
