@@ -2099,7 +2099,7 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  listDevicesAdmin(platform, page, per_page) {
+  sysAdminlistDevices(platform, page, per_page) {
     const url = this.server + '/api/v2.1/admin/devices/';
     let params = {
       platform: platform,
@@ -2109,7 +2109,7 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
-  unlinkDevicesAdmin(platform, deviceId, user, wipeDevice) {
+  sysAdminUnlinkDevices(platform, deviceId, user, wipeDevice) {
     const url = this.server + '/api/v2.1/admin/devices/';
     let params = {
       platform: platform,
@@ -2120,12 +2120,12 @@ class SeafileAPI {
     return this.req.delete(url, {data: params});
   }
 
-  listDevicesErrorsAdmin() {
+  sysAdminListDevicesErrors() {
     const url = this.server + '/api/v2.1/admin/device-errors/';
     return this.req.get(url);
   }
 
-  clearDevicesErrorsAdmin() {
+  sysAdminClearDevicesErrors() {
     const url = this.server + '/api/v2.1/admin/device-errors/';
     return this.req.delete(url);
   }
