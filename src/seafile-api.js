@@ -2130,6 +2130,13 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
+  listRecentAddedFiles(days) {
+    let url =  this.server + '/api/v2.1/recent-added-files/';
+    if (days) {
+      url = url + '?days=' + days;
+    }
+    return this.req.get(url);
+  }
 }
 
 export { SeafileAPI };
