@@ -767,20 +767,18 @@ class SeafileAPI {
   }
 
   zipDownload(repoID, parent_dir, dirents) { // can download one dir
-    let url = '';
-    let parent_dir_encoded = encodeURIComponent(parent_dir);
-
-
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/zip-task/';
+    const form = new FormData();
+    form.append('parent_dir', parent_dir);
     if (Array.isArray(dirents)) {
-      let params = '';
-      for (let i = 0; i < dirents.length; i++) {
-        params += '&dirents=' + encodeURIComponent(dirents[i]);
-      }
-      url = this.server + '/api/v2.1/repos/' + repoID + '/zip-task/?parent_dir=' + parent_dir_encoded + params;
+      dirents.forEach(item => {
+        form.append('dirents', item);
+      });
     } else {
-      url = this.server + '/api/v2.1/repos/' + repoID + '/zip-task/?parent_dir=' + parent_dir_encoded + '&dirents=' + encodeURIComponent(dirents);
+      form.append('dirents', dirents);
     }
-    return this.req.get(url);
+
+    return this._sendPostRequest(url, form);
   }
 
   queryZipProgress(zip_token) {
