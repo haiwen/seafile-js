@@ -2104,7 +2104,7 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  sysAdminlistDevices(platform, page, per_page) {
+  sysAdminListDevices(platform, page, per_page) {
     const url = this.server + '/api/v2.1/admin/devices/';
     let params = {
       platform: platform,
