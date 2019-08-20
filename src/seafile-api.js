@@ -286,7 +286,9 @@ class SeafileAPI {
     let form = new FormData();
     form.append('path', path);
     form.append('repo_id', repoID);
-    form.append('permissions', permissions);
+    if (permissions) {
+      form.append('permissions', permissions);
+    }
     if (password) {
       form.append('password', password);
     }
