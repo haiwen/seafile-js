@@ -1952,6 +1952,11 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  getTableRelatedUsers(workspaceID, name) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + encodeURIComponent(name) + '/related-users/';
+    return this.req.get(url);
+  }
+
   getTableAssetUploadLink(workspaceID, name) {
     const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable-asset-upload-link/?name=' + encodeURIComponent(name);
     return this.req.get(url);
