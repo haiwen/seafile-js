@@ -2135,6 +2135,39 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
+  sysAdminGetSysSettingInfo() {
+    const url = this.server + '/api/v2.1/admin/web-settings/';
+    return this.req.get(url);
+  }
+
+  sysAdminSetSysSettingInfo(key, value) {
+    const url = this.server + '/api/v2.1/admin/web-settings/';
+    let formData = new FormData();
+    formData.append(key, value);
+    return this.req.put(url, formData);
+  }
+
+  sysAdminUpdateLogo(file) {
+    const url = this.server + '/api/v2.1/admin/logo/';
+    let formData = new FormData();
+    formData.append('logo', file);
+    return this._sendPostRequest(url, formData);
+  }
+
+  sysAdminUpdateFavicon(file) {
+    const url = this.server + '/api/v2.1/admin/favicon/';
+    let formData = new FormData();
+    formData.append('favicon', file);
+    return this._sendPostRequest(url, formData);
+  }
+
+  sysAdminUpdateLoginBG(file) {
+    const url = this.server + '/api/v2.1/admin/login-background-image/';
+    let formData = new FormData();
+    formData.append('login_bg_image', file);
+    return this._sendPostRequest(url, formData);
+  }
+
   listRecentAddedFiles(days) {
     let url =  this.server + '/api/v2.1/recent-added-files/';
     if (days) {
