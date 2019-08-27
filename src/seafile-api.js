@@ -2114,14 +2114,16 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
-  sysAdminUnlinkDevice(platform, deviceId, user, wipeDevice) {
+  sysAdminUnlinkDevice(platform, deviceID, user, wipeDevice) {
     const url = this.server + '/api/v2.1/admin/devices/';
     let params = {
       platform: platform,
-      device_id: deviceId,
-      user: user,
-      wipe_device: wipeDevice
+      device_id: deviceID,
+      user: user
     };
+    if (wipeDevice) {
+      params.wipe_device = wipeDevice
+    }
     return this.req.delete(url, {data: params});
   }
 
