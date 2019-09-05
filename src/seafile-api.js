@@ -1164,11 +1164,11 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
-  addIllegalReport(sharedToken, illegalType, description, reporter, filePath) {
-    const url = this.server + '/api/v2.1/illegal-reports/';
+  addAbuseReport(sharedToken, abuseType, description, reporter, filePath) {
+    const url = this.server + '/api/v2.1/abuse-reports/';
     let form = new FormData();
     form.append('share_link_token', sharedToken);
-    form.append('illegal_type', illegalType);
+    form.append('abuse_type', abuseType);
     form.append('description', description);
     form.append('reporter', reporter);
     form.append('file_path', filePath);
