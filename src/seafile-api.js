@@ -2170,6 +2170,71 @@ class SeafileAPI {
     return this._sendPostRequest(url, formData);
   }
 
+  sysAdminListAllGroups(page, perPage) {
+    const url = this.server + '/api/v2.1/admin/groups/';
+    let params = {
+      page: page,
+      per_page: perPage
+    };
+    return this.req.get(url, {params: params});
+  }
+
+  sysAdminDismissGroupByID(groupID) {
+    const url = this.server + '/api/v2.1/admin/groups/' + groupID + '/';
+    return this.req.delete(url);
+  }
+
+  sysAdminTransferGroup(receiverEmail, groupID) {
+    const url = this.server + '/api/v2.1/admin/groups/' + groupID + '/';
+    let formData = new FormData();
+    formData.append('new_owner', receiverEmail);
+    return this.req.put(url, formData);
+  }
+
+  sysAdminCreateNewGroup(groupName, ownerEmail) {
+    const url = this.server + '/api/v2.1/admin/groups/';
+    let formData = new FormData();
+    formData.append('group_name', groupName);
+    formData.append('group_owner', ownerEmail);
+    return this._sendPostRequest(url, formData);
+  }
+
+  sysAdminListReposOfGroup(groupID) {
+    const url = this.server + '/api/v2.1/admin/groups/' + groupID + '/libraries/';
+    return this.req.get(url);
+  }
+
+  sysAdminListMembersOfGroup(groupID) {
+    const url = this.server + '/api/v2.1/admin/groups/' + groupID + '/members/';
+    return this.req.get(url);
+  }
+
+  sysAdminDropRepoFromGroup(groupID, repoID) {
+    const url = this.server + '/api/v2.1/admin/groups/' + groupID + '/libraries/' + repoID + '/';
+    return this.req.delete(url);
+  }
+
+  sysAdminAddGroupMember(groupID, emails) {
+    const url = this.server + '/api/v2.1/admin/groups/' + groupID + '/members/';
+    let form = new FormData();
+    for (let i = 0; i < emails.length; i++) {
+      form.append('email', emails[i]);
+    }
+    return this._sendPostRequest(url, form);
+  }
+
+  sysAdminDropGroupMember(groupID, email) {
+    const url = this.server + '/api/v2.1/admin/groups/' + groupID + '/members/' + encodeURIComponent(email) + '/';
+    return this.req.delete(url);
+  }
+
+  sysAdminUpdateGroupMemberRole(groupID, email, isAdmin) {
+    const url = this.server + '/api/v2.1/admin/groups/' + groupID + '/members/' + encodeURIComponent(email) + '/';
+    let formData = new FormData();
+    formData.append('is_admin', isAdmin);
+    return this.req.put(url, formData);
+  }
+
   listRecentAddedFiles(days) {
     let url =  this.server + '/api/v2.1/recent-added-files/';
     if (days) {
