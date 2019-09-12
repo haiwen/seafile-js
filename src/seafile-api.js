@@ -1962,6 +1962,11 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  getTableRowShareLink(workspaceID, tableName, tid, rowId) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + tableName + '/row-shares/?tid=' + tid + '&row_id=' + rowId;
+    return this.req.get(url); 
+  }
+
   createTable(name, owner) {
     const url = this.server + '/api/v2.1/dtables/';
     let form = new FormData();
