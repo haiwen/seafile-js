@@ -2170,6 +2170,167 @@ class SeafileAPI {
     return this._sendPostRequest(url, formData);
   }
 
+  sysAdminListAllRepos(page, perPage) {
+    const url = this.server + '/api/v2.1/admin/libraries/';
+    let params = {
+      page: page,
+      per_page: perPage
+    };
+    return this.req.get(url, {params: params});
+  }
+
+  sysAdminGetSystemRepoInfo() {
+    const url = this.server + '/api/v2.1/admin/system-library/';
+    return this.req.get(url);
+  }
+
+  sysAdminDeleteRepo(repoID) {
+    const url = this.server + '/api/v2.1/admin/libraries/' + repoID + '/';
+    return this.req.delete(url);
+  }
+
+  sysAdminTransferRepo(repoID, userEmail) {
+    const url = this.server + '/api/v2.1/admin/libraries/' + repoID + '/';
+    const params = {
+      owner: userEmail
+    };
+    return this.req.put(url, params);
+  }
+
+  sysAdminGetRepoHistorySetting(repoID) {
+    const url = this.server + '/api/v2.1/admin/libraries/' + repoID + '/history-limit/';
+    return this.req.get(url);
+  }
+
+  sysAdminUpdateRepoHistorySetting(repoID, keepDays) {
+    const url = this.server + '/api/v2.1/admin/libraries/' + repoID + '/history-limit/';
+    let form = new FormData();
+    form.append('keep_days', keepDays);
+    return this.req.put(url, form);
+  }
+
+  sysAdminListRepoSharedItems(repoID, shareType) {
+    const url = this.server + '/api/v2.1/admin/shares/';
+    const params = {
+      repo_id: repoID,
+      share_type: shareType
+    };
+    return this.req.get(url, {params: params});
+  }
+
+  sysAdminUpdateRepoSharedItemPermission(repoID, shareType, shareTo, permission) {
+    const url = this.server + '/api/v2.1/admin/shares/';
+    const params = {
+      repo_id: repoID,
+      share_type: shareType,
+      permission: permission,
+      share_to: shareTo
+    };
+    return this.req.put(url, params);
+  }
+
+  sysAdminAddRepoSharedItem(repoID, shareType, shareToList, permission) {
+    const url = this.server + '/api/v2.1/admin/shares/';
+    let form = new FormData();
+    form.append('repo_id', repoID);
+    form.append('share_type', shareType);
+    form.append('permission', permission);
+    shareToList.map((shareTo) => {
+      form.append('share_to', shareTo);
+    }); 
+    return this._sendPostRequest(url, form);
+  }
+
+  sysAdminDeleteRepoSharedItem(repoID, shareType, shareTo) {
+    const url = this.server + '/api/v2.1/admin/shares/';
+    const params = {
+      repo_id: repoID,
+      share_type: shareType,
+      share_to: shareTo
+    };
+    return this.req.delete(url, {data: params});
+  }
+
+  sysAdminCreateRepo(repoName, owner) {
+    const url = this.server + '/api/v2.1/admin/libraries/';
+    let form = new FormData();
+    form.append('name', repoName);
+    form.append('owner', owner); 
+    return this._sendPostRequest(url, form);
+  }
+
+  sysAdminListTrashRepos(page, perPage) {
+    const url = this.server + '/api/v2.1/admin/trash-libraries/';
+    let params = {
+      page: page,
+      per_page: perPage
+    };
+    return this.req.get(url, {params: params});
+  }
+
+  sysAdminDeleteTrashRepo(repoID) {
+    const url = this.server + '/api/v2.1/admin/trash-libraries/' + repoID + '/';
+    return this.req.delete(url); 
+  }
+
+  sysAdminRestoreTrashRepo(repoID) {
+    const url = this.server + '/api/v2.1/admin/trash-libraries/' + repoID + '/';
+    return this.req.put(url); 
+  }
+
+  sysAdminCleanTrashRepos() {
+    const url = this.server + '/api/v2.1/admin/trash-libraries/';
+    return this.req.delete(url); 
+  }
+
+  sysAdminListRepoDirents(repoID, dir) {
+    const url = this.server + '/api/v2.1/admin/libraries/' + repoID + '/dirents/';
+    let params = {
+      parent_dir: dir
+    };
+    return this.req.get(url, {params: params});
+  }
+
+  sysAdminDeleteRepoDirent(repoID, path) {
+    const url = this.server + '/api/v2.1/admin/libraries/' + repoID + '/dirent/';
+    let params = {
+      path: path
+    };
+    return this.req.delete(url, {params: params});
+  }
+
+  sysAdminGetRepoFileDownloadURL(repoID, path) {
+    const url = this.server + '/api/v2.1/admin/libraries/' + repoID + '/dirent/';
+    let params = {
+      path: path,
+      dl: 1
+    };
+    return this.req.get(url, {params: params}); 
+  }
+
+  sydAdminGetSysRepoItemUploadURL(path) {
+    const url = this.server + '/api/v2.1/admin/system-library/upload-link/?from=web';
+    let params = {
+      path: path
+    };
+    return this.req.get(url, {params: params}); 
+  }
+
+  sysAdminGetSysRepoItemInfo(repoID, path) {
+    const url = this.server + '/api/v2.1/admin/libraries/' + repoID + '/dirent/';
+    let params = {
+      path: path
+    };
+    return this.req.get(url, {params: params}); 
+  }
+
+  sysAdminCreateSysRepoFolder(repoID, path, name) {
+    const url = this.server + '/api/v2.1/admin/libraries/' + repoID + '/dirents/?parent_dir=' + encodeURIComponent(path);
+    let form = new FormData();
+    form.append('obj_name', name);
+    return this._sendPostRequest(url, form);
+  }
+
   sysAdminListAllGroups(page, perPage) {
     const url = this.server + '/api/v2.1/admin/groups/';
     let params = {
