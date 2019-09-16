@@ -1175,6 +1175,18 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
+  sysAdminListAbuseReports() {
+    let url = this.server + '/api/v2.1/admin/abuse-reports/';
+    return this.req.get(url);
+  }
+
+  sysAdminHandlerAbuseReport(handled, abuseReportId) {
+    const url = this.server + '/api/v2.1/admin/abuse-reports/' + abuseReportId + '/';
+    let form = new FormData();
+    form.append('handled', handled);
+    return this.req.put(url, form);
+  }
+
   getInternalLink(repoID, filePath, direntType) {
     let isDir = direntType === 'dir' ? true : false;
     const path = encodeURIComponent(filePath);
