@@ -1180,7 +1180,7 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  sysAdminHandlerAbuseReport(handled, abuseReportId) {
+  sysAdminUpdateAbuseReport(handled, abuseReportId) {
     const url = this.server + '/api/v2.1/admin/abuse-reports/' + abuseReportId + '/';
     let form = new FormData();
     form.append('handled', handled);
