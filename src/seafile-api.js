@@ -2097,6 +2097,33 @@ class SeafileAPI {
     return this.req.put(url, params);
   }
 
+  listTableAPITokens(workspaceID, name) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + encodeURIComponent(name) + '/api-tokens/';
+    return this.req.get(url);
+  }
+
+  addTableAPIToken(workspaceID, name, appName, permission) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + encodeURIComponent(name) + '/api-tokens/';
+    let params = {
+      app_name: appName,
+      permission: permission
+    };
+    return this.req.post(url, params);
+  }
+
+  updateTableAPIToken(workspaceID, name, token, permission) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + encodeURIComponent(name) + '/api-tokens/' + token + '/';
+    let params = {
+      permission: permission
+    };
+    return this.req.put(url, params);
+  }
+
+  deleteTableAPIToken(workspaceID, name, token) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + encodeURIComponent(name) + '/api-tokens/' + token + '/';
+    return this.req.delete(url);
+  }
+
   sysAdminUploadLicense(file) {
     const url = this.server + '/api/v2.1/admin/license/';
     let formData = new FormData();
