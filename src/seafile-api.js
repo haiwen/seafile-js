@@ -2111,16 +2111,16 @@ class SeafileAPI {
     return this.req.post(url, params);
   }
 
-  updateTableAPIToken(workspaceID, name, tokenID, permission) {
-    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + encodeURIComponent(name) + '/api-tokens/' + tokenID + '/';
+  updateTableAPIToken(workspaceID, name, appName, permission) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + encodeURIComponent(name) + '/api-tokens/' + encodeURIComponent(appName) + '/';
     let params = {
       permission: permission
     };
     return this.req.put(url, params);
   }
 
-  deleteTableAPIToken(workspaceID, name, tokenID) {
-    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + encodeURIComponent(name) + '/api-tokens/' + tokenID + '/';
+  deleteTableAPIToken(workspaceID, name, appName) {
+    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + encodeURIComponent(name) + '/api-tokens/' + encodeURIComponent(appName) + '/';
     return this.req.delete(url);
   }
 
