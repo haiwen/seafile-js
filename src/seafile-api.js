@@ -1962,9 +1962,25 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  getTableRowShareLink(workspaceID, tableName, tid, rowId) {
-    const url = this.server + '/api/v2.1/workspace/' + workspaceID + '/dtable/' + tableName + '/row-shares/?tid=' + tid + '&row_id=' + rowId;
+  createTableRowShareLink(workspaceID, tableName, table_id, rowId) {
+    const url = this.server + '/api/v2.1/dtable-row-shares/';
+    let form = new FormData();
+    form.append('workspace_id', workspaceID);
+    form.append('name', tableName);
+    form.append('table_id', table_id);
+    form.append('row_id', rowId);
+    return this._sendPostRequest(url, form);
+  }
+
+  getTableRowShareLink(workspaceID, tableName, table_id, rowId) {
+    let params = "?workspace_id=" + workspaceID + "&name=" + encodeURIComponent(tableName) + "&table_id=" + table_id + "&row_id=" + rowId; 
+    const url = this.server + '/api/v2.1/dtable-row-shares/' + params;
     return this.req.get(url); 
+  }
+  
+  deleteTableRowShareLink(token) {
+    const url = this.server + '/api/v2.1/dtable-row-shares/' + token + '/';
+    this.req.delete(url);
   }
 
   createTable(name, owner) {
