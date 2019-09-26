@@ -2140,6 +2140,33 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
+  getDTableShareLink(workspaceID, name) {
+    var url = this.server + '/api/v2.1/dtables/share-links/?workspace_id=' + workspaceID + '&table_name=' + name;
+    return this.req.get(url);
+  }
+
+  createDTableShareLink(workspaceID, name, password, expireDays, permissions) {
+    var url = this.server + '/api/v2.1/dtables/share-links/';
+    var form = new FormData();
+    form.append('workspace_id', workspaceID);
+    form.append('table_name', name);
+    if (permissions) {
+      form.append('permissions', permissions);
+    }
+    if (password) {
+      form.append('password', password);
+    }
+    if (expireDays) {
+      form.append('expire_days', expireDays);
+    }
+    return this._sendPostRequest(url, form);
+  }
+
+  deleteDTableShareLink(token) {
+    var url = this.server + '/api/v2.1/dtables/shared-link/' + token + '/';
+    return this.req.delete(url);
+  }
+
   sysAdminUploadLicense(file) {
     const url = this.server + '/api/v2.1/admin/license/';
     let formData = new FormData();
@@ -2450,33 +2477,6 @@ class SeafileAPI {
       url = url + '?days=' + days;
     }
     return this.req.get(url);
-  }
-
-  getDTableShareLink(workspaceID, name) {
-    var url = this.server + '/api/v2.1/dtables/share-links/?workspace_id=' + workspaceID + '&table_name=' + name;
-    return this.req.get(url);
-  }
-
-  createDTableShareLink(workspaceID, name, password, expireDays, permissions) {
-    var url = this.server + '/api/v2.1/dtables/share-links/';
-    var form = new FormData();
-    form.append('workspace_id', workspaceID);
-    form.append('table_name', name);
-    if (permissions) {
-      form.append('permissions', permissions);
-    }
-    if (password) {
-      form.append('password', password);
-    }
-    if (expireDays) {
-      form.append('expire_days', expireDays);
-    }
-    return this._sendPostRequest(url, form);
-  }
-
-  deleteDTableShareLink(token) {
-    var url = this.server + '/api/v2.1/dtables/shared-link/' + token + '/';
-    return this.req.delete(url);
   }
 }
 
