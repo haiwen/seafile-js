@@ -2163,7 +2163,7 @@ class SeafileAPI {
   }
 
   deleteDTableShareLink(token) {
-    var url = this.server + '/api/v2.1/dtables/shared-link/' + token + '/';
+    var url = this.server + '/api/v2.1/dtables/share-links/' + token + '/';
     return this.req.delete(url);
   }
 
