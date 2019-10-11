@@ -2471,6 +2471,28 @@ class SeafileAPI {
     return this.req.put(url, formData);
   }
 
+  sysAdminListAllSysNotifications() {
+    const url = this.server + '/api/v2.1/admin/sys-notifications/';
+    return this.req.get(url);
+  }
+
+  sysAdminAddSysNotification(msg) {
+    const url = this.server + '/api/v2.1/admin/sys-notifications/';
+    let formData = new FormData();
+    formData.append('msg', msg);
+    return this._sendPostRequest(url, formData);
+  }
+
+  sysAdminSetSysNotificationToCurrent(nid) {
+    const url = this.server + '/api/v2.1/admin/sys-notifications/' + nid + '/';
+    return this.req.put(url);
+  }
+
+  sysAdminDeleteSysNotification(nid) {
+    const url = this.server + '/api/v2.1/admin/sys-notifications/' + nid + '/';
+    return this.req.delete(url);
+  }
+
   listRecentAddedFiles(days) {
     let url =  this.server + '/api/v2.1/recent-added-files/';
     if (days) {
