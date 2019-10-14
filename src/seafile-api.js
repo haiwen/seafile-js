@@ -2435,17 +2435,17 @@ class SeafileAPI {
     return this._sendPostRequest(url, formData);
   }
 
-  sysAdminListReposOfGroup(groupID) {
+  sysAdminListGroupRepos(groupID) {
     const url = this.server + '/api/v2.1/admin/groups/' + groupID + '/libraries/';
     return this.req.get(url);
   }
 
-  sysAdminListMembersOfGroup(groupID) {
+  sysAdminListGroupMembers(groupID) {
     const url = this.server + '/api/v2.1/admin/groups/' + groupID + '/members/';
     return this.req.get(url);
   }
 
-  sysAdminDropRepoFromGroup(groupID, repoID) {
+  sysAdminUnshareRepoFromGroup(groupID, repoID) {
     const url = this.server + '/api/v2.1/admin/groups/' + groupID + '/libraries/' + repoID + '/';
     return this.req.delete(url);
   }
@@ -2459,7 +2459,7 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
-  sysAdminDropGroupMember(groupID, email) {
+  sysAdminDeleteGroupMember(groupID, email) {
     const url = this.server + '/api/v2.1/admin/groups/' + groupID + '/members/' + encodeURIComponent(email) + '/';
     return this.req.delete(url);
   }
