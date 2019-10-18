@@ -2493,7 +2493,7 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  sysAdminListAllDepartment() {
+  sysAdminListAllDepartments() {
     const url = this.server + '/api/v2.1/admin/address-book/groups/';
     return this.req.get(url);
   }
@@ -2509,9 +2509,7 @@ class SeafileAPI {
 
   sysAdminGetDepartmentInfo(groupID, showAncestors) {
     let url = this.server + '/api/v2.1/admin/address-book/groups/' + groupID + '/';
-    if (showAncestors) {
-      url += showAncestors ? '?return_ancestors=true' : '';
-    }
+    url += showAncestors ? '?return_ancestors=true' : '';
     return this.req.get(url);
   }
 
