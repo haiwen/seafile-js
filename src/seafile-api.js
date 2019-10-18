@@ -2493,6 +2493,50 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
+  sysAdminListAllDepartments() {
+    const url = this.server + '/api/v2.1/admin/address-book/groups/';
+    return this.req.get(url);
+  }
+
+  sysAdminAddNewDepartment(parentGroupID, groupName) {
+    const url = this.server + '/api/v2.1/admin/address-book/groups/';
+    let formData = new FormData();
+    formData.append('parent_group', parentGroupID);
+    formData.append('group_name', groupName);
+    formData.append('group_owner', 'system admin');
+    return this._sendPostRequest(url, formData);
+  }
+
+  sysAdminGetDepartmentInfo(groupID, showAncestors) {
+    let url = this.server + '/api/v2.1/admin/address-book/groups/' + groupID + '/';
+    url += showAncestors ? '?return_ancestors=true' : '';
+    return this.req.get(url);
+  }
+
+  sysAdminUpdateDepartmentQuota(groupID, quota) {
+    const url = this.server + '/api/v2.1/admin/groups/' + groupID + '/';
+    let formData = new FormData();
+    formData.append('quota', quota);
+    return this.req.put(url, formData);
+  }
+
+  sysAdminDeleteDepartment(groupID) {
+    const url = this.server + '/api/v2.1/admin/address-book/groups/' + groupID + '/';
+    return this.req.delete(url);
+  }
+
+  sysAdminAddRepoInDepartment(groupID, repoName) {
+    const url = this.server + '/api/v2.1/admin/groups/' + groupID + '/group-owned-libraries/';
+    let formData = new FormData();
+    formData.append('repo_name', repoName);
+    return this._sendPostRequest(url, formData);
+  }
+
+  sysAdminDeleteRepoInDepartment(groupID, repoID) {
+    const url = this.server + '/api/v2.1/admin/groups/' + groupID + '/group-owned-libraries/' + repoID + '/';
+    return this.req.delete(url);
+  }
+
   listRecentAddedFiles(days) {
     let url =  this.server + '/api/v2.1/recent-added-files/';
     if (days) {
