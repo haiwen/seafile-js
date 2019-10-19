@@ -2537,6 +2537,26 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
+  sysAdminListAllShareLinks() {
+    const url = this.server + '/api/v2.1/admin/share-links/';
+    return this.req.get(url);
+  }
+
+  sysAdminDeleteShareLink(token) {
+    const url = this.server + '/api/v2.1/admin/share-links/' + token + '/';
+    return this.req.delete(url);
+  }
+
+  sysAdminListAllUploadLinks() {
+    const url = this.server + '/api/v2.1/admin/upload-links/';
+    return this.req.get(url);
+  }
+
+  sysAdminDeleteUploadLink(token) {
+    const url = this.server + '/api/v2.1/admin/upload-links/' + token + '/';
+    return this.req.delete(url);
+  }
+
   listRecentAddedFiles(days) {
     let url =  this.server + '/api/v2.1/recent-added-files/';
     if (days) {
