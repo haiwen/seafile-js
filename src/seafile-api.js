@@ -2537,9 +2537,13 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  sysAdminListAllShareLinks() {
+  sysAdminListAllShareLinks(page, perPage) {
     const url = this.server + '/api/v2.1/admin/share-links/';
-    return this.req.get(url);
+    let params = {
+      page: page,
+      per_page: perPage
+    };
+    return this.req.get(url, {params: params});
   }
 
   sysAdminDeleteShareLink(token) {
@@ -2547,9 +2551,13 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  sysAdminListAllUploadLinks() {
+  sysAdminListAllUploadLinks(page, perPage) {
     const url = this.server + '/api/v2.1/admin/upload-links/';
-    return this.req.get(url);
+    let params = {
+      page: page,
+      per_page: perPage
+    };
+    return this.req.get(url, {params: params});
   }
 
   sysAdminDeleteUploadLink(token) {
