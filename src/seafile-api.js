@@ -2612,7 +2612,7 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  sysAdminAddUserOfOrg(orgID, email, name, password) {
+  sysAdminAddOrgUser(orgID, email, name, password) {
     const url = this.server + '/api/v2.1/admin/organizations/' + orgID + '/users/';
     let formData = new FormData();
     formData.append('email', email);
