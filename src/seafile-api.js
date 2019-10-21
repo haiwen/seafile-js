@@ -2656,6 +2656,42 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  sysAdminListLoginLogs(page, perPage) {
+    const url = this.server + '/api/v2.1/admin/logs/login-logs/';
+    let params = {
+      page: page,
+      per_page: perPage
+    };
+    return this.req.get(url, {params: params});
+  }
+
+  sysAdminListFileAccessLogs(page, perPage) {
+    const url = this.server + '/api/v2.1/admin/logs/file-access-logs/';
+    let params = {
+      page: page,
+      per_page: perPage
+    };
+    return this.req.get(url, {params: params});
+  }
+
+  sysAdminListFileUpdateLogs(page, perPage) {
+    const url = this.server + '/api/v2.1/admin/logs/file-update-logs/';
+    let params = {
+      page: page,
+      per_page: perPage
+    };
+    return this.req.get(url, {params: params});
+  }
+
+  sysAdminListSharePermissionLogs(page, perPage) {
+    const url = this.server + '/api/v2.1/admin/logs/share-permission-logs/';
+    let params = {
+      page: page,
+      per_page: perPage
+    };
+    return this.req.get(url, {params: params});
+  }
+
   listRecentAddedFiles(days) {
     let url =  this.server + '/api/v2.1/recent-added-files/';
     if (days) {
