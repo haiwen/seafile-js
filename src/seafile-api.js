@@ -675,9 +675,9 @@ class SeafileAPI {
 
   listWikiDir(slug, dirPath, withParents) {
     const path = encodeURIComponent(dirPath);
-    let url = this.server + '/api/v2.1/wikis/' + slug + '/dir/?p=' + path;
+    let url = this.server + '/api/v2.1/wikis/' + encodeURIComponent(slug) + '/dir/?p=' + path;
     if (withParents) {
-      url = this.server + '/api/v2.1/wikis/' + slug + '/dir/?p=' + path + '&with_parents=' + withParents;
+      url = this.server + '/api/v2.1/wikis/' + encodeURIComponent(slug) + '/dir/?p=' + path + '&with_parents=' + withParents;
     }
     return this.req.get(url);
   }
