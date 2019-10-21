@@ -2245,6 +2245,15 @@ class SeafileAPI {
     return this._sendPostRequest(url, formData);
   }
 
+  sysAdminListAllDTables(page, perPage) {
+    const url = this.server + '/api/v2.1/admin/dtables/';
+    let params = {
+      page: page,
+      per_page: perPage
+    };
+    return this.req.get(url, {params: params});
+  }
+
   sysAdminListAllRepos(page, perPage) {
     const url = this.server + '/api/v2.1/admin/libraries/';
     let params = {
