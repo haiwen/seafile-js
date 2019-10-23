@@ -2692,7 +2692,7 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
-  sysAdminListShareInRepo(receiverEmail) {
+  sysAdminListShareInRepos(receiverEmail) {
     const url = this.server + '/api/v2.1/admin/users/' + encodeURIComponent(receiverEmail) + '/beshared-repos/';
     return this.req.get(url);
   }
@@ -2707,12 +2707,12 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  sysAdminListAllGroupsJoinedByUser(email) {
+  sysAdminListGroupsJoinedByUser(email) {
     const url = this.server + '/api/v2.1/admin/users/' + encodeURIComponent(email) + '/groups/';
     return this.req.get(url);
   }
 
-  sysAdminToggleForceTwoFactorAuth(isForce2FA, email) {
+  sysAdminSetForceTwoFactorAuth(email, isForce2FA) {
     let isForce = isForce2FA ? 1 : 0;
     const url = this.server + '/api2/two-factor-auth/' + encodeURIComponent(email) + '/';
     let formData = new FormData();
@@ -2720,12 +2720,12 @@ class SeafileAPI {
     return this.req.put(url, formData);
   }
 
-  sysAdminDeleteVerifiedTwoFactorAuth(email) {
+  sysAdminDeleteTwoFactorAuth(email) {
     const url = this.server + '/api2/two-factor-auth/' + encodeURIComponent(email) + '/';
     return this.req.delete(url);
   }
 
-  sysAdminListAllUsers(page, perPage, isLDAPImport) {
+  sysAdminListUsers(page, perPage, isLDAPImport) {
     let url = this.server + '/api/v2.1/admin/users/';
     let params = {
       page: page,
@@ -2737,7 +2737,7 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
-  sysAdminListAllLDAPUsers(page, perPage) {
+  sysAdminListLDAPUsers(page, perPage) {
     const url = this.server + '/api/v2.1/admin/ldap-users/';
     let params = {
       page: page,
@@ -2746,7 +2746,7 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
-  sysAdminAddNewUser(email, name, role, password, isActive) {
+  sysAdminAddUser(email, name, role, password, isActive) {
     const url = this.server + '/api/v2.1/admin/users/';
     let formData = new FormData();
     formData.append('email', email);
@@ -2757,7 +2757,7 @@ class SeafileAPI {
     return this._sendPostRequest(url, formData);
   }
 
-  sysAdminUpdateUserInfo(attribute, value, email) {
+  sysAdminUpdateUser(email, attribute, value) {
     const url = this.server + '/api/v2.1/admin/users/' + encodeURIComponent(email) + '/';
     let formData = new FormData();
     switch (attribute) {
@@ -2803,7 +2803,7 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  sysAdminGetUserInfo(email) {
+  sysAdminGetUser(email) {
     const url = this.server + '/api/v2.1/admin/users/' + encodeURIComponent(email) + '/';
     return this.req.get(url);
   }
@@ -2834,14 +2834,14 @@ class SeafileAPI {
     return this._sendPostRequest(url, formData);
   }
 
-  sysAdminUploadImportUserFile(file) {
+  sysAdminImportUserViaFile(file) {
     const url = this.server + '/useradmin/batchadduser/';
     let formData = new FormData();
     formData.append('file', file);
     return this._sendPostRequest(url, formData);
   }
 
-  sysAdminListAllAdminUsers() {
+  sysAdminListAdmins() {
     const url = this.server + '/api/v2.1/admin/admin-users/';
     return this.req.get(url);
   }
@@ -2861,7 +2861,7 @@ class SeafileAPI {
     return this._sendPostRequest(url, formData);
   }
 
-  sysAdminListAllRepoInfoByOwner(email) {
+  sysAdminListReposByOwner(email) {
     const url = this.server + '/api/v2.1/admin/libraries/';
     let params = {
       owner: email
