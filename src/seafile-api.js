@@ -2565,17 +2565,17 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  sysAdminListAllOrgs() {
+  sysAdminListOrgs() {
     const url = this.server + '/api/v2.1/admin/organizations/';
     return this.req.get(url);
   }
 
-  sysAdminGetOrgInfo(orgID) {
+  sysAdminGetOrg(orgID) {
     const url = this.server + '/api/v2.1/admin/organizations/' + orgID + '/';
     return this.req.get(url);
   }
 
-  sysAdminUpdateOrgInfo(orgID, orgInfo) {
+  sysAdminUpdateOrg(orgID, orgInfo) {
     const url = this.server + '/api/v2.1/admin/organizations/' + orgID + '/';
     let formData = new FormData();
     if (orgInfo.orgName) {
@@ -2607,7 +2607,7 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  sysAdminListAllOrgUsers(orgID) {
+  sysAdminListOrgUsers(orgID) {
     const url = this.server + '/api/v2.1/admin/organizations/' + orgID + '/users/';
     return this.req.get(url);
   }
@@ -2621,7 +2621,7 @@ class SeafileAPI {
     return this._sendPostRequest(url, formData);
   }
 
-  sysAdminUpdateOrgUserInfo(orgID, email, attribute, value) {
+  sysAdminUpdateOrgUser(orgID, email, attribute, value) {
     const url = this.server + '/api/v2.1/admin/organizations/' + orgID + '/users/' + encodeURIComponent(email) + '/';
     let formData = new FormData();
     switch (attribute) {
@@ -2646,12 +2646,12 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  sysAdminListAllOrgGroups(orgID) {
+  sysAdminListOrgGroups(orgID) {
     const url = this.server + '/api/v2.1/admin/organizations/' + orgID + '/groups/';
     return this.req.get(url);
   }
 
-  sysAdminListAllOrgRepos(orgID) {
+  sysAdminListOrgRepos(orgID) {
     const url = this.server + '/api/v2.1/admin/organizations/' + orgID + '/repos/';
     return this.req.get(url);
   }
