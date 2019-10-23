@@ -2593,12 +2593,12 @@ class SeafileAPI {
     return this.req.put(url, formData);
   }
 
-  sysAdminAddOrg(orgName, ownerEmail, password) {
+  sysAdminAddOrg(orgName, ownerEmail, owner_password) {
     const url = this.server + '/api/v2.1/admin/organizations/';
     let formData = new FormData();
     formData.append('org_name', orgName);
     formData.append('owner_email', ownerEmail);
-    formData.append('password', password);
+    formData.append('owner_password', owner_password);
     return this._sendPostRequest(url, formData);
   }
 
