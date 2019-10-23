@@ -2692,6 +2692,183 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
+  sysAdminListShareInRepo(receiverEmail) {
+    const url = this.server + '/api/v2.1/admin/users/' + encodeURIComponent(receiverEmail) + '/beshared-repos/';
+    return this.req.get(url);
+  }
+
+  sysAdminListShareLinksByUser(email) {
+    const url = this.server + '/api/v2.1/admin/users/' + encodeURIComponent(email) + '/share-links/';
+    return this.req.get(url);
+  }
+
+  sysAdminListUploadLinksByUser(email) {
+    const url = this.server + '/api/v2.1/admin/users/' + encodeURIComponent(email) + '/upload-links/';
+    return this.req.get(url);
+  }
+
+  sysAdminListAllGroupsJoinedByUser(email) {
+    const url = this.server + '/api/v2.1/admin/users/' + encodeURIComponent(email) + '/groups/';
+    return this.req.get(url);
+  }
+
+  sysAdminToggleForceTwoFactorAuth(isForce2FA, email) {
+    let isForce = isForce2FA ? 1 : 0;
+    const url = this.server + '/api2/two-factor-auth/' + encodeURIComponent(email) + '/';
+    let formData = new FormData();
+    formData.append('force_2fa', isForce);
+    return this.req.put(url, formData);
+  }
+
+  sysAdminDeleteVerifiedTwoFactorAuth(email) {
+    const url = this.server + '/api2/two-factor-auth/' + encodeURIComponent(email) + '/';
+    return this.req.delete(url);
+  }
+
+  sysAdminListAllUsers(page, perPage, isLDAPImport) {
+    let url = this.server + '/api/v2.1/admin/users/';
+    let params = {
+      page: page,
+      per_page: perPage
+    };
+    if (isLDAPImport) {
+      url += '?source=ldapimport';
+    }
+    return this.req.get(url, {params: params});
+  }
+
+  sysAdminListAllLDAPUsers(page, perPage) {
+    const url = this.server + '/api/v2.1/admin/ldap-users/';
+    let params = {
+      page: page,
+      per_page: perPage
+    };
+    return this.req.get(url, {params: params});
+  }
+
+  sysAdminAddNewUser(email, name, role, password, isActive) {
+    const url = this.server + '/api/v2.1/admin/users/';
+    let formData = new FormData();
+    formData.append('email', email);
+    formData.append('name', name);
+    formData.append('role', role);
+    formData.append('password', password);
+    formData.append('is_active', isActive);
+    return this._sendPostRequest(url, formData);
+  }
+
+  sysAdminUpdateUserInfo(attribute, value, email) {
+    const url = this.server + '/api/v2.1/admin/users/' + encodeURIComponent(email) + '/';
+    let formData = new FormData();
+    switch (attribute) {
+      case 'password':
+        formData.append('password', value);
+        break;
+      case 'is_active':
+        formData.append('is_active', value);
+        break;
+      case 'is_staff':
+        formData.append('is_staff', value);
+        break;
+      case 'role':
+        formData.append('role', value);
+        break;
+      case 'name':
+        formData.append('name', value);
+        break;
+      case 'login_id':
+        formData.append('login_id', value);
+        break;
+      case 'contact_email':
+        formData.append('contact_email', value);
+        break;
+      case 'reference_id':
+        formData.append('reference_id', value);
+        break;
+      case 'department':
+        formData.append('department', value);
+        break;
+      case 'quota_total':
+        formData.append('quota_total', value);
+        break;
+      case 'institution':
+        formData.append('institution', value);
+        break;
+    }
+    return this.req.put(url, formData);
+  }
+
+  sysAdminDeleteUser(email) {
+    const url = this.server + '/api/v2.1/admin/users/' + encodeURIComponent(email) + '/';
+    return this.req.delete(url);
+  }
+
+  sysAdminGetUserInfo(email) {
+    const url = this.server + '/api/v2.1/admin/users/' + encodeURIComponent(email) + '/';
+    return this.req.get(url);
+  }
+
+  sysAdminResetUserPassword(email) {
+    const url = this.server + '/api/v2.1/admin/users/' + encodeURIComponent(email) + '/reset-password/';
+    return this.req.put(url);
+  }
+
+  sysAdminSetUserQuotaInBatch(emails, quotaTotal) {
+    const url = this.server + '/api/v2.1/admin/users/batch/';
+    let formData = new FormData();
+    emails.map(email => {
+      formData.append('email', email);
+    });
+    formData.append('operation', 'set-quota');
+    formData.append('quota_total', quotaTotal);
+    return this._sendPostRequest(url, formData);
+  }
+
+  sysAdminDeleteUserInBatch(emails) {
+    const url = this.server + '/api/v2.1/admin/users/batch/';
+    let formData = new FormData();
+    emails.map(email => {
+      formData.append('email', email);
+    });
+    formData.append('operation', 'delete-user');
+    return this._sendPostRequest(url, formData);
+  }
+
+  sysAdminUploadImportUserFile(file) {
+    const url = this.server + '/useradmin/batchadduser/';
+    let formData = new FormData();
+    formData.append('file', file);
+    return this._sendPostRequest(url, formData);
+  }
+
+  sysAdminListAllAdminUsers() {
+    const url = this.server + '/api/v2.1/admin/admin-users/';
+    return this.req.get(url);
+  }
+
+  sysAdminUpdateAdminRole(email, role) {
+    const url = this.server + '/api/v2.1/admin/admin-role/';
+    let formData = new FormData();
+    formData.append('email', email);
+    formData.append('role', role);
+    return this.req.put(url, formData);
+  }
+
+  sysAdminAddAdminInBatch(emailsString) {
+    const url = this.server + '/api/v2.1/admin/admin-users/batch/';
+    let formData = new FormData();
+    formData.append('emails', emailsString);
+    return this._sendPostRequest(url, formData);
+  }
+
+  sysAdminListAllRepoInfoByOwner(email) {
+    const url = this.server + '/api/v2.1/admin/libraries/';
+    let params = {
+      owner: email
+    };
+    return this.req.get(url, {params: params});
+  }
+
   listRecentAddedFiles(days) {
     let url =  this.server + '/api/v2.1/recent-added-files/';
     if (days) {
