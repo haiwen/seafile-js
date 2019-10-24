@@ -2692,6 +2692,24 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
+  sysAdminListAdminLogs(page, perPage) {
+    const url = this.server + '/api/v2.1/admin/admin-logs/';
+    let params = {
+      page: page,
+      per_page: perPage
+    };
+    return this.req.get(url, {params: params});
+  }
+
+  sysAdminListAdminLoginLogs(page, perPage) {
+    const url = this.server + '/api/v2.1/admin/admin-login-logs/';
+    let params = {
+      page: page,
+      per_page: perPage
+    };
+    return this.req.get(url, {params: params});
+  }
+
   sysAdminListShareInRepos(receiverEmail) {
     const url = this.server + '/api/v2.1/admin/users/' + encodeURIComponent(receiverEmail) + '/beshared-repos/';
     return this.req.get(url);
