@@ -2764,14 +2764,13 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
-  sysAdminAddUser(email, name, role, password, isActive) {
+  sysAdminAddUser(email, name, role, password) {
     const url = this.server + '/api/v2.1/admin/users/';
     let formData = new FormData();
     formData.append('email', email);
     formData.append('name', name);
     formData.append('role', role);
     formData.append('password', password);
-    formData.append('is_active', isActive);
     return this._sendPostRequest(url, formData);
   }
 
@@ -2872,10 +2871,12 @@ class SeafileAPI {
     return this.req.put(url, formData);
   }
 
-  sysAdminAddAdminInBatch(emailsString) {
+  sysAdminAddAdminInBatch(emails) {
     const url = this.server + '/api/v2.1/admin/admin-users/batch/';
     let formData = new FormData();
-    formData.append('emails', emailsString);
+    emails.map(email => {
+      formData.append('email', email);
+    });
     return this._sendPostRequest(url, formData);
   }
 
