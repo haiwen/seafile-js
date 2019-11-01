@@ -1168,6 +1168,29 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
+  addAbuseReport(sharedToken, abuseType, description, reporter, filePath) {
+    const url = this.server + '/api/v2.1/abuse-reports/';
+    let form = new FormData();
+    form.append('share_link_token', sharedToken);
+    form.append('abuse_type', abuseType);
+    form.append('description', description);
+    form.append('reporter', reporter);
+    form.append('file_path', filePath);
+    return this._sendPostRequest(url, form);
+  }
+
+  sysAdminListAbuseReports() {
+    let url = this.server + '/api/v2.1/admin/abuse-reports/';
+    return this.req.get(url);
+  }
+
+  sysAdminUpdateAbuseReport(handled, abuseReportId) {
+    const url = this.server + '/api/v2.1/admin/abuse-reports/' + abuseReportId + '/';
+    let form = new FormData();
+    form.append('handled', handled);
+    return this.req.put(url, form);
+  }
+
   getInternalLink(repoID, filePath, direntType) {
     let isDir = direntType === 'dir' ? true : false;
     const path = encodeURIComponent(filePath);
