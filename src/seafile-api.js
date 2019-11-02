@@ -2611,14 +2611,13 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
-  sysAdminAddUser(email, name, role, password, isActive) {
+  sysAdminAddUser(email, name, role, password) {
     const url = this.server + '/api/v2.1/admin/users/';
     let formData = new FormData();
     formData.append('email', email);
     formData.append('name', name);
     formData.append('role', role);
     formData.append('password', password);
-    formData.append('is_active', isActive);
     return this._sendPostRequest(url, formData);
   }
 
@@ -2668,9 +2667,13 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  sysAdminGetUser(email) {
+  sysAdminGetUser(email, avatarSize) {
     const url = this.server + '/api/v2.1/admin/users/' + encodeURIComponent(email) + '/';
-    return this.req.get(url);
+    let params = {};
+    if (avatarSize) {
+      params.avatar_size = avatarSize;
+    }
+    return this.req.get(url, {params: params});
   }
 
   sysAdminResetUserPassword(email) {
@@ -2700,7 +2703,7 @@ class SeafileAPI {
   }
 
   sysAdminImportUserViaFile(file) {
-    const url = this.server + '/useradmin/batchadduser/';
+    const url = this.server + '/api/v2.1/admin/import-users/';
     let formData = new FormData();
     formData.append('file', file);
     return this._sendPostRequest(url, formData);
@@ -2719,10 +2722,12 @@ class SeafileAPI {
     return this.req.put(url, formData);
   }
 
-  sysAdminAddAdminInBatch(emailsString) {
+  sysAdminAddAdminInBatch(emails) {
     const url = this.server + '/api/v2.1/admin/admin-users/batch/';
     let formData = new FormData();
-    formData.append('emails', emailsString);
+    emails.map(email => {
+      formData.append('email', email);
+    });
     return this._sendPostRequest(url, formData);
   }
 
