@@ -2750,8 +2750,11 @@ class SeafileAPI {
   }
 
   sysAdminListInstitutionAdmins(institutionID) {
-    const url = this.server + '/api/v2.1/admin/institutions/' + institutionID + '/admins/';
-    return this.req.get(url);
+    const url = this.server + '/api/v2.1/admin/institutions/' + institutionID + '/users/';
+    let params = {
+      is_institution_admin: true,
+    };
+    return this.req.get(url, {params: params});
   }
 
   sysAdminAddInstitutionUser(institutionID, emailArray) {
@@ -2766,8 +2769,13 @@ class SeafileAPI {
   sysAdminUpdateInstitutionUser(institutionID, email, isInstitutionAdmin) {
     const url = this.server + '/api/v2.1/admin/institutions/' + institutionID + '/users/' + encodeURIComponent(email) + '/';
     let formData = new FormData();
-    formData.append('is_inst_admin', isInstitutionAdmin);
+    formData.append('is_institution_admin', isInstitutionAdmin);
     return this.req.put(url, formData);
+  }
+
+  sysAdminDeleteInstitutionUser(institutionID, email) {
+    const url = this.server + '/api/v2.1/admin/institutions/' + institutionID + '/users/' + encodeURIComponent(email) + '/';
+    return this.req.delete(url);
   }
 
 }
