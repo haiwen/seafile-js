@@ -2820,9 +2820,13 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  sysAdminGetUser(email) {
+  sysAdminGetUser(email, avatarSize) {
     const url = this.server + '/api/v2.1/admin/users/' + encodeURIComponent(email) + '/';
-    return this.req.get(url);
+    let params = {};
+    if (avatarSize) {
+      params.avatar_size = avatarSize;
+    }
+    return this.req.get(url, {params: params});
   }
 
   sysAdminResetUserPassword(email) {
@@ -2852,7 +2856,7 @@ class SeafileAPI {
   }
 
   sysAdminImportUserViaFile(file) {
-    const url = this.server + '/useradmin/batchadduser/';
+    const url = this.server + '/api/v2.1/admin/import-users/';
     let formData = new FormData();
     formData.append('file', file);
     return this._sendPostRequest(url, formData);
