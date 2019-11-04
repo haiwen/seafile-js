@@ -641,6 +641,32 @@ class SeafileAPI {
     return this.req.get(url, {cancelToken : cancelToken});
   }
 
+  listRepoAPITokens(repo_id) {
+    console.log('server in function is: ', this.server);
+    var url = this.server + '/api/v2.1/repos/' + repo_id + '/repo-api-tokens/';
+    return this.req.get(url);
+  }
+
+  addRepoAPIToken(repo_id, app_name, permission) {
+    var url = this.server + '/api/v2.1/repos/' + repo_id + '/repo-api-tokens/';
+    var form = new FormData();
+    form.append('app_name', app_name);
+    form.append('permission', permission);
+    return this._sendPostRequest(url, form);
+  }
+
+  deleteRepoAPIToken(repo_id, app_name) {
+    var url = this.server + '/api/v2.1/repos/' + repo_id + '/repo-api-tokens/' + app_name + '/';
+    return this.req.delete(url);
+  }
+
+  updateRepoAPIToken(repo_id, app_name, permission) {
+    var url = this.server + '/api/v2.1/repos/' + repo_id + '/repo-api-tokens/' + app_name + '/';
+    var form = new FormData();
+    form.append('permission', permission);
+    return this.req.put(url, form);
+  }
+
   //admin 
   listDeletedRepo() {
     const url = this.server + '/api/v2.1/deleted-repos/';
