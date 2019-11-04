@@ -2815,7 +2815,7 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
-  sysAdminAddInstitutionUser(institutionID, emailArray) {
+  sysAdminAddInstitutionUserBatch(institutionID, emailArray) {
     const url = this.server + '/api/v2.1/admin/institutions/' + institutionID + '/users/';
     let formData = new FormData();
     emailArray.map(email => {
