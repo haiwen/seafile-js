@@ -2765,6 +2765,25 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
+  sysAdminListInvitations(page, perPage) {
+    const url = this.server + '/api/v2.1/admin/invitations/';
+    let params = {
+      page: page,
+      per_page: perPage
+    };
+    return this.req.get(url, {params: params});
+  }
+
+  sysAdminDeleteInvitation(token) {
+    const url = this.server + '/api/v2.1/admin/invitations/' + token + '/';
+    return this.req.delete(url);
+  }
+
+  sysAdminDeleteExpiredInvitations() {
+    const url = this.server + '/api/v2.1/admin/invitations/?type=expired';
+    return this.req.delete(url);
+  }
+
   sysAdminListInstitutions(page, perPage) {
     const url = this.server + '/api/v2.1/admin/institutions/';
     let params = {
