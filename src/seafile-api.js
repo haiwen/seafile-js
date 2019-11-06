@@ -2856,12 +2856,12 @@ class SeafileAPI {
   }
 
   listVirusScanRecords(pageNum) {
-    const url = this.server + 'api/v2.1/admin/virus-scan-records/?page=' + pageNum;
+    const url = this.server + '/api/v2.1/admin/virus-scan-records/?page=' + pageNum;
     return this.req.get(url);
   }
 
   deleteVirusScanRecord(virusID) {
-    const url = this.server + 'api/v2.1/admin/virus-scan-records/' + virusID + '/';
+    const url = this.server + '/api/v2.1/admin/virus-scan-records/' + virusID + '/';
     return this.req.delete(url);
   }
 
