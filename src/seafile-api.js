@@ -2855,6 +2855,36 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
+  sysAdminListTermsAndConditions() {
+    const url = this.server + '/api/v2.1/admin/terms-and-conditions/';
+    return this.req.get(url);
+  }
+
+  sysAdminAddTermAndCondition(name, versionNumber, text, isActive) {
+    const url = this.server + '/api/v2.1/admin/terms-and-conditions/';
+    let formData = new FormData();
+    formData.append('name', name);
+    formData.append('version_number', versionNumber);
+    formData.append('text', text);
+    formData.append('is_active', isActive);
+    return this._sendPostRequest(url, formData);
+  }
+
+  sysAdminUpdateTermAndCondition(termID, name, versionNumber, text, isActive) {
+    const url = this.server + '/api/v2.1/admin/terms-and-conditions/' + termID + '/';
+    let formData = new FormData();
+    formData.append('name', name);
+    formData.append('version_number', versionNumber);
+    formData.append('text', text);
+    formData.append('is_active', isActive);
+    return this.req.put(url, formData);
+  }
+
+  sysAdminDeleteTermAndCondition(termID) {
+    const url = this.server + '/api/v2.1/admin/terms-and-conditions/' + termID + '/';
+    return this.req.delete(url);
+  }
+
   listVirusScanRecords(pageNum) {
     const url = this.server + '/api/v2.1/admin/virus-scan-records/?page=' + pageNum;
     return this.req.get(url);
