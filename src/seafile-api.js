@@ -2127,6 +2127,15 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
+  sysAdminSearchRepos(name, owner) {
+    const url = this.server + '/api/v2.1/admin/libraries/';
+    let params = {
+      name: name || '',
+      owner: owner || ''
+    };
+    return this.req.get(url, {params: params});
+  }
+
   sysAdminGetSystemRepoInfo() {
     const url = this.server + '/api/v2.1/admin/system-library/';
     return this.req.get(url);
@@ -2212,6 +2221,14 @@ class SeafileAPI {
     let params = {
       page: page,
       per_page: perPage
+    };
+    return this.req.get(url, {params: params});
+  }
+
+  sysAdminSearchTrashRepos(owner) {
+    const url = this.server + '/api/v2.1/admin/trash-libraries/';
+    let params = {
+      owner: owner || '' 
     };
     return this.req.get(url, {params: params});
   }
