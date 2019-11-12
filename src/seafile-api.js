@@ -2305,6 +2305,14 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
+  sysAdminSearchGroups(name) {
+    const url = this.server + '/api/v2.1/admin/groups/';
+    let params = {
+      name: name 
+    };
+    return this.req.get(url, {params: params});
+  }
+
   sysAdminDismissGroupByID(groupID) {
     const url = this.server + '/api/v2.1/admin/groups/' + groupID + '/';
     return this.req.delete(url);
