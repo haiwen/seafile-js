@@ -2920,6 +2920,66 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
+  sysAdminStatisticFiles(startTime, endTime, groupBy) {
+    const url = this.server + '/api/v2.1/admin/statistics/file-operations/';
+    let params = {
+      start: startTime,
+      end: endTime,
+      group_by: groupBy
+    }
+    return this.req.get(url, {params: params});
+  }
+
+  sysAdminStatisticStorages(startTime, endTime, groupBy) {
+    const url = this.server + '/api/v2.1/admin/statistics/total-storage/';
+    let params = {
+      start: startTime,
+      end: endTime,
+      group_by: groupBy
+    }
+    return this.req.get(url, {params: params});
+  }
+
+  sysAdminStatisticActiveUsers(startTime, endTime, groupBy) {
+    const url = this.server + '/api/v2.1/admin/statistics/active-users/';
+    let params = {
+      start: startTime,
+      end: endTime,
+      group_by: groupBy
+    }
+    return this.req.get(url, {params: params});
+  }
+
+  sysAdminStatisticTraffic(startTime, endTime, groupBy) {
+    const url = this.server + '/api/v2.1/admin/statistics/system-traffic/';
+    let params = {
+      start: startTime,
+      end: endTime,
+      group_by: groupBy
+    }
+    return this.req.get(url, {params: params});
+  }
+
+  sysAdminListUserTraffic(month, page, per_page) {
+    const url = this.server + '/api/v2.1/admin/statistics/system-user-traffic/';
+    let params = {
+      month: month,
+      page: page,
+      per_page: per_page
+    }
+    return this.req.get(url, {params: params});
+  }
+
+  sysAdminListOrgTraffic(month, page, per_page) {
+    const url = this.server + '/api/v2.1/admin/statistics/system-org-traffic/';
+    let params = {
+      month: month,
+      page: page,
+      per_page: per_page
+    }
+    return this.req.get(url, {params: params});
+  }
+
 }
 
 export { SeafileAPI };
