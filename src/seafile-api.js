@@ -2463,9 +2463,13 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  sysAdminListOrgs() {
+  sysAdminListOrgs(page, perPage) {
     const url = this.server + '/api/v2.1/admin/organizations/';
-    return this.req.get(url);
+    let params = {
+      page: page,
+      per_page: perPage
+    };
+    return this.req.get(url, {params: params});
   }
 
   sysAdminSearchOrgs(name) {
