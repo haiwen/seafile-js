@@ -2468,6 +2468,14 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  sysAdminSearchOrgs(name) {
+    let url = this.server + '/api/v2.1/admin/search-organization/';
+    let params = {
+      query: name
+    };
+    return this.req.get(url, {params: params});
+  }
+
   sysAdminGetOrg(orgID) {
     const url = this.server + '/api/v2.1/admin/organizations/' + orgID + '/';
     return this.req.get(url);
