@@ -2306,9 +2306,9 @@ class SeafileAPI {
   }
 
   sysAdminSearchGroups(name) {
-    const url = this.server + '/api/v2.1/admin/groups/';
+    const url = this.server + '/api/v2.1/admin/search-group/';
     let params = {
-      name: name 
+      query: name
     };
     return this.req.get(url, {params: params});
   }
