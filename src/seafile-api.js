@@ -1719,7 +1719,7 @@ class SeafileAPI {
     return this.req.post(url);
   }
 
-  sharedRepoInvitePeople(repoID, path, emails, permission) {
+  addRepoShareInvitations(repoID, path, emails, permission) {
     const url = this.server + '/api/v2.1/repos/' + repoID + '/shared/invitations/batch/';
     const data = {
       type: 'guest',
@@ -1730,18 +1730,18 @@ class SeafileAPI {
     return this.req.post(url, data);
   }
 
-  listSharedRepoInvitations(repoID, path) {
+  listRepoShareInvitations(repoID, path) {
     const url = this.server + '/api/v2.1/repos/' + repoID + '/shared/invitations/?path=' + path;
     return this.req.get(url);
   }
 
-  updateSharedRepoInvitation(repoID, path, token, permission) {
+  updateRepoShareInvitation(repoID, path, token, permission) {
     const url = this.server + '/api/v2.1/repos/' + repoID + '/shared/invitation/';
     let data = {token: token, path: path, permission: permission};
     return this.req.put(url, data);
   }
 
-  deleteSharedRepoInvitation(repoID, path, token) {
+  deleteRepoShareInvitation(repoID, path, token) {
     const url = this.server + '/api/v2.1/repos/' + repoID + '/shared/invitation/';
     let params = {token: token, path: path};
     return this.req.delete(url, {data: params});
