@@ -2155,11 +2155,10 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
-  sysAdminSearchRepos(name, owner) {
-    const url = this.server + '/api/v2.1/admin/libraries/';
+  sysAdminSearchRepos(name) {
+    const url = this.server + '/api/v2.1/admin/search-library/';
     let params = {
-      name: name || '',
-      owner: owner || ''
+      query: name || ''
     };
     return this.req.get(url, {params: params});
   }
