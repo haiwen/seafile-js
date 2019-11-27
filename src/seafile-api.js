@@ -2714,8 +2714,10 @@ class SeafileAPI {
     let formData = new FormData();
     formData.append('email', email);
     formData.append('name', name);
-    formData.append('role', role);
     formData.append('password', password);
+    if (role) {
+      formData.append('role', role);
+    }
     return this._sendPostRequest(url, formData);
   }
 
