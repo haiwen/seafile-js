@@ -2103,6 +2103,21 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
+  listOCMRepoDir(providerID, repoID, path) {
+    let url = this.server + '/api/v2.1/ocm/providers/' + providerID + '/repos/' + repoID + '/dir/?path=' + encodeURIComponent(path);
+    return this.req.get(url);
+  }
+
+  getOCMRepoDownloadURL(providerID, repoID, path) {
+    let url = this.server + '/api/v2.1/ocm/providers/' + providerID + '/repos/' + repoID + '/download-link/?path=' + encodeURIComponent(path);
+    return this.req.get(url);
+  }
+
+  getOCMRepoUploadURL(providerID, repoID, path) {
+    let url = this.server + '/api/v2.1/ocm/providers/' + providerID + '/repos/' + repoID + '/upload-link/?path=' + encodeURIComponent(path);
+    return this.req.get(url);
+  }
+
   sysAdminUploadLicense(file) {
     const url = this.server + '/api/v2.1/admin/license/';
     let formData = new FormData();
