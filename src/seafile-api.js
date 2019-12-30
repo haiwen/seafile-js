@@ -612,9 +612,15 @@ class SeafileAPI {
     return source;
   }
 
-  searchFilesInPublishedRepo(q, repoID) {
-    const url = this.server + '/api/v2.1/published-repo-search/?q=' + q + '&repo_id=' + repoID;
-    return this.req.get(url);
+  searchFilesInPublishedRepo(repoID, q, page, perPage) {
+    const url = this.server + '/api/v2.1/published-repo-search/';
+    let params = {
+      repo_id: repoID,
+      q: q,
+      page: page,
+      per_page: perPage
+    };
+    return this.req.get(url, {params: params});
   }
 
   searchFiles(searchParams, cancelToken) {
