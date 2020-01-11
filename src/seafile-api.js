@@ -337,7 +337,7 @@ class SeafileAPI {
     return this.req.get(url);
   }
   
-  getUploadLinks(repoID, path) {
+  getUploadLink(repoID, path) {
     const url = this.server + '/api/v2.1/upload-links/?repo_id=' + repoID + '&path=' + encodeURIComponent(path);
     return this.req.get(url);
   }
