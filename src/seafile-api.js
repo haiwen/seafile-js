@@ -264,18 +264,8 @@ class SeafileAPI {
   //---- share operation
 
   // share-link
-  listShareLinks() {
+  listUserShareLinks() {
     const url = this.server + '/api/v2.1/share-links/';
-    return this.req.get(url);
-  }
-
-  listAllShareLinks() {
-    const url = this.server + '/api/v2.1/share-links/';
-    return this.req.get(url);
-  }
-
-  listRepoShareLinks(repoID) {
-    const url = this.server + '/api/v2.1/share-links/?repo_id=' + repoID;
     return this.req.get(url);
   }
 
@@ -342,11 +332,11 @@ class SeafileAPI {
   }
 
   // upload-link
-  listUploadLinks() {
+  listUserUploadLinks() {
     const url = this.server + '/api/v2.1/upload-links/';
     return this.req.get(url);
   }
-
+  
   getUploadLinks(repoID, path) {
     const url = this.server + '/api/v2.1/upload-links/?repo_id=' + repoID + '&path=' + encodeURIComponent(path);
     return this.req.get(url);
@@ -919,7 +909,7 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  getUploadLink(repoID, folderPath) {
+  getFileServerUploadLink(repoID, folderPath) {
     const path = encodeURIComponent(folderPath);
     const url = this.server + '/api2/repos/' + repoID + '/upload-link/?p=' + path + '&from=web';
     return this.req.get(url);
