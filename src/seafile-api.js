@@ -315,15 +315,14 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
-  sendUploadLink(token, email, extraMsg) {
-    const url = this.server + '/api2/send-upload-link/';
-    let form = new FormData();
-    form.append('token', token);
-    form.append('email', email);
-    if (extraMsg) {
-      form.append('extra_msg', extraMsg);
-    }
-    return this._sendPostRequest(url, form);
+  listRepoShareLinks(repoID) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/share-links/';
+    return this.req.get(url);
+  }
+
+  deleteRepoShareLink(repoID, token) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/share-links/' + token + '/';
+    return this.req.delete(url);
   }
 
   listSharedRepos() {
@@ -358,6 +357,27 @@ class SeafileAPI {
 
   deleteUploadLink(token) {
     const url = this.server + '/api/v2.1/upload-links/' + token + '/';
+    return this.req.delete(url);
+  }
+
+  sendUploadLink(token, email, extraMsg) {
+    const url = this.server + '/api2/send-upload-link/';
+    let form = new FormData();
+    form.append('token', token);
+    form.append('email', email);
+    if (extraMsg) {
+      form.append('extra_msg', extraMsg);
+    }
+    return this._sendPostRequest(url, form);
+  }
+
+  listRepoUploadLinks(repoID) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/upload-links/';
+    return this.req.get(url);
+  }
+
+  deleteRepoUploadLink(repoID, token) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/upload-links/' + token + '/';
     return this.req.delete(url);
   }
 
