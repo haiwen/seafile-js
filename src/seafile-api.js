@@ -804,6 +804,14 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  cancelCopyMoveOperation(task_id) {
+    const url = this.server + '/api/v2.1/copy-move-task/';
+    let params = {
+      task_id: task_id
+    };
+    return this.req.delete(url, {data: params});
+  }
+
   deleteMutipleDirents(repoID, parentDir, direntNames) {
     const url = this.server  + '/api/v2.1/repos/batch-delete-item/';
     let operation = {
