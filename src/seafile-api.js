@@ -2170,12 +2170,15 @@ class SeafileAPI {
     return this._sendPostRequest(url, formData);
   }
 
-  sysAdminListAllRepos(page, perPage) {
+  sysAdminListAllRepos(page, perPage, orderBy) {
     const url = this.server + '/api/v2.1/admin/libraries/';
     let params = {
       page: page,
       per_page: perPage
     };
+    if (orderBy) {
+      params.order_by = orderBy;
+    }
     return this.req.get(url, {params: params});
   }
 
