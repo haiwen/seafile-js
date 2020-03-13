@@ -3044,14 +3044,25 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  listVirusScanRecords(pageNum) {
-    const url = this.server + '/api/v2.1/admin/virus-scan-records/?page=' + pageNum;
-    return this.req.get(url);
+  listVirusScanRecords(pageNum, hasHandle) {
+    const url = this.server + '/api/v2.1/admin/virus-scan-records/';
+    let params = { page: pageNum };
+    if (hasHandle) {
+      params.has_handle = hasHandle;
+    }
+    return this.req.get(url, { params: params });
   }
 
   deleteVirusScanRecord(virusID) {
     const url = this.server + '/api/v2.1/admin/virus-scan-records/' + virusID + '/';
     return this.req.delete(url);
+  }
+
+  updateVirusScanRecord(virusID, isIgnore) {
+    const url = this.server + '/api/v2.1/admin/virus-scan-records/' + virusID + '/';
+    let formData = new FormData();
+    formData.append('is_ignore', isIgnore);
+    return this.req.put(url, formData);
   }
 
   sysAdminStatisticFiles(startTime, endTime, groupBy) {
