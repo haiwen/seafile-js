@@ -1262,17 +1262,23 @@ class SeafileAPI {
   }
 
   //---- Notification API
-  listPopupNotices(page, perPage) {
+  listNotifications(page, perPage) {
     const url = this.server + '/api/v2.1/notifications/';
-    let form = new FormData();
-    form.append('page', page);
-    form.append('per_page', perPage);
-    return this.req.get(url, form);
+    let params = {
+      page: page,
+      per_page: perPage
+    }
+    return this.req.get(url, {params: params});
   }
   
   updateNotifications() {
     const url = this.server + '/api/v2.1/notifications/';
     return this.req.put(url);
+  }
+
+  deleteNotifications() {
+    const url = this.server + '/api/v2.1/notifications/';
+    return this.req.delete(url);
   }
 
   getUnseenNotificationCount() {
