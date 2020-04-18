@@ -1688,6 +1688,16 @@ class SeafileAPI {
     });
   }
 
+  getShareLinkDirentsZipTask(token, path, dirents) {
+    const url = this.server + '/api/v2.1/share-link-zip-task/';
+    const params = {
+      token: token,
+      parent_dir: path,
+      dirents: dirents
+    };
+    return this.req.post(url, params);
+  }
+
   getShareLinkThumbnail(token, filePath, thumbnailSize) {
     const url = this.server + '/thumbnail/' + token + '/create/';
     const params = {
