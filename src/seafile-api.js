@@ -1399,9 +1399,17 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  orgAdminListOrgUsers(orgID, isStaff, page) {
-    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/users/?is_staff=' + isStaff + '&page=' + page;
-    return this.req.get(url);
+  orgAdminListOrgUsers(orgID, isStaff, page, sortBy, sortOrder) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/users/';
+    let params = {
+      is_staff: isStaff,
+      page: page
+    };
+    if (sortBy) {
+      params.order_by = sortBy;
+      params.direction = sortOrder;
+    }
+    return this.req.get(url, {params: params});
   }
 
   orgAdminGetOrgUserBesharedRepos(orgID, email) {
@@ -1491,9 +1499,15 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  orgAdminListOrgRepos(orgID, page) {
-    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/repos/?page=' + page;
-    return this.req.get(url);
+  orgAdminListOrgRepos(orgID, page, orderBy) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/repos/';
+    let params = {
+      page: page
+    };
+    if (orderBy) {
+      params.order_by = orderBy;
+    }
+    return this.req.get(url, {params: params});
   }
 
   orgAdminDeleteOrgRepo(orgID, repoID) {
