@@ -275,7 +275,7 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  createShareLink(repoID, path, password, expireDays, permissions) {
+  createShareLink(repoID, path, password, expirationTime, permissions) {
     const url = this.server + '/api/v2.1/share-links/';
     let form = new FormData();
     form.append('path', path);
@@ -286,8 +286,8 @@ class SeafileAPI {
     if (password) {
       form.append('password', password);
     }
-    if (expireDays) {
-      form.append('expire_days', expireDays);
+    if (expirationTime) {
+      form.append('expiration_time', expirationTime);
     }
     return this._sendPostRequest(url, form);
   }
@@ -341,7 +341,7 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  createUploadLink(repoID, path, password, expireDays) {
+  createUploadLink(repoID, path, password, expirationTime) {
     const url = this.server + '/api/v2.1/upload-links/';
     let form = new FormData();
     form.append('path', path);
@@ -349,8 +349,8 @@ class SeafileAPI {
     if (password) {
       form.append('password', password);
     }
-    if (expireDays) {
-      form.append('expire_days', expireDays);
+    if (expirationTime) {
+      form.append('expiration_time', expirationTime);
     }
     return this._sendPostRequest(url, form);
   }
