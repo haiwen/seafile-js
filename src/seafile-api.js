@@ -3044,9 +3044,12 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  listVirusScanRecords(pageNum, hasHandle) {
+  listVirusScanRecords(page, perPage, hasHandle) {
     const url = this.server + '/api/v2.1/admin/virus-scan-records/';
-    let params = { page: pageNum };
+    let params = {
+      page: page,
+      per_page: perPage
+    };
     if (hasHandle) {
       params.has_handle = hasHandle;
     }
