@@ -3044,27 +3044,27 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  listVirusScanRecords(page, perPage, hasHandle) {
-    const url = this.server + '/api/v2.1/admin/virus-scan-records/';
+  listVirusFiles(page, perPage, hasHandled) {
+    const url = this.server + '/api/v2.1/admin/virus-files/';
     let params = {
       page: page,
       per_page: perPage
     };
-    if (hasHandle) {
-      params.has_handle = hasHandle;
+    if (hasHandled != undefined) {
+      params.has_handled = hasHandled;
     }
-    return this.req.get(url, { params: params });
+    return this.req.get(url, {params: params});
   }
 
-  deleteVirusScanRecord(virusID) {
-    const url = this.server + '/api/v2.1/admin/virus-scan-records/' + virusID + '/';
+  deleteVirusFile(virusID) {
+    const url = this.server + '/api/v2.1/admin/virus-files/' + virusID + '/';
     return this.req.delete(url);
   }
 
-  updateVirusScanRecord(virusID, isIgnore) {
-    const url = this.server + '/api/v2.1/admin/virus-scan-records/' + virusID + '/';
+  toggleIgnoreVirusFile(virusID, ignore) {
+    const url = this.server + '/api/v2.1/admin/virus-files/' + virusID + '/';
     let formData = new FormData();
-    formData.append('is_ignore', isIgnore);
+    formData.append('ignore', ignore);
     return this.req.put(url, formData);
   }
 
