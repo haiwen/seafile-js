@@ -3068,6 +3068,16 @@ class SeafileAPI {
     return this.req.put(url, formData);
   }
 
+  batchProcessVirusFiles(virusIDs, operation) {
+    const url = this.server + '/api/v2.1/admin/virus-files/batch/';
+    let formData = new FormData();
+    for (let i = 0; i < virusIDs.length; i++) {
+      formData.append('virus_ids', virusIDs[i]);
+    }
+    formData.append('operation', operation);
+    return this.req.post(url, formData);
+  }
+
   sysAdminStatisticFiles(startTime, endTime, groupBy) {
     const url = this.server + '/api/v2.1/admin/statistics/file-operations/';
     let params = {
