@@ -952,6 +952,11 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
+  sharedUploadLinkGetFileUploadUrl(token) {
+    const url = this.server + '/api/v2.1/upload-links/' + token + '/upload/';
+    return this.req.get(url);
+  }
+
   uploadImage (uploadLink, formData, onUploadProgress = null) {
     return (
       axios.create()({
