@@ -2146,6 +2146,56 @@ class SeafileAPI {
     return this.req.delete(url, { data: params });
   }
 
+  listOCMSharesPrepare(repoId) {
+    let url = this.server + '/api/v2.1/ocm/shares-prepare/';
+    if (repoId) {
+      url += '?repo_id=' + repoId;
+    }
+    return this.req.get(url);
+  }
+
+  addOCMSharePrepare(toUser, toServerURL, repoId, path, permission) {
+    let url = this.server + '/api/v2.1/ocm/shares-prepare/';
+    let params = {
+      'to_user': toUser,
+      'to_server_url': toServerURL,
+      'repo_id': repoId,
+      'path': path,
+      'permission': permission,
+    };
+    return this.req.post(url, params);
+  }
+
+  deleteOCMSharePrepare(id) {
+    let url = this.server + '/api/v2.1/ocm/shares-prepare/' + id + '/';
+    return this.req.delete(url);
+  }
+
+  listOCMSharesReceived() {
+    let url = this.server + '/api/v2.1/ocm/shares-received/';
+    return this.req.get(url);
+  }
+
+  deleteOCMShareReceived(id) {
+    let url = this.server + '/api/v2.1/ocm/shares-received/' + id + '/';
+    return this.req.delete(url);
+  }
+
+  listOCMRepoDir(providerID, repoID, path) {
+    let url = this.server + '/api/v2.1/ocm/providers/' + providerID + '/repos/' + repoID + '/dir/?path=' + encodeURIComponent(path);
+    return this.req.get(url);
+  }
+
+  getOCMRepoDownloadURL(providerID, repoID, path) {
+    let url = this.server + '/api/v2.1/ocm/providers/' + providerID + '/repos/' + repoID + '/download-link/?path=' + encodeURIComponent(path);
+    return this.req.get(url);
+  }
+
+  getOCMRepoUploadURL(providerID, repoID, path) {
+    let url = this.server + '/api/v2.1/ocm/providers/' + providerID + '/repos/' + repoID + '/upload-link/?path=' + encodeURIComponent(path);
+    return this.req.get(url);
+  }
+
   sysAdminUploadLicense(file) {
     const url = this.server + '/api/v2.1/admin/license/';
     let formData = new FormData();
