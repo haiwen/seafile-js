@@ -96,9 +96,13 @@ class SeafileAPI {
     return this.req.get(url, {params: options});
   }
 
-  listGroupRepos(groupID) {
+  listGroupRepos(groupID, page, perPage) {
     const url = this.server + '/api/v2.1/groups/' + groupID + '/libraries/';
-    return this.req.get(url);
+    let params = {
+      page: page,
+      per_page: perPage
+    };
+    return this.req.get(url, {params: params});
   }
 
 
