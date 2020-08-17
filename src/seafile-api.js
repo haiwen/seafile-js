@@ -1209,12 +1209,15 @@ class SeafileAPI {
     return this.req.delete(url, { data: params });
   }
 
-  saveSharedFile(repoID, filePath, sharedToken) {
-    const url = this.server + '/share/link/save/?t=' + sharedToken;
+  saveSharedFile(repoID, dstPath, sharedToken, filePath) {
+    const url = this.server + '/api/v2.1/share-links/' + sharedToken + '/save-file-to-repo/';
     let form = new FormData();
-    form.append('dst_repo', repoID);
-    form.append('dst_path', filePath);
-    form.append('s_token', sharedToken);
+    form.append('dst_repo_id', repoID);
+    form.append('dst_parent_dir', dstPath);
+    // for file in shared dir
+    if (filePath) {
+      form.append('path', filePath);
+    }
     return this._sendPostRequest(url, form);
   }
 
