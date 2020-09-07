@@ -2207,6 +2207,18 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  getRepoOldFilesAutoDelDays(repoID) {
+    let url = this.server + '/api/v2.1/repos/' + repoID + '/auto-delete/';
+    return this.req.get(url);
+  }
+
+  setRepoOldFilesAutoDelDays(repoID, autoDelDays) {
+    let url = this.server + '/api/v2.1/repos/' + repoID + '/auto-delete/';
+    let formData = new FormData();
+    formData.append('auto_delete_days', autoDelDays);
+    return this.req.put(url, formData);
+  }
+
   sysAdminUploadLicense(file) {
     const url = this.server + '/api/v2.1/admin/license/';
     let formData = new FormData();
