@@ -3207,22 +3207,24 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
-  sysAdminListUserTraffic(month, page, per_page) {
+  sysAdminListUserTraffic(month, page, perPage, orderBy) {
     const url = this.server + '/api/v2.1/admin/statistics/system-user-traffic/';
     let params = {
       month: month,
       page: page,
-      per_page: per_page
+      per_page: perPage,
+      order_by: orderBy
     }
     return this.req.get(url, {params: params});
   }
 
-  sysAdminListOrgTraffic(month, page, per_page) {
+  sysAdminListOrgTraffic(month, page, perPage, orderBy) {
     const url = this.server + '/api/v2.1/admin/statistics/system-org-traffic/';
     let params = {
       month: month,
       page: page,
-      per_page: per_page
+      per_page: perPage,
+      order_by: orderBy
     }
     return this.req.get(url, {params: params});
   }
