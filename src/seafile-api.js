@@ -1310,11 +1310,12 @@ class SeafileAPI {
     return this.req.get(url);
   }
   
-  unlinkDevice(platform, device_id) {
+  unlinkDevice(platform, deviceID, wipeDevice) {
     const url = this.server + "/api2/devices/";
     let param = {
       platform: platform,
-      device_id: device_id
+      device_id: deviceID,
+      wipe_device: wipeDevice
     };
     return this.req.delete(url, {data: param});
   }
