@@ -951,6 +951,12 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  // for shared folder link with 'can_upload' permission
+  sharedLinkGetFileUploadUrl(token) {
+    const url = this.server + '/api/v2.1/share-links/' + token + '/upload/';
+    return this.req.get(url);
+  }
+
   getFileUploadedBytes(repoID, filePath, fileName) {
     let url = this.server + '/api/v2.1/repos/' + repoID + '/file-uploaded-bytes/';
     let params = {
