@@ -2536,9 +2536,13 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  sysAdminListGroupMembers(groupID) {
+  sysAdminListGroupMembers(groupID, page, perPage) {
     const url = this.server + '/api/v2.1/admin/groups/' + groupID + '/members/';
-    return this.req.get(url);
+    let params = {
+      page: page,
+      per_page: perPage
+    };
+    return this.req.get(url, {params: params});
   }
 
   sysAdminUnshareRepoFromGroup(groupID, repoID) {
