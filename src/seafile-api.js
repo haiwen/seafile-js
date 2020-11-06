@@ -670,6 +670,11 @@ class SeafileAPI {
     return this.req.get(url, {cancelToken : cancelToken});
   }
 
+  searchFileInRepo(repo_id, file_name) {
+    let url = this.server + '/api/v2.1/search-file/?repo_id=' + repo_id + "&file_name=" + file_name;
+    return this.req.get(url);
+  }
+
   listRepoAPITokens(repo_id) {
     console.log('server in function is: ', this.server);
     var url = this.server + '/api/v2.1/repos/' + repo_id + '/repo-api-tokens/';
