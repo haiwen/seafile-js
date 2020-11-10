@@ -1489,11 +1489,11 @@ class SeafileAPI {
     return this.req.put(url);
   }
 
-  orgAdminChangeOrgUserStatus(userID, statusCode) {
-    const url = this.server + '/org/useradmin/toggle_status/' + userID + '/';
+  orgAdminChangeOrgUserStatus(orgID, email, isActive) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/users/' + encodeURIComponent(email) + '/';
     let form = new FormData();
-    form.append('s', statusCode);
-    return this.req.post(url, form, { headers: {'X-Requested-With': 'XMLHttpRequest'}});
+    form.append('is_active', isActive)
+    return this.req.put(url, form);
   }
 
   orgAdminAddOrgUser(orgID, email, name, password) {
