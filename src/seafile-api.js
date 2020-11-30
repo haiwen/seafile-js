@@ -2789,12 +2789,18 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
-  sysAdminListFileAccessLogs(page, perPage) {
+  sysAdminListFileAccessLogs(page, perPage, email, repoID) {
     const url = this.server + '/api/v2.1/admin/logs/file-access-logs/';
     let params = {
       page: page,
       per_page: perPage
     };
+    if (email != undefined) {
+      params.email = email;
+    }
+    if (repoID != undefined) {
+      params.repo_id = repoID;
+    }
     return this.req.get(url, {params: params});
   }
 
