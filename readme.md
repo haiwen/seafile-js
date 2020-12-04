@@ -13,17 +13,17 @@ npm install seafile-js
 
 In your project:
 
-```
+```javascript
 const { SeafileAPI } = require('seafile-js')
 
-server = "xxx"
-username = "xxx"
-password = "xxx"
-const seafileAPI = new SeafileAPI(server, username, password)
+let server = "xxx",
+	username = "xxx",
+	password = "xxx";
 
-seafileAPI.login().then((response) => {
-	seafileAPI.authPing().then((response) => {
-		console.log(response.data);
-	});
-})
+let seafile = new SeafileAPI();
+seafile.init({ server, username, password });
+
+await seafileAPI.login();
+let response = await seafileAPI.authPing();
+console.log(response.data);
 ```
