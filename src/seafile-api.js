@@ -596,9 +596,7 @@ class SeafileAPI {
 
   transferRepo(repoID, owner) {
     const url = this.server + '/api2/repos/' + repoID + '/owner/';
-    let form = new FormData();
-    form.append('owner', owner);
-    return this.req.put(url, form);
+    return this.req.put(url, { owner });
   }
 
   setRepoDecryptPassword(repoID, password) {
