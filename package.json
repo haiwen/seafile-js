@@ -4,7 +4,7 @@
   "private": false,
   "main": "lib/seafile-api.js",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "form-data": "^2.3.2",
     "package.json": "^2.0.1"
   },
