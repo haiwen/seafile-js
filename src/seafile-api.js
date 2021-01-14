@@ -2889,10 +2889,12 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
-  sysAdminSearchUsers(query) {
+  sysAdminSearchUsers(query, page, perPage) {
     let url = this.server + '/api/v2.1/admin/search-user/';
     let params = {
-      query: query
+      query: query,
+      page: page,
+      per_page: perPage
     };
     return this.req.get(url, {params: params});
   }
