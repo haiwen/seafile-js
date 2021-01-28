@@ -154,9 +154,15 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  listGroupMembers(groupID, isAdmin=false, avatarSize=64) {
-    let url = this.server + '/api/v2.1/groups/' + groupID + '/members/?avatar_size=' + avatarSize + '&is_admin=' + isAdmin;
-    return this.req.get(url);
+  listGroupMembers(groupID, page, perPage, isAdmin=false, avatarSize=64) {
+    let url = this.server + '/api/v2.1/groups/' + groupID + '/members/';
+    let params = {
+      page: page || 1,
+      per_page: perPage || 100,
+      is_admin: isAdmin,
+      avatar_size: avatarSize
+    }
+    return this.req.get(url, {params: params});
   }
 
   addGroupMember(groupID, userName) {
