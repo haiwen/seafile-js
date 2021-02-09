@@ -1345,7 +1345,7 @@ class SeafileAPI {
     let param = {
       platform: platform,
       device_id: deviceID,
-      wipe_device: wipeDevice
+      wipe_device: wipeDevice ? 'true' : 'false'
     };
     return this.req.delete(url, {data: param});
   }
