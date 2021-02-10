@@ -180,6 +180,13 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
+  importGroupMembersViaFile(groupID, file) {
+    const url = this.server + '/api/v2.1/groups/' + groupID + '/members/import/';
+    let formData = new FormData();
+    formData.append('file', file);
+    return this._sendPostRequest(url, formData);
+  }
+
   deleteGroupMember(groupID, userName) {
     const name = encodeURIComponent(userName);
     const url = this.server + '/api/v2.1/groups/' + groupID + '/members/' + name + '/';
