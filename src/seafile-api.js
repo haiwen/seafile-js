@@ -2641,6 +2641,13 @@ class SeafileAPI {
     return this.req.put(url, formData);
   }
 
+  sysAdminRenameDepartment(groupID,groupName) {
+    const url = this.server + '/api/v2.1/admin/groups/' + groupID + '/';
+    let formData = new FormData();
+    formData.append('name', groupName);
+    return this.req.put(url, formData);
+  }
+
   sysAdminDeleteDepartment(groupID) {
     const url = this.server + '/api/v2.1/admin/address-book/groups/' + groupID + '/';
     return this.req.delete(url);
