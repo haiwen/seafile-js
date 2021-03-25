@@ -1881,10 +1881,11 @@ class SeafileAPI {
     return this.req.put(url, data);
   }
 
-  updateEmailNotificationInterval(interval) {
+  updateEmailNotificationInterval(fileUpdatesEmailInterval, collaborateEmailInterval) {
     const url = this.server + '/api2/account/info/';
     const data = {
-      'email_notification_interval': interval
+      'file_updates_email_interval': fileUpdatesEmailInterval,
+      'collaborate_email_interval': collaborateEmailInterval,
     };
     return this.req.put(url, data);
   }
