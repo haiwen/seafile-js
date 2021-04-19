@@ -997,6 +997,13 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  shareLinksUploadDone(token, filePath) {
+    var url = this.server + '/api/v2.1/share-links/' + token + '/upload/done/';
+    var form = new FormData();
+    form.append('file_path', filePath);
+    return this._sendPostRequest(url, form);
+  }
+
   uploadImage (uploadLink, formData, onUploadProgress = null) {
     return (
       axios.create()({
