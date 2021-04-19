@@ -978,8 +978,8 @@ class SeafileAPI {
   }
 
   // for shared folder link with 'can_upload' permission
-  sharedLinkGetFileUploadUrl(token) {
-    const url = this.server + '/api/v2.1/share-links/' + token + '/upload/';
+  sharedLinkGetFileUploadUrl(token, path) {
+    const url = this.server + '/api/v2.1/share-links/' + token + '/upload/?path=' + encodeURIComponent(path);
     return this.req.get(url);
   }
 
