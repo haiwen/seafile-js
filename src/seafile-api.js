@@ -336,10 +336,15 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
-  updateShareLink(token, permissions) {
+  updateShareLink(token, permissions, expirationTime='') {
     var url = this.server + '/api/v2.1/share-links/' + token + '/';
     let form = new FormData();
-    form.append('permissions', permissions);
+    if (permissions) {
+      form.append('permissions', permissions);
+    }
+    if (expirationTime) {
+      form.append('expiration_time', expirationTime);
+    }
     return this.req.put(url, form);
   }
 
@@ -402,6 +407,13 @@ class SeafileAPI {
       form.append('expiration_time', expirationTime);
     }
     return this._sendPostRequest(url, form);
+  }
+
+  updateUploadLink(token, expirationTime) {
+    var url = this.server + '/api/v2.1/upload-links/' + token + '/';
+    let form = new FormData();
+    form.append('expiration_time', expirationTime);
+    return this.req.put(url, form);
   }
 
   deleteUploadLink(token) {
