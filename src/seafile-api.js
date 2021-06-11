@@ -59,6 +59,16 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  createAuthTokenBySession() {
+    const url = this.server + '/api/v2.1/auth-token-by-session/';
+    return this.req.post(url);
+  }
+
+  deleteAuthTokenBySession() {
+    const url = this.server + '/api/v2.1/auth-token-by-session/';
+    return this.req.delete(url);
+  }
+
   /**
    * Login to server and create axios instance for future usage
    */
