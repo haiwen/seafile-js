@@ -2804,6 +2804,9 @@ class SeafileAPI {
       case 'active':
         formData.append('active', value);
         break;
+      case 'is_org_staff':
+        formData.append('is_org_staff', value);
+        break;
       case 'name':
         formData.append('name', value);
         break;
