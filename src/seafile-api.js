@@ -1478,6 +1478,14 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
+  orgAdminSearchUser(orgID, query) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/search-user/';
+    let params = {
+      query: query,
+    };
+    return this.req.get(url, {params: params});
+  }
+
   orgAdminGetOrgUserBesharedRepos(orgID, email) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/users/'+ encodeURIComponent(email) + '/beshared-repos/';
     return this.req.get(url);
@@ -1553,6 +1561,14 @@ class SeafileAPI {
   orgAdminListOrgGroups(orgID, page) {
     const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/groups/?page=' + page;
     return this.req.get(url);
+  }
+
+  orgAdminSearchGroup(orgID, query) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/search-group/';
+    let params = {
+      query: query,
+    };
+    return this.req.get(url, {params: params});
   }
 
   orgAdminGetGroup(orgID, groupID) {
