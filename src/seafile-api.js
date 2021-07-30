@@ -2163,7 +2163,7 @@ class SeafileAPI {
     if (scanStat) {
       params.scan_stat = scanStat;
     }
-    return this.req.get(url, {params: params});
+    return this.req.post(url, params);
   }
 
   deleteRepoTrash(repoID, days) {
