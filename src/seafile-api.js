@@ -551,6 +551,11 @@ class SeafileAPI {
     return this.req.post(url, data);
   }
 
+  getCustomPermission(repoID, permissionID) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/custom-share-permissions/' + permissionID + '/';
+    return this.req.get(url);
+  }
+
   deleteCustomPermission(repoID, permissionID) {
     const url = this.server + '/api/v2.1/repos/' + repoID + '/custom-share-permissions/' + permissionID + '/';
     return this.req.delete(url);
