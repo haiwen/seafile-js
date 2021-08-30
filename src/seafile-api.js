@@ -536,6 +536,41 @@ class SeafileAPI {
     return this.req.delete(url, {params: options});
   }
 
+  listCustomPermissions(repoID) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/custom-share-permissions/';
+    return this.req.get(url);
+  }
+
+  createCustomPermission(repoID, permission_name, permission_desc, permission) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/custom-share-permissions/';
+    const data = {
+      permission_name: permission_name,
+      description: permission_desc,
+      permission: JSON.stringify(permission) 
+    };
+    return this.req.post(url, data);
+  }
+
+  getCustomPermission(repoID, permissionID) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/custom-share-permissions/' + permissionID + '/';
+    return this.req.get(url);
+  }
+
+  deleteCustomPermission(repoID, permissionID) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/custom-share-permissions/' + permissionID + '/';
+    return this.req.delete(url);
+  }
+  
+  updateCustomPermission(repoID, permission) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/custom-share-permissions/' + permission.id + '/';
+    const data = {
+      permission_name: permission.name,
+      description: permission.description,
+      permission: JSON.stringify(permission.permission)
+    };
+    return this.req.put(url, data);
+  }
+
   //---- repo(library) operation 
   createMineRepo(repo) {
     const url = this.server + '/api2/repos/?from=web';
