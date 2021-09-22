@@ -3356,6 +3356,14 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
+  onlyofficeConvert(repoID, filePath) {
+    const url = this.server + '/onlyoffice-api/convert/';
+    let formData = new FormData();
+    formData.append('repo_id', repoID);
+    formData.append('file_path', filePath);
+    return this._sendPostRequest(url, formData);
+  }
+
 }
 
 export { SeafileAPI };
