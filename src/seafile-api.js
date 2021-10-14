@@ -175,6 +175,14 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
+  searchGroupMember(groupID, q) {
+    const url = this.server + '/api/v2.1/groups/' + groupID + '/search-member/';
+    const params = {
+      q: q
+    }
+    return this.req.get(url, {params: params});
+  }
+
   addGroupMember(groupID, userName) {
     const url = this.server + '/api/v2.1/groups/' + groupID + '/members/';
     const params = {
