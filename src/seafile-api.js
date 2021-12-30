@@ -1326,6 +1326,21 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
+  saveSharedDir(repoID, dstPath, sharedToken, parentDir, items) {
+    const url = this.server + '/api/v2.1/share-links/' + sharedToken + '/save-items-to-repo/';
+    let form = new FormData();
+
+    form.append('src_parent_dir', parentDir);
+    items.forEach(item => {
+      form.append('src_dirents', item);
+    });
+
+    form.append('dst_repo_id', repoID);
+    form.append('dst_parent_dir', dstPath);
+
+    return this._sendPostRequest(url, form);
+  }
+
   addAbuseReport(sharedToken, abuseType, description, reporter, filePath) {
     const url = this.server + '/api/v2.1/abuse-reports/';
     let form = new FormData();
