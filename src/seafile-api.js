@@ -359,6 +359,11 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
+  getRepoShareInfo(repoID) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/share-info/';
+    return this.req.get(url);
+  }
+
   listRepoShareLinks(repoID) {
     const url = this.server + '/api/v2.1/repos/' + repoID + '/share-links/';
     return this.req.get(url);
