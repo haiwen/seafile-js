@@ -1703,6 +1703,13 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
+  orgAdminUpdateDepartGroup(orgID, groupID, groupName) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/address-book/groups/' + groupID + '/';
+    let form = new FormData();
+    form.append('group_name', groupName);
+    return this.req.put(url, form);
+  }
+
   orgAdminDeleteDepartGroup(orgID, groupID) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/address-book/groups/' + groupID + '/';
     return this.req.delete(url);
