@@ -1305,32 +1305,6 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  //---- RelatedFile API
-  listRelatedFiles(repoID, filePath) {
-    const p = encodeURIComponent(filePath);
-    const url = this.server + '/api/v2.1/related-files/?repo_id=' + repoID + '&file_path=' + p;
-    return this.req.get(url);
-  }
-
-  addRelatedFile(oRepoID, rRepoID, oFilePath, rFilePath) {
-    const form = new FormData();
-    form.append('o_repo_id', oRepoID);
-    form.append('r_repo_id', rRepoID);
-    form.append('o_path', oFilePath);
-    form.append('r_path', rFilePath);
-    const url = this.server + '/api/v2.1/related-files/';
-    return this._sendPostRequest(url, form);
-  }
-
-  deleteRelatedFile(repoID, filePath, relatedID) {
-    const url = this.server + '/api/v2.1/related-files/' + relatedID + '/';
-    const params = {
-      repo_id: repoID,
-      file_path: filePath
-    };
-    return this.req.delete(url, { data: params });
-  }
-
   saveSharedFile(repoID, dstPath, sharedToken, filePath) {
     const url = this.server + '/api/v2.1/share-links/' + sharedToken + '/save-file-to-repo/';
     let form = new FormData();
