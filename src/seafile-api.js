@@ -384,6 +384,16 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  getShareLinkRepoTags(token) {
+    var url = this.server + '/api/v2.1/share-links/' + token + '/repo-tags/';
+    return this.req.get(url);
+  }
+
+  getShareLinkTaggedFiles(token, tag_id) {
+    var url = this.server + '/api/v2.1/share-links/' + token + '/tagged-files/' + tag_id + '/';
+    return this.req.get(url);
+  }
+
   // upload-link
   listUserUploadLinks() {
     const url = this.server + '/api/v2.1/upload-links/';
