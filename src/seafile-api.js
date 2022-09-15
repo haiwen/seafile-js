@@ -230,6 +230,9 @@ class SeafileAPI {
       form.append("passwd", repo.passwd);
     }
     form.append('permission', permission);
+    if (repo.library_template) {
+      form.append("library_template", repo.library_template);
+    }
     return this._sendPostRequest(url, form);
   }
   
@@ -620,6 +623,9 @@ class SeafileAPI {
       form.append("password", repo.password);
     }
     form.append("permission", repo.permission);
+    if (repo.library_template) {
+      form.append("library_template", repo.library_template);
+    }
     return this._sendPostRequest(url, form);
   }
 
