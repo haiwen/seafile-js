@@ -1616,6 +1616,13 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
+  orgAdminImportUsersViaFile(orgID, file) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/import-users/';
+    let formData = new FormData();
+    formData.append('file', file);
+    return this._sendPostRequest(url, formData);
+  }
+
   orgAdminSetOrgAdmin(orgID, email, isStaff) {
     const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/users/' + encodeURIComponent(email) + '/';
     let form = new FormData();
