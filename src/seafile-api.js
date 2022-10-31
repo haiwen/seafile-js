@@ -1530,6 +1530,36 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  orgAdminListDevices(orgID, platform, page, per_page) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/devices/';
+    let params = {
+      platform: platform,
+      page: page,
+      per_page: per_page
+    };
+    return this.req.get(url, {params: params});
+  }
+
+  orgAdminUnlinkDevice(orgID, platform, deviceID, user, wipeDevice) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/devices/';
+    let params = {
+      wipe_device: wipeDevice ? 'true' : 'false',
+      platform: platform,
+      device_id: deviceID,
+      user: user
+    };
+    return this.req.delete(url, {data: params});
+  }
+
+  orgAdminListDevicesErrors(orgID, page, per_page) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/devices-errors/';
+    let params = {
+      page: page,
+      per_page: per_page
+    };
+    return this.req.get(url, {params: params});
+  }
+
   orgAdminListOrgUsers(orgID, isStaff, page, sortBy, sortOrder) {
     const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/users/';
     let params = {
