@@ -1530,6 +1530,57 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  orgAdminStatisticFiles(orgID, startTime, endTime, groupBy) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/statistics/file-operations/';
+    let params = {
+      start: startTime,
+      end: endTime,
+      group_by: groupBy
+    }
+    return this.req.get(url, {params: params});
+  }
+
+  orgAdminStatisticStorages(orgID, startTime, endTime, groupBy) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/statistics/total-storage/';
+    let params = {
+      start: startTime,
+      end: endTime,
+      group_by: groupBy
+    }
+    return this.req.get(url, {params: params});
+  }
+
+  orgAdminStatisticActiveUsers(orgID, startTime, endTime, groupBy) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/statistics/active-users/';
+    let params = {
+      start: startTime,
+      end: endTime,
+      group_by: groupBy
+    }
+    return this.req.get(url, {params: params});
+  }
+
+  orgAdminStatisticSystemTraffic(orgID, startTime, endTime, groupBy) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/statistics/system-traffic/';
+    let params = {
+      start: startTime,
+      end: endTime,
+      group_by: groupBy
+    }
+    return this.req.get(url, {params: params});
+  }
+
+  orgAdminListUserTraffic(orgID, month, page, perPage, orderBy) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/statistics/user-traffic/';
+    let params = {
+      month: month,
+      page: page,
+      per_page: perPage,
+      order_by: orderBy
+    }
+    return this.req.get(url, {params: params});
+  }
+
   orgAdminListDevices(orgID, platform, page, per_page) {
     const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/devices/';
     let params = {
