@@ -1530,6 +1530,87 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  orgAdminStatisticFiles(orgID, startTime, endTime, groupBy) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/statistics/file-operations/';
+    let params = {
+      start: startTime,
+      end: endTime,
+      group_by: groupBy
+    }
+    return this.req.get(url, {params: params});
+  }
+
+  orgAdminStatisticStorages(orgID, startTime, endTime, groupBy) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/statistics/total-storage/';
+    let params = {
+      start: startTime,
+      end: endTime,
+      group_by: groupBy
+    }
+    return this.req.get(url, {params: params});
+  }
+
+  orgAdminStatisticActiveUsers(orgID, startTime, endTime, groupBy) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/statistics/active-users/';
+    let params = {
+      start: startTime,
+      end: endTime,
+      group_by: groupBy
+    }
+    return this.req.get(url, {params: params});
+  }
+
+  orgAdminStatisticSystemTraffic(orgID, startTime, endTime, groupBy) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/statistics/system-traffic/';
+    let params = {
+      start: startTime,
+      end: endTime,
+      group_by: groupBy
+    }
+    return this.req.get(url, {params: params});
+  }
+
+  orgAdminListUserTraffic(orgID, month, page, perPage, orderBy) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/statistics/user-traffic/';
+    let params = {
+      month: month,
+      page: page,
+      per_page: perPage,
+      order_by: orderBy
+    }
+    return this.req.get(url, {params: params});
+  }
+
+  orgAdminListDevices(orgID, platform, page, per_page) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/devices/';
+    let params = {
+      platform: platform,
+      page: page,
+      per_page: per_page
+    };
+    return this.req.get(url, {params: params});
+  }
+
+  orgAdminUnlinkDevice(orgID, platform, deviceID, user, wipeDevice) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/devices/';
+    let params = {
+      wipe_device: wipeDevice ? 'true' : 'false',
+      platform: platform,
+      device_id: deviceID,
+      user: user
+    };
+    return this.req.delete(url, {data: params});
+  }
+
+  orgAdminListDevicesErrors(orgID, page, per_page) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/devices-errors/';
+    let params = {
+      page: page,
+      per_page: per_page
+    };
+    return this.req.get(url, {params: params});
+  }
+
   orgAdminListOrgUsers(orgID, isStaff, page, sortBy, sortOrder) {
     const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/users/';
     let params = {
@@ -1614,6 +1695,13 @@ class SeafileAPI {
     form.append('name', name);
     form.append('password', password);
     return this._sendPostRequest(url, form);
+  }
+
+  orgAdminImportUsersViaFile(orgID, file) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/import-users/';
+    let formData = new FormData();
+    formData.append('file', file);
+    return this._sendPostRequest(url, formData);
   }
 
   orgAdminSetOrgAdmin(orgID, email, isStaff) {
