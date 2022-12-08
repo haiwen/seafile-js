@@ -1539,6 +1539,66 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  orgAdminGenerateSPCertificate(orgID, countryName, provinceName, localityName, organizationName, uintName, commonName, emailAddress, days) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-config/sp-certificate/';
+    let formData = new FormData();
+    formData.append('country_name', countryName);
+    formData.append('province_name', provinceName);
+    formData.append('locality_name', localityName);
+    formData.append('organization_name', organizationName);
+    formData.append('uint_name', uintName);
+    formData.append('common_name', commonName);
+    formData.append('email_address', emailAddress);
+    formData.append('days', days);
+    return this._sendPostRequest(url, formData);
+  }
+
+  orgAdminUploadIdpCertificate(orgID, file) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-config/idp-certificate/';
+    let formData = new FormData();
+    formData.append('idp_certificate', file);
+    return this._sendPostRequest(url, formData);
+  }
+
+  orgAdminUploadIdpMetadataXml(orgID, file) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-config/idp-metadata-xml/';
+    let formData = new FormData();
+    formData.append('idp_metadata_xml', file);
+    return this._sendPostRequest(url, formData);
+  }
+
+  orgAdminGetSamlConfig(orgID) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-config/';
+    return this.req.get(url);
+  }
+
+  orgAdminAddSamlConfig(orgID, metadataUrl, singleSignOnService, singleLogoutService, validDays) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-config/';
+    let data = {
+      metadata_url: metadataUrl,
+      single_sign_on_service: singleSignOnService,
+      single_logout_service: singleLogoutService,
+      valid_days: validDays
+    };
+    return this.req.post(url, data);
+  }
+
+  orgAdminUpdateSamlConfig(orgID, metadataUrl, singleSignOnService, singleLogoutService, validDays) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-config/';
+    let data = {
+      metadata_url: metadataUrl,
+      single_sign_on_service: singleSignOnService,
+      single_logout_service: singleLogoutService,
+      valid_days: validDays
+    };
+    return this.req.put(url, data);
+  }
+
+  orgAdminDeleteSamlConfig(orgID) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-config/';
+    return this.req.delete(url);
+  }
+
   orgAdminStatisticFiles(orgID, startTime, endTime, groupBy) {
     const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/statistics/file-operations/';
     let params = {
