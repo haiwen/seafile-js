@@ -1,5 +1,6 @@
-var axios = require('axios').default;
-var FormData = require('form-data');
+import axios from 'axios';
+import FormData from 'form-data';
+import { stringify } from 'qs';
 
 class SeafileAPI {
 
@@ -11,7 +12,10 @@ class SeafileAPI {
     if (this.token && this.server) {
       this.req = axios.create({
         baseURL: this.server,
-        headers: { 'Authorization': 'Token ' + this.token }
+        headers: { 'Authorization': 'Token ' + this.token },
+        paramsSerializer: {
+          serialize: stringify
+        }
       });
     }
     return this;
@@ -3500,4 +3504,6 @@ class SeafileAPI {
 
 }
 
-export { SeafileAPI };
+export { 
+  SeafileAPI 
+};
