@@ -1,4 +1,4 @@
-var axios = require('axios');
+var axios = require('axios').default;
 var FormData = require('form-data');
 
 class SeafileAPI {
