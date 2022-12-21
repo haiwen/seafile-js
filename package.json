@@ -1,13 +1,12 @@
 {
   "name": "seafile-js",
-  "version": "0.2.188",
+  "version": "0.2.189",
   "private": false,
   "main": "lib/seafile-api.js",
   "dependencies": {
     "@babel/polyfill": "7.12.1",
     "axios": "1.2.1",
-    "form-data": "4.0.0",
-    "qs": "6.11.0"
+    "form-data": "4.0.0"
   },
   "scripts": {
     "test": "jest --env=node --colors --coverage",

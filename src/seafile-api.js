@@ -1,6 +1,5 @@
 import axios from 'axios';
 import FormData from 'form-data';
-import { stringify } from 'qs';
 
 class SeafileAPI {
 
@@ -13,9 +12,6 @@ class SeafileAPI {
       this.req = axios.create({
         baseURL: this.server,
         headers: { 'Authorization': 'Token ' + this.token },
-        paramsSerializer: {
-          serialize: stringify
-        }
       });
     }
     return this;
@@ -651,18 +647,20 @@ class SeafileAPI {
 
     return this.req.get(url, {
       params: options,
-      paramsSerializer: function(params) {
-        let list = [];
-        for (let key in params) {
-          if (Array.isArray(params[key])) {
-            for (let i = 0, len = params[key].length; i < len; i++) {
-              list.push(key + '=' + encodeURIComponent(params[key][i]));
+      paramsSerializer: {
+        serialize: function(params) {
+          let list = [];
+          for (let key in params) {
+            if (Array.isArray(params[key])) {
+              for (let i = 0, len = params[key].length; i < len; i++) {
+                list.push(key + '=' + encodeURIComponent(params[key][i]));
+              }
+            } else {
+              list.push(key + '=' + encodeURIComponent(params[key]));
             }
-          } else {
-            list.push(key + '=' + encodeURIComponent(params[key]));
           }
+          return list.join('&');
         }
-        return list.join('&');
       }
     });
   }
@@ -1479,18 +1477,20 @@ class SeafileAPI {
     }
     return this.req.get(url, {
       params: options,
-      paramsSerializer: function paramsSerializer(params) {
-        let list = [];
-        for (let key in params) {
-          if (Array.isArray(params[key])) {
-            for (let i = 0, len = params[key].length; i < len; i++) {
-              list.push(key + '=' + encodeURIComponent(params[key][i]));
+      paramsSerializer: {
+        serialize: function(params) {
+          let list = [];
+          for (let key in params) {
+            if (Array.isArray(params[key])) {
+              for (let i = 0, len = params[key].length; i < len; i++) {
+                list.push(key + '=' + encodeURIComponent(params[key][i]));
+              }
+            } else {
+              list.push(key + '=' + encodeURIComponent(params[key]));
             }
-          } else {
-            list.push(key + '=' + encodeURIComponent(params[key]));
           }
+          return list.join('&');
         }
-        return list.join('&');
       }
     });
   }
