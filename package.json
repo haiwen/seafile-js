@@ -1,11 +1,11 @@
 {
   "name": "seafile-js",
-  "version": "0.2.186",
+  "version": "0.2.190",
   "private": false,
   "main": "lib/seafile-api.js",
   "dependencies": {
     "@babel/polyfill": "7.12.1",
-    "axios": "0.21.1",
+    "axios": "1.2.1",
     "form-data": "4.0.0"
   },
   "scripts": {
@@ -20,6 +20,7 @@
     "@babel/cli": "7.13.14",
     "@babel/core": "7.13.14",
     "@babel/preset-env": "7.13.12",
+    "babel-eslint": "10.1.0",
     "eslint": "^4.19.1",
     "jest": "^23.4.2"
   }
