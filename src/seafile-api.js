@@ -1539,29 +1539,15 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  orgAdminGenerateSPCertificate(orgID, countryName, provinceName, localityName, organizationName, uintName, commonName, emailAddress, days) {
-    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-config/sp-certificate/';
-    let formData = new FormData();
-    formData.append('country_name', countryName);
-    formData.append('province_name', provinceName);
-    formData.append('locality_name', localityName);
-    formData.append('organization_name', organizationName);
-    formData.append('uint_name', uintName);
-    formData.append('common_name', commonName);
-    formData.append('email_address', emailAddress);
-    formData.append('days', days);
-    return this._sendPostRequest(url, formData);
-  }
-
   orgAdminUploadIdpCertificate(orgID, file) {
-    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-config/idp-certificate/';
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-idp-certificate/';
     let formData = new FormData();
     formData.append('idp_certificate', file);
     return this._sendPostRequest(url, formData);
   }
 
   orgAdminUploadIdpMetadataXml(orgID, file) {
-    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-config/idp-metadata-xml/';
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-idp-metadata-xml/';
     let formData = new FormData();
     formData.append('idp_metadata_xml', file);
     return this._sendPostRequest(url, formData);
@@ -1597,6 +1583,19 @@ class SeafileAPI {
   orgAdminDeleteSamlConfig(orgID) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-config/';
     return this.req.delete(url);
+  }
+
+  orgAdminGetUrlPrefix(orgID) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/url-prefix/';
+    return this.req.get(url);
+  }
+
+  orgAdminUpdateUrlPrefix(orgID, orgUrlPrefix) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/url-prefix/';
+    let data = {
+      org_url_prefix: orgUrlPrefix,
+    };
+    return this.req.put(url, data);
   }
 
   orgAdminStatisticFiles(orgID, startTime, endTime, groupBy) {
