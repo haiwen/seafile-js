@@ -1539,6 +1539,65 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  orgAdminUploadIdpCertificate(orgID, file) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-idp-certificate/';
+    let formData = new FormData();
+    formData.append('idp_certificate', file);
+    return this._sendPostRequest(url, formData);
+  }
+
+  orgAdminUploadIdpMetadataXml(orgID, file) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-idp-metadata-xml/';
+    let formData = new FormData();
+    formData.append('idp_metadata_xml', file);
+    return this._sendPostRequest(url, formData);
+  }
+
+  orgAdminGetSamlConfig(orgID) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-config/';
+    return this.req.get(url);
+  }
+
+  orgAdminAddSamlConfig(orgID, metadataUrl, singleSignOnService, singleLogoutService, validDays) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-config/';
+    let data = {
+      metadata_url: metadataUrl,
+      single_sign_on_service: singleSignOnService,
+      single_logout_service: singleLogoutService,
+      valid_days: validDays
+    };
+    return this.req.post(url, data);
+  }
+
+  orgAdminUpdateSamlConfig(orgID, metadataUrl, singleSignOnService, singleLogoutService, validDays) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-config/';
+    let data = {
+      metadata_url: metadataUrl,
+      single_sign_on_service: singleSignOnService,
+      single_logout_service: singleLogoutService,
+      valid_days: validDays
+    };
+    return this.req.put(url, data);
+  }
+
+  orgAdminDeleteSamlConfig(orgID) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-config/';
+    return this.req.delete(url);
+  }
+
+  orgAdminGetUrlPrefix(orgID) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/url-prefix/';
+    return this.req.get(url);
+  }
+
+  orgAdminUpdateUrlPrefix(orgID, orgUrlPrefix) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/url-prefix/';
+    let data = {
+      org_url_prefix: orgUrlPrefix,
+    };
+    return this.req.put(url, data);
+  }
+
   orgAdminStatisticFiles(orgID, startTime, endTime, groupBy) {
     const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/statistics/file-operations/';
     let params = {
