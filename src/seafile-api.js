@@ -1551,6 +1551,18 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  orgAdminGetSysSettingInfo(orgID) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/web-settings/';
+    return this.req.get(url);
+  }
+
+  orgAdminSetSysSettingInfo(orgID, key, value) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/web-settings/';
+    let formData = new FormData();
+    formData.append(key, value);
+    return this.req.put(url, formData);
+  }
+
   orgAdminUploadIdpCertificate(orgID, file) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-idp-certificate/';
     let formData = new FormData();
