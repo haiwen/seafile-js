@@ -3256,6 +3256,12 @@ class SeafileAPI {
       case 'institution':
         formData.append('institution', value);
         break;
+      case 'upload_rate_limit':
+        formData.append('upload_rate_limit', value);
+        break;
+      case 'download_rate_limit':
+        formData.append('download_rate_limit', value);
+        break;
     }
     return this.req.put(url, formData);
   }
