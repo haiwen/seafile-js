@@ -2633,6 +2633,34 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  // com via webdav
+  OCMShareToNextcloud(toUser, toServerURL, repoId, path) {
+    let url = this.server + '/ocm-via-webdav/share-to-nextcloud/';
+    let params = {
+      'to_user': toUser,
+      'to_server_url': toServerURL,
+      'repo_id': repoId,
+      'path': path,
+    };
+    return this.req.post(url, params);
+  }
+
+  listOCMShareToNextcloud(repoId) {
+    let url = this.server + '/ocm-via-webdav/share-to-nextcloud/';
+    if (repoId) {
+      url += '?repo_id=' + repoId;
+    }
+    return this.req.get(url);
+  }
+
+  deleteOCMShareToNextcloud(id) {
+    let url = this.server + '/ocm-via-webdav/share-to-nextcloud/';
+    let params = {
+      'share_id': id,
+    };
+    return this.req.delete(url, {data: params});
+  }
+
   getRepoOldFilesAutoDelDays(repoID) {
     let url = this.server + '/api/v2.1/repos/' + repoID + '/auto-delete/';
     return this.req.get(url);
