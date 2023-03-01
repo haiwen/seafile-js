@@ -356,6 +356,11 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
+  cleanOrphanShareLinks() {
+    const url = this.server + '/api/v2.1/share-links/clean-orphan/';
+    return this.req.delete(url);
+  }
+
   sendShareLink(token, email, extraMsg) {
     const url = this.server + '/api2/send-share-link/';
     let form = new FormData();
@@ -436,6 +441,11 @@ class SeafileAPI {
 
   deleteUploadLink(token) {
     const url = this.server + '/api/v2.1/upload-links/' + token + '/';
+    return this.req.delete(url);
+  }
+
+  cleanOrphanUploadLinks() {
+    const url = this.server + '/api/v2.1/upload-links/clean-orphan/';
     return this.req.delete(url);
   }
 
