@@ -1582,36 +1582,23 @@ class SeafileAPI {
     return this._sendPostRequest(url, formData);
   }
 
-  orgAdminUploadIdpMetadataXml(orgID, file) {
-    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-idp-metadata-xml/';
-    let formData = new FormData();
-    formData.append('idp_metadata_xml', file);
-    return this._sendPostRequest(url, formData);
-  }
-
   orgAdminGetSamlConfig(orgID) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-config/';
     return this.req.get(url);
   }
 
-  orgAdminAddSamlConfig(orgID, metadataUrl, singleSignOnService, singleLogoutService, validDays) {
+  orgAdminAddSamlConfig(orgID, metadataUrl) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-config/';
     let data = {
-      metadata_url: metadataUrl,
-      single_sign_on_service: singleSignOnService,
-      single_logout_service: singleLogoutService,
-      valid_days: validDays
+      metadata_url: metadataUrl
     };
     return this.req.post(url, data);
   }
 
-  orgAdminUpdateSamlConfig(orgID, metadataUrl, singleSignOnService, singleLogoutService, validDays) {
+  orgAdminUpdateSamlConfig(orgID, metadataUrl) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-config/';
     let data = {
-      metadata_url: metadataUrl,
-      single_sign_on_service: singleSignOnService,
-      single_logout_service: singleLogoutService,
-      valid_days: validDays
+      metadata_url: metadataUrl
     };
     return this.req.put(url, data);
   }
