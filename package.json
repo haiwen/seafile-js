@@ -1,6 +1,6 @@
 {
   "name": "seafile-js",
-  "version": "0.2.193",
+  "version": "0.2.194",
   "private": false,
   "main": "lib/seafile-api.js",
   "dependencies": {
