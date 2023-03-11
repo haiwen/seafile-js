@@ -1561,6 +1561,18 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  orgAdminGetSysSettingInfo(orgID) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/web-settings/';
+    return this.req.get(url);
+  }
+
+  orgAdminSetSysSettingInfo(orgID, key, value) {
+    const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/web-settings/';
+    let formData = new FormData();
+    formData.append(key, value);
+    return this.req.put(url, formData);
+  }
+
   orgAdminUpdateName(orgID, orgName) {
     const url = this.server + '/api/v2.1/org/admin/info/';
     let form = new FormData();
