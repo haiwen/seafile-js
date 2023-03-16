@@ -356,8 +356,8 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  cleanOrphanShareLinks() {
-    const url = this.server + '/api/v2.1/share-links/clean-orphan/';
+  cleanInvalidShareLinks() {
+    const url = this.server + '/api/v2.1/share-links/clean-invalid/';
     return this.req.delete(url);
   }
 
@@ -444,8 +444,8 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  cleanOrphanUploadLinks() {
-    const url = this.server + '/api/v2.1/upload-links/clean-orphan/';
+  cleanInvalidUploadLinks() {
+    const url = this.server + '/api/v2.1/upload-links/clean-invalid/';
     return this.req.delete(url);
   }
 
