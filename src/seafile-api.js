@@ -322,6 +322,23 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  createMultiShareLink(repoID, path, password, expirationTime, permissions) {
+    const url = this.server + '/api/v2.1/multi-share-links/';
+    let form = new FormData();
+    form.append('path', path);
+    form.append('repo_id', repoID);
+    if (permissions) {
+      form.append('permissions', permissions);
+    }
+    if (password) {
+      form.append('password', password);
+    }
+    if (expirationTime) {
+      form.append('expiration_time', expirationTime);
+    }
+    return this._sendPostRequest(url, form);
+  }
+
   createShareLink(repoID, path, password, expirationTime, permissions) {
     const url = this.server + '/api/v2.1/share-links/';
     let form = new FormData();
