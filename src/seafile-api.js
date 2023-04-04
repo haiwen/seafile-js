@@ -339,6 +339,24 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
+  batchCreateMultiShareLink(repoID, path, shareLinkNum, autoGeneratePassword, expirationTime, permissions) {
+    const url = this.server + '/api/v2.1/multi-share-links/batch/';
+    let form = new FormData();
+    form.append('path', path);
+    form.append('repo_id', repoID);
+    form.append('number', shareLinkNum);
+    form.append('auto_generate_password', autoGeneratePassword);
+
+    if (permissions) {
+      form.append('permissions', permissions);
+    }
+
+    if (expirationTime) {
+      form.append('expiration_time', expirationTime);
+    }
+    return this._sendPostRequest(url, form);
+  }
+
   createShareLink(repoID, path, password, expirationTime, permissions) {
     const url = this.server + '/api/v2.1/share-links/';
     let form = new FormData();
