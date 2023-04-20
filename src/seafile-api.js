@@ -2467,7 +2467,7 @@ class SeafileAPI {
   revertDirentsInTrash(repoID, commentID, paths) {
     const url = this.server + '/api/v2.1/repos/' + repoID + '/trash/revert-dirents/';
     let formData = new FormData();
-    paths.map(path=> {
+    paths.forEach(path=> {
       formData.append('path', path);
     });
     formData.append('commit_id', commentID);
