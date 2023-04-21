@@ -2464,10 +2464,10 @@ class SeafileAPI {
     return this.req.post(url, params);
   }
 
-  revertDirentsInTrash(repoID, commentID, paths) {
+  restoreDirents(repoID, commentID, paths) {
     const url = this.server + '/api/v2.1/repos/' + repoID + '/trash/revert-dirents/';
     let formData = new FormData();
-    paths.forEach(path=> {
+    paths.forEach(path => {
       formData.append('path', path);
     });
     formData.append('commit_id', commentID);
