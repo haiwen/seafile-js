@@ -3647,6 +3647,15 @@ class SeafileAPI {
     return this._sendPostRequest(url, formData);
   }
 
+  sdocCopyHistoryFile(repoID, path, objID, ctime) {
+    const url = this.server +  '/api/v2.1/seadoc/copy-history-file/'+ repoID + '/';
+    let form = new FormData();
+    form.append('obj_id', objID);
+    form.append('p', path);
+    form.append('ctime', ctime);
+    return this._sendPostRequest(url, form);
+  }
+
 }
 
 export { 
