@@ -3656,6 +3656,23 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
+  listSdocHistory(docUuid, commitID) {
+    const url = this.server + '/api/v2.1/seadoc/history/' + docUuid + '/';
+    const params = {
+      commit_id: commitID,
+    };
+    return this.req.get(url, {params: params});
+  }
+
+  renameSdocHistory(docUuid, objID, newName) {
+    const url = this.server + '/api/v2.1/seadoc/history/' + docUuid + '/';
+    const data = {
+      obj_id: objID,
+      new_name: newName,
+    };
+    return this.req.post(url, data);
+  }
+
 }
 
 export { 
