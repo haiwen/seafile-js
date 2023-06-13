@@ -3656,10 +3656,11 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
-  listSdocHistory(docUuid, commitID) {
+  listSdocHistory(docUuid, page, perPage) {
     const url = this.server + '/api/v2.1/seadoc/history/' + docUuid + '/';
     const params = {
-      commit_id: commitID,
+      page: page,
+      per_page: perPage,
     };
     return this.req.get(url, {params: params});
   }
