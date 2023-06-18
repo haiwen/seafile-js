@@ -1197,6 +1197,33 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  // file ledger
+  getFileLedger(repoID, path) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/file-ledgers/?path=' + path;
+    return this.req.get(url);
+  }
+
+  newFileLedger(repoID, path, data) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/file-ledgers/';
+    var form = new FormData();
+    form.append('path', path);
+    form.append('ledger_data', JSON.stringify(data));
+    return this._sendPostRequest(url, form);
+  }
+
+  updateFileLedger(repoID, path, data) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/file-ledgers/';
+    var form = new FormData();
+    form.append('path', path);
+    form.append('ledger_data', JSON.stringify(data));
+    return this.req.put(url, form);
+  }
+
+  deleteFileLedger(repoID, path) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/file-ledgers/?path=' + path;
+    return this.req.delete(url);
+  }
+
   // file commit api
   deleteComment(repoID, commentID) {
     const url = this.server + '/api2/repos/' + repoID + '/file/comments/' + commentID + '/';
@@ -1238,8 +1265,9 @@ class SeafileAPI {
     return this.req.put(url, params);
   }
 
+  // draft
   getRepoDraftCounts(repoID) {
-    const url = this.server + '/api/v2.1/repo/' + repoID + '/draft-counts/'
+    const url = this.server + '/api/v2.1/repo/' + repoID + '/draft-counts/';
     return this.req.get(url);
   }
 
