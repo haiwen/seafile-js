@@ -1197,30 +1197,30 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  // file ledger
-  getFileLedger(repoID, path) {
-    const url = this.server + '/api/v2.1/repos/' + repoID + '/file-ledgers/?path=' + path;
+  // file extended properties
+  getFileExtendedProperties(repoID, path) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/extended-properties/?path=' + path;
     return this.req.get(url);
   }
 
-  newFileLedger(repoID, path, data) {
-    const url = this.server + '/api/v2.1/repos/' + repoID + '/file-ledgers/';
+  newFileExtendedProperties(repoID, path, data) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/extended-properties/';
     var form = new FormData();
     form.append('path', path);
-    form.append('ledger_data', JSON.stringify(data));
+    form.append('props_data', JSON.stringify(data));
     return this._sendPostRequest(url, form);
   }
 
-  updateFileLedger(repoID, path, data) {
-    const url = this.server + '/api/v2.1/repos/' + repoID + '/file-ledgers/';
+  updateFileExtendedProperties(repoID, path, data) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/extended-properties/';
     var form = new FormData();
     form.append('path', path);
-    form.append('ledger_data', JSON.stringify(data));
+    form.append('props_data', JSON.stringify(data));
     return this.req.put(url, form);
   }
 
-  deleteFileLedger(repoID, path) {
-    const url = this.server + '/api/v2.1/repos/' + repoID + '/file-ledgers/?path=' + path;
+  deleteFileExtendedProperties(repoID, path) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/extended-properties/?path=' + path;
     return this.req.delete(url);
   }
 
