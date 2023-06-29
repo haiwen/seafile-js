@@ -3687,6 +3687,19 @@ class SeafileAPI {
     return this.req.delete(url, {data: params});
   }
 
+  sdocStartRevise(repoID, path) {
+    const url = this.server +  '/api/v2.1/seadoc/revisions/';
+    let form = new FormData();
+    form.append('p', path);
+    form.append('repo_id', repoID);
+    return this._sendPostRequest(url, form);
+  }
+
+  sdocPublishRevision(docUuid) {
+    const url = this.server +  '/api/v2.1/seadoc/publish-revision/'+ docUuid + '/';
+    return this._sendPostRequest(url);
+  }
+
 }
 
 export { 
