@@ -51,7 +51,7 @@ class SeafileAPI {
     }).then((response) => {
       this.token = response.data;
       return this.token;
-    })
+    });
   }
 
   getAuthTokenBySession() {
@@ -2599,6 +2599,60 @@ class SeafileAPI {
     return this.req.put(url, formData);
   }
 
+  sdocCopyHistoryFile(repoID, path, objID, ctime) {
+    const url = this.server +  '/api/v2.1/seadoc/copy-history-file/'+ repoID + '/';
+    let form = new FormData();
+    form.append('obj_id', objID);
+    form.append('p', path);
+    form.append('ctime', ctime);
+    return this._sendPostRequest(url, form);
+  }
+
+  listSdocHistory(docUuid, page, perPage) {
+    const url = this.server + '/api/v2.1/seadoc/history/' + docUuid + '/';
+    const params = {
+      page: page,
+      per_page: perPage,
+    };
+    return this.req.get(url, {params: params});
+  }
+
+  renameSdocHistory(docUuid, objID, newName) {
+    const url = this.server + '/api/v2.1/seadoc/history/' + docUuid + '/';
+    const data = {
+      obj_id: objID,
+      new_name: newName,
+    };
+    return this.req.post(url, data);
+  }
+
+  sdocMaskAsDraft(repoID, path) {
+    const url = this.server +  '/api/v2.1/seadoc/mask-as-draft/'+ repoID + '/';
+    let form = new FormData();
+    form.append('p', path);
+    return this._sendPostRequest(url, form);
+  }
+
+  sdocUnmaskAsDraft(repoID, path) {
+    const url = this.server +  '/api/v2.1/seadoc/mask-as-draft/'+ repoID + '/';
+    let params = {'p': path};
+    return this.req.delete(url, {data: params});
+  }
+
+  sdocStartRevise(repoID, path) {
+    const url = this.server +  '/api/v2.1/seadoc/revisions/';
+    let form = new FormData();
+    form.append('p', path);
+    form.append('repo_id', repoID);
+    return this._sendPostRequest(url, form);
+  }
+
+  sdocPublishRevision(docUuid) {
+    const url = this.server +  '/api/v2.1/seadoc/publish-revision/'+ docUuid + '/';
+    return this.req.post(url);
+  }
+
+  // admin api
   sysAdminUploadLicense(file) {
     const url = this.server + '/api/v2.1/admin/license/';
     let formData = new FormData();
@@ -3645,46 +3699,6 @@ class SeafileAPI {
     formData.append('repo_id', repoID);
     formData.append('file_path', filePath);
     return this._sendPostRequest(url, formData);
-  }
-
-  sdocCopyHistoryFile(repoID, path, objID, ctime) {
-    const url = this.server +  '/api/v2.1/seadoc/copy-history-file/'+ repoID + '/';
-    let form = new FormData();
-    form.append('obj_id', objID);
-    form.append('p', path);
-    form.append('ctime', ctime);
-    return this._sendPostRequest(url, form);
-  }
-
-  listSdocHistory(docUuid, page, perPage) {
-    const url = this.server + '/api/v2.1/seadoc/history/' + docUuid + '/';
-    const params = {
-      page: page,
-      per_page: perPage,
-    };
-    return this.req.get(url, {params: params});
-  }
-
-  renameSdocHistory(docUuid, objID, newName) {
-    const url = this.server + '/api/v2.1/seadoc/history/' + docUuid + '/';
-    const data = {
-      obj_id: objID,
-      new_name: newName,
-    };
-    return this.req.post(url, data);
-  }
-
-  sdocMaskAsDraft(repoID, path) {
-    const url = this.server +  '/api/v2.1/seadoc/mask-as-draft/'+ repoID + '/';
-    let form = new FormData();
-    form.append('p', path);
-    return this._sendPostRequest(url, form);
-  }
-
-  sdocUnmaskAsDraft(repoID, path) {
-    const url = this.server +  '/api/v2.1/seadoc/mask-as-draft/'+ repoID + '/';
-    let params = {'p': path};
-    return this.req.delete(url, {data: params});
   }
 
 }
