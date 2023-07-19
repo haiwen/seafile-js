@@ -2626,15 +2626,15 @@ class SeafileAPI {
     return this.req.post(url, data);
   }
 
-  sdocMaskAsDraft(repoID, path) {
-    const url = this.server +  '/api/v2.1/seadoc/mask-as-draft/'+ repoID + '/';
+  sdocMarkAsDraft(repoID, path) {
+    const url = this.server +  '/api/v2.1/seadoc/mark-as-draft/'+ repoID + '/';
     let form = new FormData();
     form.append('p', path);
     return this._sendPostRequest(url, form);
   }
 
-  sdocUnmaskAsDraft(repoID, path) {
-    const url = this.server +  '/api/v2.1/seadoc/mask-as-draft/'+ repoID + '/';
+  sdocUnmarkAsDraft(repoID, path) {
+    const url = this.server +  '/api/v2.1/seadoc/mark-as-draft/'+ repoID + '/';
     let params = {'p': path};
     return this.req.delete(url, {data: params});
   }
