@@ -1197,6 +1197,33 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  // file extended properties
+  getFileExtendedProperties(repoID, path) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/extended-properties/?path=' + path;
+    return this.req.get(url);
+  }
+
+  newFileExtendedProperties(repoID, path, data) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/extended-properties/';
+    var form = new FormData();
+    form.append('path', path);
+    form.append('props_data', JSON.stringify(data));
+    return this._sendPostRequest(url, form);
+  }
+
+  updateFileExtendedProperties(repoID, path, data) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/extended-properties/';
+    var form = new FormData();
+    form.append('path', path);
+    form.append('props_data', JSON.stringify(data));
+    return this.req.put(url, form);
+  }
+
+  deleteFileExtendedProperties(repoID, path) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/extended-properties/?path=' + path;
+    return this.req.delete(url);
+  }
+
   // file commit api
   deleteComment(repoID, commentID) {
     const url = this.server + '/api2/repos/' + repoID + '/file/comments/' + commentID + '/';
@@ -1238,8 +1265,9 @@ class SeafileAPI {
     return this.req.put(url, params);
   }
 
+  // draft
   getRepoDraftCounts(repoID) {
-    const url = this.server + '/api/v2.1/repo/' + repoID + '/draft-counts/'
+    const url = this.server + '/api/v2.1/repo/' + repoID + '/draft-counts/';
     return this.req.get(url);
   }
 
