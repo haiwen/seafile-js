@@ -391,6 +391,12 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
+  deleteShareLinks(tokens) {
+    const url = this.server + '/api/v2.1/share-links/';
+    let param = {tokens: tokens};
+    return this.req.delete(url, {data: param})
+  }
+
   cleanInvalidShareLinks() {
     const url = this.server + '/api/v2.1/share-links/clean-invalid/';
     return this.req.delete(url);
