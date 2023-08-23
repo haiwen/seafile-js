@@ -448,14 +448,13 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  getAllRepoFolderShareInfo(repoID, shareTo='') {
+  getAllRepoFolderShareInfo(repoID, shareTo) {
     const url = this.server + '/api/v2.1/repo-folder-share-info/';
     let params = {
-      repo_id: repoID,
+      repo_id: repoID
     };
-
-    if (shareTo !== '') {
-      params['share_to'] = shareTo;
+    if (shareTo) {
+      params.share_to = shareTo;
     }
     return this.req.get(url, {params: params});
   }
@@ -1486,16 +1485,6 @@ class SeafileAPI {
     const path = encodeURIComponent(filePath);
     const url = this.server + '/api/v2.1/smart-link/?repo_id=' + repoID + '&path=' + path + '&is_dir=' + isDir;
     return this.req.get(url);
-  }
-
-  listRepoInternalLinks(repoID) {
-    const url = this.server + '/api/v2.1/repos/' + repoID + '/smart-links/';
-    return this.req.get(url);
-  }
-
-  deleteRepoInternalLink(repoID, token) {
-    const url = this.server + '/api/v2.1/repos/' + repoID + '/smart-links/' + token + '/';
-    return this.req.delete(url);
   }
 
   getWikiFileContent(slug, filePath) {
