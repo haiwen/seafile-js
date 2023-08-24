@@ -448,6 +448,17 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  getAllRepoFolderShareInfo(repoID, shareTo) {
+    const url = this.server + '/api/v2.1/repo-folder-share-info/';
+    let params = {
+      repo_id: repoID
+    };
+    if (shareTo) {
+      params.share_to = shareTo;
+    }
+    return this.req.get(url, {params: params});
+  }
+
   // upload-link
   listUserUploadLinks() {
     const url = this.server + '/api/v2.1/upload-links/';
