@@ -1081,6 +1081,15 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
+  convertFile(repoID, filePath, dstType) {
+    const path = encodeURIComponent(filePath);
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/file/?p=' + path;
+    let form = new FormData();
+    form.append('operation', 'convert');
+    form.append('dst_type', dstType);
+    return this._sendPostRequest(url, form);
+  }
+
   lockfile(repoID, filePath) {
     const url = this.server + '/api/v2.1/repos/' + repoID + '/file/?p=' + encodeURIComponent(filePath);
     let form = new FormData();
