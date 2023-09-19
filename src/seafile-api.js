@@ -1558,8 +1558,11 @@ class SeafileAPI {
   }
 
   //---- Activities API
-  listActivities(pageNum, avatarSize=36) {
-    const url = this.server + '/api/v2.1/activities/?page=' + pageNum + '&avatar_size=' + avatarSize;
+  listActivities(pageNum, avatarSize=36, author_email) {
+    let url = this.server + '/api/v2.1/activities/?page=' + pageNum + '&avatar_size=' + avatarSize;
+    if (author_email) {
+      url += '&author_email=' + author_email
+    }
     return this.req.get(url);
   }
 
