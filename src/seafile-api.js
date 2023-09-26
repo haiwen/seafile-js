@@ -1251,16 +1251,10 @@ class SeafileAPI {
   }
 
   setFolderItemsExtendedProperties(repoID, path) {
-    const url = this.server + '/api/v2.1/repos/' + repoID + '/folder-items-extended-properties/';
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/apply-folder-extended-properties/';
     var form = new FormData();
     form.append('path', path);
     return this.req.post(url, form);
-  }
-
-  queryFolderItemsExtendedPropertiesStatus(repoID, path) {
-    const url = this.server + '/api/v2.1/repos/' + repoID + '/folder-items-extended-properties/status-query/';
-    var params = { path };
-    return this.req.get(url, { params });
   }
 
   // file commit api
