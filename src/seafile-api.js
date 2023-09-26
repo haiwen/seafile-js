@@ -1250,7 +1250,7 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  setFolderItemsExtendedProperties(repoID, path) {
+  applyFolderExtendedProperties(repoID, path) {
     const url = this.server + '/api/v2.1/repos/' + repoID + '/apply-folder-extended-properties/';
     var form = new FormData();
     form.append('path', path);
