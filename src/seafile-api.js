@@ -1657,6 +1657,31 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  similaritySearchFiles(searchParams, cancelToken) {
+    let url = this.server + '/api/v2.1/ai/similarity-search-in-library/';
+    let form = new FormData();
+    form.append('query', searchParams.q);
+    form.append('repo_id', searchParams.search_repo);
+    return this.req.post(url, form, {cancelToken : cancelToken});
+  }
+
+  queryLibraryIndexState(repoID) {
+    var url = this.server + '/api/v2.1/ai/library-index-state/?repo_id=' + repoID;
+    return this.req.get(url);
+  }
+
+  createLibraryIndex(repoID) {
+    let url = this.server + '/api/v2.1/ai/library-sdoc-indexes/';
+    let form = new FormData();
+    form.append('repo_id', repoID);
+    return this._sendPostRequest(url, form);
+  }
+
+  queryIndexTaskStatus(taskId) {
+    var url = this.server + '/api/v2.1/ai/task-status/?task_id=' + taskId;
+    return this.req.get(url);
+  }
+
   // single org admin api
   orgAdminGetOrgInfo() {
     const url = this.server + '/api/v2.1/org/admin/info/';
