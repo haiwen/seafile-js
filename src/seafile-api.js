@@ -1726,7 +1726,7 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  orgAdminAddSamlConfig(orgID, metadataUrl) {
+  orgAdminUpdateSamlMetadataUrl(orgID, metadataUrl) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-config/';
     let data = {
       metadata_url: metadataUrl
@@ -1734,10 +1734,10 @@ class SeafileAPI {
     return this.req.post(url, data);
   }
 
-  orgAdminUpdateSamlConfig(orgID, metadataUrl) {
+  orgAdminUpdateSamlDomain(orgID, domain) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-config/';
     let data = {
-      metadata_url: metadataUrl
+      domain: domain
     };
     return this.req.put(url, data);
   }
@@ -1756,6 +1756,19 @@ class SeafileAPI {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/url-prefix/';
     let data = {
       org_url_prefix: orgUrlPrefix,
+    };
+    return this.req.put(url, data);
+  }
+
+  orgAdminCreateDnsTxt(orgID) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/verify-domain/';
+    return this.req.post(url);
+  }
+
+  orgAdminVerifyDomain(orgID, domain) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/verify-domain/';
+    let data = {
+      domain: domain
     };
     return this.req.put(url, data);
   }
