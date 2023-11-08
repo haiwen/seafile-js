@@ -831,6 +831,7 @@ class SeafileAPI {
     if (searchParams.size_to) {url = url + '&size_to=' + searchParams.size_to;}
     if (searchParams.shared_from) {url = url + '&shared_from=' + searchParams.shared_from;}
     if (searchParams.not_shared_from) {url = url + '&not_shared_from=' + searchParams.not_shared_from;}
+    if (searchParams.search_filename_only) {url = url + '&search_filename_only=' + searchParams.search_filename_only;}
     if (searchParams.ftype) {
       for (let i= 0; i< searchParams.ftype.length; i++){
         url = url + '&ftype=' + searchParams.ftype[i];}
