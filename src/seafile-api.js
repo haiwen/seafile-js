@@ -1090,10 +1090,13 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
-  lockfile(repoID, filePath) {
+  lockfile(repoID, filePath, expire) {
     const url = this.server + '/api/v2.1/repos/' + repoID + '/file/?p=' + encodeURIComponent(filePath);
     let form = new FormData();
     form.append('operation', 'lock');
+    if (expire != undefined) {
+      form.append('expire', expire);
+    }
     return this.req.put(url, form);
   }
 
