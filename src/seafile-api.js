@@ -1227,6 +1227,11 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
+  getNextFileRevision(repoID, currentID, currentFilePath) {
+    const url = this.server + '/api2/' + 'repos/' + repoID + '/file' + '/next-revision/'+ currentID + '/?p=' + encodeURIComponent(currentFilePath);
+    return this.req.get(url);
+  }
+
   // file extended properties
   getFileExtendedProperties(repoID, path) {
     const url = this.server + '/api/v2.1/repos/' + repoID + '/extended-properties/?path=' + path;
@@ -2723,6 +2728,12 @@ class SeafileAPI {
       page: page,
       per_page: perPage,
     };
+    return this.req.get(url, {params: params});
+  }
+
+  listSdocDailyHistoryDetail(docUuid, opDate) {
+    const url = this.server + '/api/v2.1/seadoc/daily-history-detail/' + docUuid + '/';
+    const params = { op_date: opDate };
     return this.req.get(url, {params: params});
   }
 
