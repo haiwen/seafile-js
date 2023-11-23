@@ -1810,7 +1810,13 @@ class SeafileAPI {
   orgAdminInviteOrgUser(orgID, email) {
     const url =  this.server + '/api/v2.1/org/' + orgID +'/admin/invite-user/';
     let form = new FormData();
-    form.append('email', email);
+    if (Array.isArray(email)) {
+      email.forEach(item => {
+        form.append('email', item);
+      });
+    } else {
+      form.append('email', email);
+    }
     return this._sendPostRequest(url, form);
   }
 
