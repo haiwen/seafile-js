@@ -1,4 +1,4 @@
-const { SeafileAPI } = require('../src/seafile-api')
+const { SeafileAPI } = require('../src/seafile-api');
 
 // load config from config.json
 var fs = require("fs");
