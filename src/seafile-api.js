@@ -2873,10 +2873,12 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
-  sysAdminSearchRepos(name) {
+  sysAdminSearchRepos(name, page, perPage) {
     const url = this.server + '/api/v2.1/admin/search-library/';
     let params = {
-      query: name || ''
+      query: name || '',
+      page: page,
+      per_page: perPage
     };
     return this.req.get(url, {params: params});
   }
