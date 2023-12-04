@@ -1227,8 +1227,8 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  getNextFileRevision(repoID, currentID, currentFilePath) {
-    const url = this.server + '/api2/' + 'repos/' + repoID + '/file' + '/next-revision/'+ currentID + '/?p=' + encodeURIComponent(currentFilePath);
+  getLastFileRevision(repoID, currentID, currentFilePath) {
+    const url = this.server + '/api2/' + 'repos/' + repoID + '/file' + '/last-revision/'+ currentID + '/?p=' + encodeURIComponent(currentFilePath);
     return this.req.get(url);
   }
 
