@@ -1666,8 +1666,8 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  similaritySearchFiles(searchParams, cancelToken) {
-    let url = this.server + '/api/v2.1/ai/similarity-search-in-library/';
+  aiSearchFiles(searchParams, cancelToken) {
+    let url = this.server + '/api/v2.1/ai/search/';
     let form = new FormData();
     form.append('query', searchParams.q);
     form.append('repo_id', searchParams.search_repo);
