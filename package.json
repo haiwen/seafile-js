@@ -1,6 +1,6 @@
 {
   "name": "seafile-js",
-  "version": "0.2.221",
+  "version": "0.2.222",
   "private": false,
   "main": "lib/seafile-api.js",
   "dependencies": {
@@ -12,7 +12,7 @@
     "build": "node_modules/.bin/babel src --out-dir lib",
     "prepublishOnly": "npm run build"
   },
-  "jest": {},
+  "jest": { },
   "author": "Seafile",
   "license": "ISC",
   "devDependencies": {
