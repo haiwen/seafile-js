@@ -310,16 +310,17 @@ class SeafileAPI {
 
   //---- share operation
 
-  // share-link
-  listUserShareLinks() {
+  listShareLinks({repoID, path, page, perPage}) {
     const url = this.server + '/api/v2.1/share-links/';
-    return this.req.get(url);
-  }
-
-  getShareLink(repoID, filePath) { //list folder(file) links
-    const path = encodeURIComponent(filePath);
-    const url = this.server + '/api/v2.1/share-links/?repo_id=' + repoID + '&path=' + path;
-    return this.req.get(url);
+    const params = {
+    };
+    if (repoID && path) {
+      params.repo_id = repoID;
+      params.path = path;
+    }
+    params.page = page || 1;
+    params.per_page = perPage || 25;
+    return this.req.get(url, {params: params});
   }
 
   createMultiShareLink(repoID, path, password, expirationTime, permissions) {
