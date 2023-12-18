@@ -1665,7 +1665,7 @@ class SeafileAPI {
     let url = this.server + '/api/v2.1/ai/search/';
     let form = new FormData();
     form.append('query', searchParams.q);
-    form.append('repo_id', searchParams.search_repo);
+    form.append('search_repo', searchParams.search_repo);
     return this.req.post(url, form, {cancelToken : cancelToken});
   }
 
