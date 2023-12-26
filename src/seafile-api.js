@@ -1960,7 +1960,7 @@ class SeafileAPI {
     return this._sendPostRequest(url, formData);
   }
 
-  orgAdminInviteOrgUser(orgID, email) {
+  orgAdminInviteOrgUsers(orgID, email) {
     const url =  this.server + '/api/v2.1/org/' + orgID +'/admin/invite-user/';
     let form = new FormData();
     if (Array.isArray(email)) {
