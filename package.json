@@ -12,7 +12,6 @@
     "build": "node_modules/.bin/babel src --out-dir lib",
     "prepublishOnly": "npm run build"
   },
-  "jest": { },
   "author": "Seafile",
   "license": "ISC",
   "devDependencies": {
