@@ -1727,10 +1727,10 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
-  orgAdminUploadIdpCertificate(orgID, file) {
+  orgAdminUpdateIdpCertificate(orgID, idp_certificate) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-idp-certificate/';
     let formData = new FormData();
-    formData.append('idp_certificate', file);
+    formData.append('idp_certificate', idp_certificate);
     return this._sendPostRequest(url, formData);
   }
 
@@ -1751,24 +1751,6 @@ class SeafileAPI {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-config/';
     let data = {
       domain: domain
-    };
-    return this.req.put(url, data);
-  }
-
-  orgAdminDeleteSamlConfig(orgID) {
-    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-config/';
-    return this.req.delete(url);
-  }
-
-  orgAdminGetUrlPrefix(orgID) {
-    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/url-prefix/';
-    return this.req.get(url);
-  }
-
-  orgAdminUpdateUrlPrefix(orgID, orgUrlPrefix) {
-    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/url-prefix/';
-    let data = {
-      org_url_prefix: orgUrlPrefix,
     };
     return this.req.put(url, data);
   }
