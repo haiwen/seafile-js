@@ -1690,6 +1690,14 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
+  deleteLibraryIndex(repoID) {
+    let url = this.server + '/api/v2.1/ai/library-sdoc-index/';
+    let params = {
+      repo_id: repoID
+    };
+    return this.req.delete(url, {data: params});
+  }
+
   queryIndexTaskStatus(taskId) {
     var url = this.server + '/api/v2.1/ai/task-status/?task_id=' + taskId;
     return this.req.get(url);
