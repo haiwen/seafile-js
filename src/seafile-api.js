@@ -1727,37 +1727,24 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
-  orgAdminUpdateIdpCertificate(orgID, idp_certificate) {
-    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-idp-certificate/';
-    let formData = new FormData();
-    formData.append('idp_certificate', idp_certificate);
-    return this._sendPostRequest(url, formData);
-  }
-
   orgAdminGetSamlConfig(orgID) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-config/';
     return this.req.get(url);
   }
 
-  orgAdminUpdateSamlMetadataUrl(orgID, metadataUrl) {
+  orgAdminUpdateSamlConfig(orgID, metadataUrl, domain, idpCertificate) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-config/';
-    let data = {
-      metadata_url: metadataUrl
-    };
-    return this.req.post(url, data);
-  }
-
-  orgAdminUpdateSamlDomain(orgID, domain) {
-    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/saml-config/';
-    let data = {
-      domain: domain
-    };
-    return this.req.put(url, data);
-  }
-
-  orgAdminCreateDnsTxt(orgID) {
-    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/verify-domain/';
-    return this.req.post(url);
+    let formData = new FormData();
+    if (metadataUrl) {
+      formData.append('metadata_url', metadataUrl);
+    }
+    if (domain) {
+      formData.append('domain', domain);
+    }
+    if (idpCertificate) {
+      formData.append('idp_certificate', idpCertificate);
+    }
+    return this.req.put(url, formData);
   }
 
   orgAdminVerifyDomain(orgID, domain) {
