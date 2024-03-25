@@ -1303,69 +1303,6 @@ class SeafileAPI {
     return this.req.put(url, params);
   }
 
-  // draft
-  getRepoDraftCounts(repoID) {
-    const url = this.server + '/api/v2.1/repo/' + repoID + '/draft-counts/';
-    return this.req.get(url);
-  }
-
-  listRepoDrafts(repoID) {
-    const url = this.server + '/api/v2.1/repo/' + repoID + '/drafts/';
-    return this.req.get(url);
-  }
-
-  // draft operation api
-  getDraft(id) {
-    const url = this.server + '/api/v2.1/drafts/' + id + '/';
-    return this.req.get(url);
-  }
-
-  listDrafts() {
-    const url = this.server + '/api/v2.1/drafts';
-    return this.req.get(url);
-  }
-
-  createDraft(repoID, filePath) {
-    const url = this.server + '/api/v2.1/drafts/';
-    const form = new FormData();
-    form.append('repo_id', repoID);
-    form.append('file_path', filePath);
-    return this.req.post(url, form);
-  }
-
-  deleteDraft(id) {
-    const url = this.server + '/api/v2.1/drafts/' + id + '/';
-    return this.req.delete(url);
-  }
-
-  publishDraft(id) {
-    const url = this.server + '/api/v2.1/drafts/' + id + '/';
-    const params = {
-      operation: 'publish'
-    };
-    return this.req.put(url, params);
-  }
-
-  // review api
-  listDraftReviewers(draftID) {
-    const url = this.server + '/api/v2.1/drafts/' + draftID + '/reviewer/';
-    return this.req.get(url);
-  }
-
-  addDraftReviewers(draftID, reviewers) {
-    const url = this.server + '/api/v2.1/drafts/' + draftID + '/reviewer/';
-    let form = new FormData();
-    for(let i = 0 ; i < reviewers.length ; i ++) {
-      form.append('reviewer', reviewers[i]);
-    }
-    return this._sendPostRequest(url, form);
-  }
-
-  deleteDraftReviewer(draftID, reviewer) {
-    const url = this.server + '/api/v2.1/drafts/' + draftID + '/reviewer/?username=' + encodeURIComponent(reviewer);
-    return this.req.delete(url);
-  }
-
   // starred
   listStarredItems() {
     const url = this.server + '/api/v2.1/starred-items/';
@@ -2738,19 +2675,6 @@ class SeafileAPI {
       new_name: newName,
     };
     return this.req.post(url, data);
-  }
-
-  sdocMarkAsDraft(repoID, path) {
-    const url = this.server +  '/api/v2.1/seadoc/mark-as-draft/'+ repoID + '/';
-    let form = new FormData();
-    form.append('p', path);
-    return this._sendPostRequest(url, form);
-  }
-
-  sdocUnmarkAsDraft(repoID, path) {
-    const url = this.server +  '/api/v2.1/seadoc/mark-as-draft/'+ repoID + '/';
-    let params = {'p': path};
-    return this.req.delete(url, {data: params});
   }
 
   sdocStartRevise(repoID, path) {
