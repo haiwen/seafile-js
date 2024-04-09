@@ -1166,10 +1166,13 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  shareLinksUploadDone(token, filePath) {
+  shareLinksUploadDone(token, filePath, isDir) {
     var url = this.server + '/api/v2.1/share-links/' + token + '/upload/done/';
     var form = new FormData();
     form.append('file_path', filePath);
+    if (isDir != undefined) {
+      form.append('is_dir', isDir);
+    }
     return this._sendPostRequest(url, form);
   }
 
