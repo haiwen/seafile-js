@@ -99,7 +99,11 @@ class SeafileAPI {
   }
 
   //---- Group operation
-
+  listAdminDepartments() {
+    const url = this.server + '/api/v2.1/admin/departments/';
+    return this.req.get(url);
+  }
+  
   listDepartments() {
     const url = this.server + '/api/v2.1/departments/';
     return this.req.get(url);
@@ -1644,6 +1648,11 @@ class SeafileAPI {
   }
 
   // single org admin api
+  listOrgDepartments(orgID) {
+    const url = this.server + '/api/v2.1/admin/organizations/'+orgID+'/departments/';
+      return this.req.get(url);
+  }
+
   orgAdminGetOrgInfo() {
     const url = this.server + '/api/v2.1/org/admin/info/';
     return this.req.get(url);
