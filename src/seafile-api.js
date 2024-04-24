@@ -98,11 +98,7 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  //---- Group operation
-  listAdminDepartments() {
-    const url = this.server + '/api/v2.1/admin/departments/';
-    return this.req.get(url);
-  }
+
   
   listDepartments() {
     const url = this.server + '/api/v2.1/departments/';
@@ -1647,12 +1643,6 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  // single org admin api
-  listOrgDepartments(orgID) {
-    const url = this.server + '/api/v2.1/admin/organizations/'+orgID+'/departments/';
-      return this.req.get(url);
-  }
-
   orgAdminGetOrgInfo() {
     const url = this.server + '/api/v2.1/org/admin/info/';
     return this.req.get(url);
@@ -1927,6 +1917,12 @@ class SeafileAPI {
   orgAdminDeleteOrgGroup(orgID, groupID) {
     const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/groups/' + groupID + '/';
     return this.req.delete(url);
+  }
+
+
+  orgAdminListDepartments(orgID) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/departments/';
+    return this.req.get(url);
   }
 
   orgAdminListOrgRepos(orgID, page, orderBy) {
@@ -3605,6 +3601,11 @@ class SeafileAPI {
   sysAdminDeleteInstitutionUser(institutionID, email) {
     const url = this.server + '/api/v2.1/admin/institutions/' + institutionID + '/users/' + encodeURIComponent(email) + '/';
     return this.req.delete(url);
+  }
+
+  sysAdminListDepartments() {
+    const url = this.server + '/api/v2.1/admin/departments/';
+    return this.req.get(url);
   }
 
   sysAdminListTermsAndConditions() {
