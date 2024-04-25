@@ -21,3 +21,4 @@ yarn-error.log*
 
 test/config.json
 *~
+/.idea
