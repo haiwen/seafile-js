@@ -1948,6 +1948,32 @@ class SeafileAPI {
     return this.req.put(url, form);
   }
 
+  orgAdminListTrashRepos(orgID, page, perPage) {
+    const url = this.server + '/api/v2.1/org/'+orgID+'/admin/trash-libraries/';
+    var params = {
+      page: page,
+      per_page: perPage
+    };
+    return this.req.get(url, {
+      params: params
+    });
+  }
+
+  orgAdminDeleteTrashRepo(orgID, repoID) {
+    const url = this.server + '/api/v2.1/org/'+orgID+'/admin/trash-libraries/'+repoID+'/';
+    return this.req.delete(url);
+  }
+
+  orgAdminRestoreTrashRepo(orgID, repoID) {
+    const url = this.server + '/api/v2.1/org/'+orgID+'/admin/trash-libraries/'+repoID+'/';
+    return this.req.put(url);
+  }
+
+  orgAdminCleanTrashRepo(orgID) {
+    const url = this.server + '/api/v2.1/org/'+orgID+'/admin/trash-libraries/';
+    return this.req.delete(url);
+  }
+
   // org links
   orgAdminListOrgLinks(page) {
     const url = this.server + '/api/v2.1/org/admin/links/?page=' + page;
