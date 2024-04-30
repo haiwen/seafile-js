@@ -1925,10 +1925,11 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  orgAdminListOrgRepos(orgID, page, orderBy) {
+  orgAdminListOrgRepos(orgID, page, perPage, orderBy) {
     const url = this.server + '/api/v2.1/org/' + orgID +  '/admin/repos/';
     let params = {
-      page: page
+      page: page,
+      per_page: perPage
     };
     if (orderBy) {
       params.order_by = orderBy;
@@ -1949,8 +1950,8 @@ class SeafileAPI {
   }
 
   orgAdminListTrashRepos(orgID, page, perPage) {
-    const url = this.server + '/api/v2.1/org/'+orgID+'/admin/trash-libraries/';
-    var params = {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/trash-libraries/';
+    let params = {
       page: page,
       per_page: perPage
     };
@@ -1960,17 +1961,17 @@ class SeafileAPI {
   }
 
   orgAdminDeleteTrashRepo(orgID, repoID) {
-    const url = this.server + '/api/v2.1/org/'+orgID+'/admin/trash-libraries/'+repoID+'/';
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/trash-libraries/' + repoID + '/';
     return this.req.delete(url);
   }
 
   orgAdminRestoreTrashRepo(orgID, repoID) {
-    const url = this.server + '/api/v2.1/org/'+orgID+'/admin/trash-libraries/'+repoID+'/';
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/trash-libraries/' + repoID + '/';
     return this.req.put(url);
   }
 
   orgAdminCleanTrashRepo(orgID) {
-    const url = this.server + '/api/v2.1/org/'+orgID+'/admin/trash-libraries/';
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/trash-libraries/';
     return this.req.delete(url);
   }
 
