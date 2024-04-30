@@ -163,6 +163,22 @@ class SeafileAPI {
     const url = this.server + '/api/v2.1/groups/' + groupID + '/members/' + name + '/';
     return this.req.delete(url);
   }
+  
+  deleteGroupInviteLinks(groupID,token) {
+      const url = this.server + '/api/v2.1/groups/' + groupID + '/invite-links/' + token + '/';
+      return this.req.delete(url);
+    }
+
+  addGroupInviteLinks(groupID) {
+      const url = this.server + '/api/v2.1/groups/' + groupID + '/invite-links/';
+      var formData = new formData();
+      return this._sendPostRequest(url, formData);
+    }
+    
+  getGroupInviteLinks(groupID) {
+      const url = this.server + '/api/v2.1/groups/' + groupID + '/invite-links/';
+      return this.req.get(url);
+    }
 
   listGroupMembers(groupID, page, perPage, isAdmin=false, avatarSize=64) {
     let url = this.server + '/api/v2.1/groups/' + groupID + '/members/';
