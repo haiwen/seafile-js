@@ -171,7 +171,7 @@ class SeafileAPI {
 
   addGroupInviteLinks(groupID) {
       const url = this.server + '/api/v2.1/groups/' + groupID + '/invite-links/';
-      var formData = new formData();
+      let formData = new FormData();
       return this._sendPostRequest(url, formData);
     }
     
