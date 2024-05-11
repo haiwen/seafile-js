@@ -3369,11 +3369,13 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
-  sysAdminListUsers(page, perPage, isLDAPImported, sortBy, sortOrder) {
+  sysAdminListUsers(page, perPage, isLDAPImported, sortBy, sortOrder, is_active, role) {
     let url = this.server + '/api/v2.1/admin/users/';
     let params = {
       page: page,
-      per_page: perPage
+      per_page: perPage,
+      is_active: is_active,
+      role: role
     };
     if (isLDAPImported) {
       params.source = 'LDAPImport';
