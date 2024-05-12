@@ -99,7 +99,7 @@ class SeafileAPI {
   }
 
 
-  
+
   listDepartments() {
     const url = this.server + '/api/v2.1/departments/';
     return this.req.get(url);
@@ -2043,7 +2043,7 @@ class SeafileAPI {
   }
 
   orgAdminDeleteDepartmentRepo(orgID, groupID, repoID) {
-    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/groups/' + groupID + '/group-owned-libraries/' + repoID;
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/groups/' + groupID + '/group-owned-libraries/' + repoID + '/';
     return this.req.delete(url);
   }
 
@@ -3783,6 +3783,6 @@ class SeafileAPI {
 
 }
 
-export { 
-  SeafileAPI 
+export {
+  SeafileAPI
 };
