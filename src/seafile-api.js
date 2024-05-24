@@ -2726,6 +2726,20 @@ class SeafileAPI {
   }
 
   // admin api
+  sysAdminExportFileAccessExcel(start, end) {
+    const url = this.server + '/api/v2.1/admin/logs/file-audit/export-excel/';
+    const params = {
+      start: start,
+      end: end
+    };
+    return this.req.get(url, { params: params });
+  }
+
+  queryAsyncOperationExportExcel(task_id) {
+    const url = this.server + '/api/v2.1/query-export-status/?task_id=' + task_id;
+    return this.req.get(url);
+  }
+
   sysAdminUploadLicense(file) {
     const url = this.server + '/api/v2.1/admin/license/';
     let formData = new FormData();
