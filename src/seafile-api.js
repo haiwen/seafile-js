@@ -3374,9 +3374,13 @@ class SeafileAPI {
     let params = {
       page: page,
       per_page: perPage,
-      is_active: is_active,
-      role: role
     };
+    if (is_active) {
+      params.is_active = is_active;
+    }
+    if (role) {
+      params.role = role;
+    }
     if (isLDAPImported) {
       params.source = 'LDAPImport';
     }
