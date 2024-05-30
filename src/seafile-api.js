@@ -100,9 +100,13 @@ class SeafileAPI {
 
 
 
-  listDepartments() {
+  listDepartments(canAdmin) {
     const url = this.server + '/api/v2.1/departments/';
-    return this.req.get(url);
+    const params = {};
+    if (canAdmin) {
+      params.can_admin = canAdmin;
+    }
+    return this.req.get(url, {params: params});
   }
 
   listGroups(withRepos = false) {
