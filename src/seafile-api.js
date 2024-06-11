@@ -796,6 +796,54 @@ class SeafileAPI {
     return this.req.put(url, options);
   }
 
+  // repo metadata manage
+  getMetadataManagementEnabledStatus(repoID) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/metadata/';
+    return this.req.get(url);
+  }
+
+  enableMetadataManagement(repoID) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/metadata/';
+    return this.req.post(url);
+  }
+
+  disableMetadataManagement(repoID) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/metadata/';
+    return this.req.delete(url);
+  }
+
+  getMetadataRecords(repoID, params) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/metadata/records/';
+    return this.req.get(url, {params: params});
+  }
+
+  addMetadataRecords(repoID, parentDir, name) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/metadata/records/';
+    const data = {
+      'parent_dir': parentDir,
+      'name': name,
+    };
+    return this.req.post(url, data);
+  }
+
+  updateMetadataRecord(repoID, recordID, creator, createTime, modifier, modifyTime, parentDir, name) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/metadata/records/' + recordID + '/';
+    const data = {
+      'creator': creator,
+      'create_time': createTime,
+      'modifier': modifier,
+      'modify_time': modifyTime,
+      'current_dir': parentDir,
+      'name': name,
+    };
+    return this.req.put(url, data);
+  }
+
+  deleteMetadataRecord(repoID, recordID) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/metadata/records/' + recordID + '/';
+    return this.req.delete(url);
+  }
+
   // remove public repo is same to unshareRepo;
 
   getSource() {   // for search
