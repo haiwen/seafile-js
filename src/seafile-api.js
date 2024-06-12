@@ -3459,6 +3459,9 @@ class SeafileAPI {
     case 'download_rate_limit':
       formData.append('download_rate_limit', value);
       break;
+    case 'id_in_org':
+      formData.append('id_in_org', value);
+      break;
     }
     return this.req.put(url, formData);
   }
