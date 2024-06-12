@@ -1591,6 +1591,19 @@ class SeafileAPI {
     return this.req.delete(url);
   }
 
+  updateWikiConfig(wikiSlug, wikiConfig) {
+    const url = this.server + '/api/v2.1/wikis/' + wikiSlug + '/';
+    let params = {
+      wiki_config: wikiConfig
+    };
+    return this.req.put(url, params);
+  }
+
+  getWiki(wikiSlug) {
+    const url = this.server + '/api/v2.1/wikis/' + wikiSlug + '/';
+    return this.req.get(url);
+  }
+
   //----MetaData API
   fileMetaData(repoID, filePath) {
     const url = this.server + '/api2/repos/' + repoID + '/file/metadata/?p=' + encodeURIComponent(filePath);
