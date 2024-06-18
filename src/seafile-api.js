@@ -3065,6 +3065,17 @@ class SeafileAPI {
     return this.req.put(url, formData);
   }
 
+  listSysUserUnseenNotifications() {
+    const url = this.server + '/api/v2.1/sys-user-notifications/unseen/';
+    return this.req.get(url);
+
+  }
+
+  setSysUserNotificationToSeen(notificationID){
+    const url = this.server + 'api/v2.1/sys-user-notifications/'+notificationID+'/seen/';
+    return this.req.put(url);
+  }
+
   sysAdminListAllSysNotifications() {
     const url = this.server + '/api/v2.1/admin/sys-notifications/';
     return this.req.get(url);
