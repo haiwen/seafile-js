@@ -323,19 +323,24 @@ class SeafileAPI {
     return this.req.get(url, {params: params});
   }
 
-  createMultiShareLink(repoID, path, password, expirationTime, permissions) {
+  createMultiShareLink(repoID, path, password, expirationTime, permissions, scope, users) {
     const url = this.server + '/api/v2.1/multi-share-links/';
-    let form = new FormData();
-    form.append('path', path);
-    form.append('repo_id', repoID);
+    let form = {
+      'path': path,
+      'repo_id': repoID,
+      'user_scope': scope,
+    };
     if (permissions) {
-      form.append('permissions', permissions);
+      form['permissions'] = permissions;
     }
     if (password) {
-      form.append('password', password);
+      form['password'] = password;
     }
     if (expirationTime) {
-      form.append('expiration_time', expirationTime);
+      form['expiration_time'] = expirationTime;
+    }
+    if (users) {
+      form['emails'] = users;
     }
     return this._sendPostRequest(url, form);
   }
@@ -375,7 +380,7 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
-  updateShareLink(token, permissions, expirationTime='') {
+  updateShareLink(token, permissions, expirationTime='', userScope='') {
     var url = this.server + '/api/v2.1/share-links/' + token + '/';
     let form = new FormData();
     if (permissions) {
@@ -383,6 +388,9 @@ class SeafileAPI {
     }
     if (expirationTime) {
       form.append('expiration_time', expirationTime);
+    }
+    if (userScope) {
+      form.append('user_scope', userScope);
     }
     return this.req.put(url, form);
   }
@@ -412,6 +420,48 @@ class SeafileAPI {
       form.append('extra_msg', extraMsg);
     }
     return this._sendPostRequest(url, form);
+  }
+
+  listShareLinkAuthUsers(link_token, path) {
+    const url = this.server + '/api/v2.1/share-links/' + link_token + '/user-auth/?path=' + encodeURIComponent(path);
+    return this.req.get(url);
+  }
+
+  addShareLinkAuthUsers(link_token, emails, path) {
+    const url = this.server + '/api/v2.1/share-links/' + link_token + '/user-auth/?path=' + encodeURIComponent(path);
+    const data = {
+      emails: emails,
+    };
+    return this.req.post(url, data);
+  }
+
+  deleteShareLinkAuthUsers(link_token, emails, path) {
+    const url = this.server + '/api/v2.1/share-links/' + link_token + '/user-auth/?path=' + encodeURIComponent(path);
+    const params = {
+      emails: emails,
+    };
+    return this.req.delete(url, {data: params});
+  }
+
+  listShareLinkAuthEmails(link_token, path) {
+    const url = this.server + '/api/v2.1/share-links/' + link_token + '/email-auth/?path=' + encodeURIComponent(path);
+    return this.req.get(url);
+  }
+
+  addShareLinkAuthEmails(link_token, emails, path) {
+    const url = this.server + '/api/v2.1/share-links/' + link_token + '/email-auth/?path=' + encodeURIComponent(path);
+    const data = {
+      emails: emails,
+    };
+    return this.req.post(url, data);
+  }
+
+  deleteShareLinkAuthEmails(link_token, emails, path) {
+    const url = this.server + '/api/v2.1/share-links/' + link_token + '/email-auth/?path=' + encodeURIComponent(path);
+    const params = {
+      emails: emails,
+    };
+    return this.req.delete(url, {data: params});
   }
 
   // for repo & folder
