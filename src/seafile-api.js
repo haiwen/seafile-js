@@ -1610,14 +1610,6 @@ class SeafileAPI {
     return this.req.post(url, form, {cancelToken : cancelToken});
   }
 
-  questionAnsweringFiles(searchParams, cancelToken) {
-    let url = this.server + '/api/v2.1/ai/question-answering-search-in-library/';
-    let form = new FormData();
-    form.append('query', searchParams.q);
-    form.append('repo_id', searchParams.search_repo);
-    return this.req.post(url, form, {cancelToken : cancelToken});
-  }
-
   orgAdminGetOrgInfo() {
     const url = this.server + '/api/v2.1/org/admin/info/';
     return this.req.get(url);
