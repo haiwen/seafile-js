@@ -1634,6 +1634,13 @@ class SeafileAPI {
     return this.req.put(url, form);
   }
 
+  orgAdminSetOrgUserDefaultQuota(orgID, quota) {
+    const url = this.server + '/api/v2.1/org/admin/info/';
+    let form = new FormData();
+    form.append('user_default_quota', quota);
+    return this.req.put(url, form);
+  }
+
   orgAdminUpdateLogo(orgID, file) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/logo/';
     let form = new FormData();
