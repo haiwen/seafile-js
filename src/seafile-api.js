@@ -1602,14 +1602,6 @@ class SeafileAPI {
     return this.req.get(url);
   }
 
-  aiSearchFiles(searchParams, cancelToken) {
-    let url = this.server + '/api/v2.1/ai/search/';
-    let form = new FormData();
-    form.append('query', searchParams.q);
-    form.append('search_repo', searchParams.search_repo);
-    return this.req.post(url, form, {cancelToken : cancelToken});
-  }
-
   orgAdminGetOrgInfo() {
     const url = this.server + '/api/v2.1/org/admin/info/';
     return this.req.get(url);
