@@ -3747,6 +3747,14 @@ class SeafileAPI {
     return this._sendPostRequest(url, formData);
   }
 
+  importSdoc(file, repoID, parentDir) {
+    const url = this.server + '/api/v2.1/seadoc/import/' + repoID + '/';
+    let formData = new FormData();
+    formData.append('file', file);
+    formData.append('parent_dir', parentDir);
+    return this._sendPostRequest(url, formData);
+  }
+
 }
 
 export {
