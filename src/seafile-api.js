@@ -2624,18 +2624,6 @@ class SeafileAPI {
     return this.req.post(url);
   }
 
-  // patch 7.1
-  listVirusScanRecords(pageNum) {
-    const url = this.server + '/api/v2.1/admin/virus-scan-records/?page=' + pageNum;
-    return this.req.get(url);
-  }
-
-  // patch 7.1
-  deleteVirusScanRecord(virusID) {
-    const url = this.server + '/api/v2.1/admin/virus-scan-records/' + virusID + '/';
-    return this.req.delete(url);
-  }
-
   onlyofficeConvert(repoID, filePath) {
     const url = this.server + '/onlyoffice-api/convert/';
     let formData = new FormData();
