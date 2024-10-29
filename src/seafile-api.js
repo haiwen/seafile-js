@@ -1747,6 +1747,11 @@ class SeafileAPI {
     return this.req.get(url, { params: params });
   }
 
+  orgAdminClearDeviceErrors(orgID) {
+    const url = this.server + '/api/v2.1/org/' + orgID + '/admin/devices-errors/';
+    return this.req.delete(url);
+  }
+
   orgAdminListOrgUsers(orgID, isStaff, page, sortBy, sortOrder) {
     const url = this.server + '/api/v2.1/org/' + orgID + '/admin/users/';
     let params = {
