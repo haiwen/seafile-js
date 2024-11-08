@@ -1502,8 +1502,8 @@ class SeafileAPI {
   }
 
   // ---- Activities API
-  listActivities(pageNum, avatarSize = 36) {
-    const url = this.server + '/api/v2.1/activities/?page=' + pageNum + '&avatar_size=' + avatarSize;
+  listActivities(pageNum) {
+    const url = this.server + '/api/v2.1/activities/?page=' + pageNum;
     return this.req.get(url);
   }
 
@@ -2208,11 +2208,10 @@ class SeafileAPI {
     return this.req.delete(url, { data: params });
   }
 
-  updateUserAvatar(avatarFile, avatarSize) {
+  updateUserAvatar(avatarFile) {
     const url = this.server + '/api/v2.1/user-avatar/';
     let form = new FormData();
     form.append('avatar', avatarFile);
-    form.append('avatar_size', avatarSize);
     return this._sendPostRequest(url, form);
   }
 
