@@ -1968,6 +1968,14 @@ class SeafileAPI {
     return this.req.post(url, params);
   }
 
+  getRepoFolderTrash2(repoID, path) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/trash2/';
+    let params = {
+      path: path
+    };
+    return this.req.post(url, params);
+  }
+
   restoreDirents(repoID, commentID, paths) {
     const url = this.server + '/api/v2.1/repos/' + repoID + '/trash/revert-dirents/';
     let formData = new FormData();
@@ -1984,6 +1992,14 @@ class SeafileAPI {
       keep_days: days
     };
     return this.req.delete(url, { data: params });
+  }
+
+  deleteRepoTrash2(repoID, days) {
+    const url = this.server + '/api/v2.1/repos/' + repoID + '/trash2/';
+    const params = {
+      keep_days: days
+    };
+    return this.req.delete(url, {data: params});
   }
 
   restoreFolder(repoID, commitID, path) {
