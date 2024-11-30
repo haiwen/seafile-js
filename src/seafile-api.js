@@ -1741,6 +1741,14 @@ class SeafileAPI {
     return this._sendPostRequest(url, form);
   }
 
+  updateUserPassword(curPassword, newPassword) {
+    const url = this.server + '/api/v2.1/user-reset-login-password/';
+    let form = new FormData();
+    form.append('old_password', curPassword);
+    form.append('new_password', newPassword);
+    return this._sendPostRequest(url, form);
+  }
+
   getUserInfo() {
     const url = this.server + '/api/v2.1/user/';
     return this.req.get(url);
