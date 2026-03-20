@@ -4,7 +4,7 @@
   "private": false,
   "main": "lib/seafile-api.js",
   "dependencies": {
-    "axios": "^1.13.5",
+    "axios": "^1.13.6",
     "form-data": "^4.0.4"
   },
   "scripts": {
@@ -16,10 +16,10 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "7.22.15",
-    "@babel/core": "^7.16.0",
+    "@babel/core": "7.22.17",
+    "@babel/eslint-parser": "7.22.15",
     "@babel/preset-env": "^7.26.0",
-    "babel-eslint": "10.1.0",
-    "eslint": "^9.13.0",
+    "eslint": "8.49.0",
     "jest": "^29.7.0"
   }
 }
