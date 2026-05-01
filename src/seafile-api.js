@@ -838,6 +838,11 @@ class SeafileAPI {
     return this.req.get(url, { cancelToken: cancelToken });
   }
 
+  searchItems(query_str, query_type, cancelToken) {
+    let url = this.server + '/api2/items-search/?query_str=' + query_str + '&query_type=' + query_type;
+    return this.req.get(url, {cancelToken: cancelToken});
+  }
+
   searchFileInRepo(repoID, q) {
     const url = this.server + '/api/v2.1/search-file/';
     const params = {
