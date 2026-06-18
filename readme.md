@@ -1,5 +1,8 @@
+# seafile-js
 
 ## About
+
+> This project will be archived on June 18, 2026.
 
 This is JavaScript API for Seafile.
 
